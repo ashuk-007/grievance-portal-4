@@ -31,6 +31,7 @@ const ComplaintSchema = new mongoose.Schema({
     //     ref: 'Officer',
     //     required: [true, 'Please provide officer id'],
     // }
+    //
 }, { timestamps: true })
 
 module.exports = mongoose.model('Complaint', ComplaintSchema)

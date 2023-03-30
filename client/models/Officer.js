@@ -7,39 +7,39 @@ const OfficerSchema = new mongoose.Schema({
     name:{
         type: String,
         required: true,
-        department: {
+    },
+    department: {
             type: String,
             required: [true,'pls provide department'],
             enum: ['Health', 'Education', 'Transport', 'Pension', 'other'],
-        },
-        level: {
+    },
+    level: {
             type: Number,
             required: [true,'pls provide level'],
             enum: [1,2,3]
-        },
-        email: {
+    },
+    email: {
             type: String,
             required: [true,'pls provide email'],
             match: [/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/, 'Please provide valid email'
             ],
             unique: true,
-        },
-        password: {
+    },
+    password: {
             type: String,
             required: [true,'pls provide password'],
             minLength: 6,
-        },
-        district: {
+    },
+    district: {
             type: String,
             required: [true, 'pls provide district'],
             minLength: 3,
-        },
-        complaints: [{
+    },
+    complaints: [{
             type: mongoose.Types.ObjectId,
             ref: 'Complaint',
             required: false
-        }]
-    }
+    }]
 })
 
 OfficerSchema.pre('save', async function () {

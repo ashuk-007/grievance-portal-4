@@ -1,0 +1,11 @@
+[
+    {
+        "name":"Aditya Sharma",
+        "level":"1",
+        "department":"Health",
+        "email":"iit2021041@iiita.ac.in",
+        "password":"adityamaali123",
+        "district":"delhi",
+        "complaints": []
+    }
+]

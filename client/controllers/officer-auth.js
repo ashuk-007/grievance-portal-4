@@ -26,5 +26,13 @@ const adminLogin = async (req, res) => {
 
 }
 
-module.exports = { adminLogin }
+const adminRegister = async (req, res) => {
+
+    const user = await Officer.create({ ...req.body })
+    const token = user.createJWT()
+    res.status(StatusCodes.CREATED).json({ user: { name: user.name }, token })
+
+}
+
+module.exports = { adminLogin, adminRegister }
 

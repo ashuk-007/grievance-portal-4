@@ -59,6 +59,10 @@ OfficerSchema.methods.createJWT = function () {
     })
 }
 
+OfficerSchema.methods.addComplaint = async function (complaint) {
+    this.complaints.push(complaint)
+}
+
 OfficerSchema.methods.comparePassword = async function (candidatePassword) {
     const isMatch = await bcrypt.compare(candidatePassword, this.password)
     return isMatch

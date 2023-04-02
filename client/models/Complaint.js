@@ -34,4 +34,28 @@ const ComplaintSchema = new mongoose.Schema({
     //
 }, { timestamps: true })
 
+// ComplaintSchema.pre('save', async function(next) {
+//     try {
+//         const user = await User.findOne({_id: req.user.userId})
+        
+//         const officer = await Officer.findOne({district: user.district, level: 1, department: req.body.department})
+        
+//         if (!officer){
+//             console.log('no officer in the district')
+//         }
+
+//         if (officer) {
+//             officer.complaints.push(this._id);
+//             await officer.save();
+//         }
+
+//         console.log(officer)
+
+//         next();
+//     } 
+//     catch (error) {
+//         console.log('could not add the complaint')
+//     }
+//   })
+
 module.exports = mongoose.model('Complaint', ComplaintSchema)

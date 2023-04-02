@@ -1,15 +1,15 @@
 require('dotenv').config()
 
 const connectDB = require('./db/connect')
-const Officer = require('./models/Officer')
+const Admin = require('./models/Admin')
 
-const officerValues = require('./officer-values.json')
+const adminValues = require('./admin-values.json')
 
 const start = async () => {
   try {
     await connectDB(process.env.MONGO_URI)
-    await Officer.deleteMany()
-    await Officer.create(officerValues)
+    await Admin.deleteMany()
+    await Admin.create(adminValues)
     console.log('Success!!!!')
     process.exit(0)
   } catch (error) {

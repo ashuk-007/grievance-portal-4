@@ -26,13 +26,14 @@ const createComplaint = async (req, res) => {
     const district = user.district
     const department = req.body.department
     
-    const officer = await Officer.findOne({district: user.district, level: 1})
+    const officer = await Officer.findOne({district: user.district, level: 1, department: req.body.department})
 
     if (!officer){
         throw new NotFoundError('No officer in this district')
     }
 
     const complaint = await Complaint.create(req.body)
+    await complaint.assignOfficer(officer._id)
     await officer.addComplaint(complaint._id)
 
     console.log(officer)
@@ -63,9 +64,23 @@ const deleteComplaint = async (req, res) => {
         _id: complaintId,
         createdBy: userId
     })
+
     if (!complaint) {
         throw new NotFoundError('Complaint not found')
     }
+
+    const officer = await Officer.findOne({ _id: complaint.officerID })
+
+    if (officer) {
+        officer.complaints = officer.complaints.filter((complaintId) => {
+          return complaintId.toString() !== this._id.toString();
+        });
+        await officer.save();
+    }
+    else{
+        console.log('no officer has the complaint')
+    }
+
     res.status(StatusCodes.OK).json({ complaint })
 
 }

@@ -26,11 +26,10 @@ const ComplaintSchema = new mongoose.Schema({
         ref: 'User',
         required: [true, 'Please provide user id']
     },
-    // officer: {
-    //     type: mongoose.Types.ObjectId,
-    //     ref: 'Officer',
-    //     required: [true, 'Please provide officer id'],
-    // }
+    officerID: {
+        type: mongoose.Types.ObjectId,
+        ref: 'Officer'
+    }
     //
 }, { timestamps: true })
 
@@ -57,5 +56,9 @@ const ComplaintSchema = new mongoose.Schema({
 //         console.log('could not add the complaint')
 //     }
 //   })
+
+ComplaintSchema.methods.assignOfficer = async function (officer) {
+    this.officerID = officer
+}
 
 module.exports = mongoose.model('Complaint', ComplaintSchema)

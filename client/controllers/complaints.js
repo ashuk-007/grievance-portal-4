@@ -40,22 +40,22 @@ const createComplaint = async (req, res) => {
     res.status(StatusCodes.CREATED).json({ complaint })
 }
 
-// const updateUserComplaint = async (req, res) => {
-//     const {
-//         body: { description },
-//         user: { userId },
-//         params: { id: complaintId },
-//     } = req
+const updateUserComplaint = async (req, res) => {
+    const {
+        body: { description },
+        user: { userId },
+        params: { id: complaintId },
+    } = req
 
-//     if (description === '') {
-//         throw new BadRequestError('Please fill in description')
-//     }
-//     const complaint = await Complaint.findByIdAndUpdate({ _id: complaintId, createdBy: userId }, req.body, { new: true, runValidators: true })
-//     if (!job) {
-//         throw new NotFoundError('Job not found')
-//     }
-//     res.status(StatusCodes.OK).json({ job })
-// }
+    if (description === '') {
+        throw new BadRequestError('Please fill in description')
+    }
+    const complaint = await Complaint.findByIdAndUpdate({ _id: complaintId, createdBy: userId }, req.body, { new: true, runValidators: true })
+    if (!complaint) {
+        throw new NotFoundError('complaint not found')
+    }
+    res.status(StatusCodes.OK).json({complaint})
+}
 
 const deleteComplaint = async (req, res) => {
     const { user: { userId }, params: { id: complaintId } } = req
@@ -85,4 +85,4 @@ const deleteComplaint = async (req, res) => {
 
 }
 
-module.exports = { getAllComplaints, getComplaint, createComplaint, deleteComplaint };
+module.exports = { getAllComplaints, getComplaint, createComplaint, deleteComplaint, updateUserComplaint };

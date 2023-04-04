@@ -61,6 +61,7 @@ OfficerSchema.methods.createJWT = function () {
 
 OfficerSchema.methods.addComplaint = async function (complaint) {
     this.complaints.push(complaint)
+    await this.save()
 }
 
 OfficerSchema.methods.comparePassword = async function (candidatePassword) {

@@ -35,10 +35,12 @@ app.use(xss());
 
 const authRouter = require('./routes/auth')
 const complaintsRouter = require('./routes/complaints')
+const tasksRouter = require('./routes/tasks')
 // routes
 
 app.use('/api/v1/auth', authRouter)
 app.use('/api/v1/complaints', authenticateUser, complaintsRouter)
+app.use('/api/v1/tasks', authenticateUser, tasksRouter)
 
 
 app.use(notFoundMiddleware);

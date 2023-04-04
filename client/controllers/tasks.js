@@ -4,9 +4,12 @@ const { BadRequestError, NotFoundError } = require('../errors')
 const User = require('../models/User')
 const Officer = require('../models/Officer')
 
-const getAllComplaints = async (req, res) => {
-    const complaints = await Complaint.find({ createdBy: req.user.userId }).sort('createdAt')
-    res.status(StatusCodes.OK).json({ count: complaints.length, complaints })
+const getAllTasks = async (req, res) => {
+
+    console.log(req.user);
+    const tasks = await Complaint.find({ officerID: req.user.officerID }).sort('createdAt')
+    console.log(tasks)
+    res.status(StatusCodes.OK).json({ count: tasks.length, tasks })
 }
 
 const getComplaint = async (req, res) => {
@@ -34,7 +37,7 @@ const createComplaint = async (req, res) => {
 
     const complaint = await Complaint.create(req.body)
     await complaint.assignOfficer(officer._id)
-    // await officer.addComplaint(complaint._id)
+    await officer.addComplaint(complaint._id)
 
     console.log(officer)
     res.status(StatusCodes.CREATED).json({ complaint })
@@ -85,4 +88,4 @@ const deleteComplaint = async (req, res) => {
 
 }
 
-module.exports = { getAllComplaints, getComplaint, createComplaint, deleteComplaint, updateUserComplaint };
+module.exports = { getAllTasks };

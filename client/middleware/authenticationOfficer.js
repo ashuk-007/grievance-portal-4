@@ -1,4 +1,3 @@
-const User = require('../models/User')
 const jwt = require('jsonwebtoken')
 const { UnauthenticatedError } = require('../errors/')
 
@@ -14,12 +13,12 @@ const auth = (req, res, next) => {
     try {
         const payload = jwt.verify(token, process.env.JWT_SECRET)
         //attach the user to the routes
-        // console.log("hello");
-        req.user = { userId: payload.userId, name: payload.name }
+        console.log(payload);
+        req.officer = { officerId: payload.userId, name: payload.name }
         next()
 
     } catch (error) {
-        throw new UnauthenticatedError('Authentication invalid')
+        throw new UnauthenticatedError('Authentication invalid hai')
     }
 
 }

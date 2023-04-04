@@ -6,13 +6,14 @@ const Officer = require('../models/Officer')
 
 const getAllTasks = async (req, res) => {
 
-    console.log(req.user);
-    const tasks = await Complaint.find({ officerID: req.user.officerID }).sort('createdAt')
-    console.log(tasks)
+    // console.log(req.officer);
+    //{ officerID: req.officer.officerId }
+    const tasks = await Complaint.find({ officerID: req.officer.officerId }).sort('createdAt')
+    // console.log(tasks)
     res.status(StatusCodes.OK).json({ count: tasks.length, tasks })
 }
 
-const getComplaint = async (req, res) => {
+const getTask = async (req, res) => {
     const { user: { userId }, params: { id: complaintId } } = req
 
     const complaint = await Complaint.findOne({ _id: complaintId, createdBy: userId })

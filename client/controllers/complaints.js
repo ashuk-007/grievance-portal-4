@@ -36,7 +36,7 @@ const createComplaint = async (req, res) => {
     await complaint.assignOfficer(officer._id)
     // await officer.addComplaint(complaint._id)
 
-    console.log(officer)
+    // console.log(officer)
     res.status(StatusCodes.CREATED).json({ complaint })
 }
 

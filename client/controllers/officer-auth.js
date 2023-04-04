@@ -14,7 +14,7 @@ const officerLogin = async (req, res) => {
     if (!user) {
         throw new UnauthenticatedError('Invalid credentials. User Not Found.');
     }
-    console.log(user)
+    // console.log(user)
 
     const isPasswordCorrect = await user.comparePassword(password)
 

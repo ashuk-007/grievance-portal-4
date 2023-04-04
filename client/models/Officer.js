@@ -67,7 +67,7 @@ OfficerSchema.methods.addComplaint = async function (complaint) {
 OfficerSchema.methods.comparePassword = async function (candidatePassword) {
 
     const isMatch = await bcrypt.compare(candidatePassword, this.password)
-    console.log(isMatch)
+    // console.log(isMatch)
     return isMatch
 }
 

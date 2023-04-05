@@ -9,15 +9,15 @@ import MyGrievance from "./MyGrievance";
 import Footer from "./Footer";
 export default function UserPage(){
   const token=localStorage.getItem("token")
-  axios.get(api, { headers: {"Authorization" : `Bearer ${token}`} })
-        .then(res => {
-            console.log(res.data);
-        this.setState({
-            items: res.data,  /*set response data in items array*/
-            isLoaded : true,
-            redirectToReferrer: false
-        })
-      })
+  // axios.get(api, { headers: {"Authorization" : `Bearer ${token}`} })
+  //       .then(res => {
+  //           console.log(res.data);
+  //       this.setState({
+  //           items: res.data,  /*set response data in items array*/
+  //           isLoaded : true,
+  //           redirectToReferrer: false
+  //       })
+  //     })
     const [isClicked,setIsClicked]=React.useState("1")
     function handleClick(val,vis){
         setIsClicked(val)
@@ -78,7 +78,7 @@ export default function UserPage(){
          <MyGrievance visible={visible} />
          <UpdateUserProfile visible={visible} />
        </div>
-       <Footer />
+       <Footer  className="z-10"/>
      </div>
    ); 
 }

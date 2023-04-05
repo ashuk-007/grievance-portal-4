@@ -1,6 +1,7 @@
 import React from "react";
 import axios from "axios";
 import { NavLink, useNavigate } from "react-router-dom";
+import Footer from "./Footer";    
 export default function WelcomeContent() {
   const password = React.useRef();
   const cPassword = React.useRef();
@@ -76,8 +77,9 @@ const navigate=useNavigate();
   }
 
   return (
+    <>
     <div className="welcome-content flex-row md:flex justify-between md:h-100">
-      <div className="w-full md:w-2/3 h-64 md:relative">
+      <div className="w-full md:w-2/3 h-64 ">
         <h1 className="pl-0 md:pl-32 text-center md:text-left text-5xl md:text-8xl pt-16 md:pt-48 font-semibold text-dark-blue">
           WELCOME TO GRIEVSOL
         </h1>
@@ -195,5 +197,7 @@ const navigate=useNavigate();
         </form>
       </div>
     </div>
+    <Footer />
+    </>
   );
 }

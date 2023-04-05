@@ -18,7 +18,7 @@ export default function App() {
           <Route path="/adminpage" element={<AdminPage />} />
         </Routes>
       </BrowserRouter>
-      <Footer />
+  
     </>
   );
 }

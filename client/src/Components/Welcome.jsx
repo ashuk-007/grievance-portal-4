@@ -7,6 +7,7 @@ export default function Welcome(){
         <main className="welcome-page ">
             <Navbar className="h-1/6" first="HOME" second="LOGIN AS USER" third="LOGIN AS ADMIN" fourth="" hidden={false} />
             <WelcomeContent className="h-5/6" />
+           
         </main>
     )
 }

@@ -1,5 +1,6 @@
 import React from "react";
 import Navbar from "./Navbar";
+import Footer from "./Footer";   
 import axios from "axios";
 import { NavLink, useNavigate } from "react-router-dom";
 function Login(props){
@@ -36,12 +37,7 @@ function Login(props){
         .then((response) => {
           console.log(JSON.stringify(response.data));
           localStorage.setItem("token", response.data.token);
-          navigate("/userpage", {
-            state: { 
-              token: response.data.token,
-         },
-         replace: true
-          })
+          {user=="Citizen"?navigate("/userpage"):navigate("/adminpage")}
       })
         .catch((error) => {
           if(error.response.status==401){
@@ -60,7 +56,7 @@ function Login(props){
       <div className="flex-row md:flex  md:h-100 mt-0 ">
         <div className="  px-8 md:w-2/3">
           <div className="md:px-20 px-10 pt-20 md:pt-48 py-20 ">
-            <div className="w-full md:w-2/3 h-64 md:relative">
+            <div className="w-full md:w-2/3 h-64 ">
               <h2 className=" mt-0 text-6xl font-bold text-dark-blue">
                 Grievsol
               </h2>
@@ -174,6 +170,7 @@ function Login(props){
           </div>
         </div>
       </div>
+      <Footer />
     </>
   );
 }

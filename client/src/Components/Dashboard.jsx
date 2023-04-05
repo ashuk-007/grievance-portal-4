@@ -1,10 +1,15 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import pfp from "../Images/pfp.png";
 
 export default function Dashboard(props){
+  const navigate=useNavigate()
+  function handleLogout(){
+    localStorage.removeItem("token")
+    navigate("/userlogin")
+  }
     return (
-      <div className="dashboard w-1/4 h-screen bg-dark-blue pt-16 hidden md:block ">
+      <div className="dashboard w-1/4 h-100 bg-dark-blue pt-16 hidden md:block ">
         <img src={pfp} alt="pfp" className="m-auto h-28" />
         <div className="dash-box mt-16 mb-4">
           <h3
@@ -57,9 +62,7 @@ export default function Dashboard(props){
             {props.fourth}
           </h3>
         </div>
-        <NavLink to="/userlogin">
-          <h3 className="mb-4 text-white text-center text-2xl  w-4/5 rounded-md mx-auto p-3 cursor-pointer">LOGOUT</h3>
-        </NavLink>
+          <h3 className="mb-4 text-white text-center text-2xl  w-4/5 rounded-md mx-auto p-3 cursor-pointer" onClick={handleLogout}>LOGOUT</h3>
       </div>
     );
 }

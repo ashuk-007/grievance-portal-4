@@ -12,8 +12,8 @@ const auth = async (req, res, next) => {
 
     const token = authHeader.split(' ')[1]
 
-    const checkIfBlacklisted = await Blacklist.findOne({ token: token });
-    if (checkIfBlacklisted) return res.sendStatus(204)
+    // const checkIfBlacklisted = await Blacklist.findOne({ token: token });
+    // if (checkIfBlacklisted) return res.sendStatus(204)
 
     try {
         const payload = jwt.verify(token, process.env.JWT_SECRET)

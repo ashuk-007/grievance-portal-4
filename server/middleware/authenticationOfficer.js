@@ -13,7 +13,7 @@ const auth = (req, res, next) => {
     try {
         const payload = jwt.verify(token, process.env.JWT_SECRET)
         //attach the user to the routes
-        console.log(payload);
+        // console.log(payload);
         req.officer = { officerId: payload.userId, name: payload.name }
         next()
 

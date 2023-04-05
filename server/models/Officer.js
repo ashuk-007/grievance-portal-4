@@ -39,7 +39,12 @@ const OfficerSchema = new mongoose.Schema({
         type: mongoose.Types.ObjectId,
         ref: 'Complaint',
         required: false
-    }]
+    }],
+    role: {
+        type: String,
+        enum: ['user', 'admin', 'officer'],
+        default: 'officer',
+    }
 })
 
 OfficerSchema.pre('save', async function () {

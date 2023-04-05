@@ -20,6 +20,11 @@ const AdminSchema = new mongoose.Schema({
             required: [true,'pls provide password'],
             minLength: 6,
     },
+    role: {
+        type: String,
+        enum: ['user', 'admin', 'officer'],
+        default: 'admin',
+    }
 })
 
 AdminSchema.pre('save', async function () {

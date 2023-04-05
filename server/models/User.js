@@ -38,8 +38,12 @@ const UserSchema = new mongoose.Schema({
         type: Number,
         required: [true, 'Please provide age'],
         min: 18,
+    },
+    role: {
+        type: String,
+        enum: ['user', 'admin', 'officer'],
+        default: 'user',
     }
-
 })
 
 UserSchema.pre('save', async function () {

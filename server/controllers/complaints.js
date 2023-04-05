@@ -3,6 +3,7 @@ const { StatusCodes } = require('http-status-codes')
 const { BadRequestError, NotFoundError } = require('../errors')
 const User = require('../models/User')
 const Officer = require('../models/Officer')
+const {roleAuthenticationMiddleware} = require('../middleware/roleAuthentication')
 
 const getAllComplaints = async (req, res) => {
     const complaints = await Complaint.find({ createdBy: req.user.userId }).sort('createdAt')

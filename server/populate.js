@@ -10,6 +10,8 @@ const start = async () => {
     await connectDB(process.env.MONGO_URI)
     await Admin.deleteMany()
     await Admin.create(adminValues)
+    await Officer.deleteMany()
+    await Officer.create(officerValues)
     console.log('Success!!!!')
     process.exit(0)
   } catch (error) {

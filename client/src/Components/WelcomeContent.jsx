@@ -56,6 +56,8 @@ const navigate=useNavigate();
       alert("Please fill all the fields");
     }
     else{
+      data.district = data.district[0].toUpperCase() + data.district.slice(1);
+      console.log(data)
    try {
       const response = await axios.post(
         "http://localhost:3000/api/v1/auth/register",

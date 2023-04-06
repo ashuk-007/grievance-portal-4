@@ -37,14 +37,15 @@ app.use(xss());
 const authRouter = require('./routes/auth')
 const userRouter = require('./routes/user')
 const complaintsRouter = require('./routes/complaints')
-const tasksRouter = require('./routes/tasks')
+const tasksRouter = require('./routes/tasks');
+const { roleAuthenticationMiddleware } = require('./middleware/roleAuthentication.js');
 
 // routes
 
 app.use('/api/v1/auth', authRouter)
-app.use('/api/v1/user', authenticateUser, userRouter)
-app.use('/api/v1/complaints', authenticateUser, complaintsRouter)
-app.use('/api/v1/tasks', authenticateOfficer, tasksRouter)
+app.use('/api/v1/user', authenticateUser, roleAuthenticationMiddleware('user') , userRouter)
+app.use('/api/v1/complaints', authenticateUser,roleAuthenticationMiddleware('user'), complaintsRouter)
+app.use('/api/v1/tasks', authenticateOfficer, roleAuthenticationMiddleware('officer'), tasksRouter)
 
 
 app.use(notFoundMiddleware);

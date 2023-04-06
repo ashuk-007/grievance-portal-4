@@ -14,37 +14,19 @@ const getAllTasks = async (req, res) => {
 }
 
 const getTask = async (req, res) => {
-    const { user: { userId }, params: { id: complaintId } } = req
+    const { params: { id: complaintId } } = req
 
-    const complaint = await Complaint.findOne({ _id: complaintId, createdBy: userId })
+    const complaint = await Complaint.findOne({ _id: complaintId })
     if (!complaint) {
-        throw new NotFoundError('Job not found')
+        throw new NotFoundError('Complaint not found')
     }
     res.status(StatusCodes.OK).json({ complaint })
 }
 
-const createComplaint = async (req, res) => {
-    req.body.createdBy = req.user.userId
+//updateTask
 
-    const user = await User.findOne({ _id: req.user.userId })
-    const district = user.district
-    const department = req.body.department
 
-    const officer = await Officer.findOne({ district: user.district, level: 1, department: req.body.department })
-
-    if (!officer) {
-        throw new NotFoundError('No officer in this district')
-    }
-
-    const complaint = await Complaint.create(req.body)
-    await complaint.assignOfficer(officer._id)
-    await officer.addComplaint(complaint._id)
-
-    console.log(officer)
-    res.status(StatusCodes.CREATED).json({ complaint })
-}
-
-const updateUserComplaint = async (req, res) => {
+const updateTask = async (req, res) => {
     const {
         body: { description },
         user: { userId },
@@ -89,4 +71,4 @@ const deleteComplaint = async (req, res) => {
 
 }
 
-module.exports = { getAllTasks };
+module.exports = { getAllTasks, getTask };

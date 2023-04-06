@@ -4,6 +4,7 @@ const connectDB = require('./db/connect')
 const Admin = require('./models/Admin')
 
 const adminValues = require('./admin-values.json')
+const Complaint = require('./models/Complaint')
 
 const start = async () => {
   try {
@@ -12,6 +13,7 @@ const start = async () => {
     await Admin.create(adminValues)
     await Officer.deleteMany()
     await Officer.create(officerValues)
+    await Complaint.deleteMany()
     console.log('Success!!!!')
     process.exit(0)
   } catch (error) {

@@ -1,12 +1,13 @@
 const express = require('express')
 const router = express.Router()
-const { getAllTasks } = require('../controllers/tasks')
+const { getAllTasks, getTask } = require('../controllers/tasks')
 
 // router.route('/').get(getAllComplaints).post(createComplaint)
 // router.route('/:id').get(getComplaint).delete(deleteComplaint)
 // router.route(':/id').patch(updateUserComplaint)
 
 router.route('/').get(getAllTasks)
+router.route('/:id').get(getTask)
 
 
 module.exports = router

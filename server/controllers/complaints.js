@@ -3,7 +3,7 @@ const { StatusCodes } = require('http-status-codes')
 const { BadRequestError, NotFoundError } = require('../errors')
 const User = require('../models/User')
 const Officer = require('../models/Officer')
-const {roleAuthenticationMiddleware} = require('../middleware/roleAuthentication')
+const { roleAuthenticationMiddleware } = require('../middleware/roleAuthentication')
 
 const getAllComplaints = async (req, res) => {
     const complaints = await Complaint.find({ createdBy: req.user.userId }).sort('createdAt')
@@ -35,6 +35,7 @@ const createComplaint = async (req, res) => {
 
     const complaint = await Complaint.create(req.body)
     await complaint.assignOfficer(officer._id)
+    await complaint.addFeedback('Complaint received')
     // await officer.addComplaint(complaint._id)
 
     // console.log(officer)

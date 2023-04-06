@@ -29,12 +29,31 @@ const ComplaintSchema = new mongoose.Schema({
     officerID: {
         type: mongoose.Types.ObjectId,
         ref: 'Officer'
-    }
+    },
+    actionHistory: [{
+        time: {
+            type: Date,
+            default: Date.now(),
+        },
+        officerID: {
+            type: mongoose.Types.ObjectId,
+            ref: 'Officer',
+            required: [true, 'Please provide officer id for action history']
+        },
+        feedback: {
+            type: String,
+            required: [true, 'Please provide feedback for action history']
+        }
+    }],
     //
 }, { timestamps: true })
 
 ComplaintSchema.methods.assignOfficer = async function (officer) {
     this.officerID = officer
+    await this.save()
+}
+ComplaintSchema.methods.addFeedback = async function (feedback) {
+    this.actionHistory.push({ officerID: this.officerID, feedback })
     await this.save()
 }
 

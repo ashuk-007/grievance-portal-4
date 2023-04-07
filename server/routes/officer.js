@@ -1,8 +1,8 @@
 const express = require('express')
 const router = express.Router()
-const { getUserDetails, updateUserDetails } = require('../controllers/user')
+const { getOfficerDetails, updateOfficerDetails } = require('../controllers/officer')
 // const { roleAuthenticationMiddleware } = require('../middleware/roleAuthentication')
 
-router.route('/').get(getUserDetails).patch(updateUserDetails)
+router.route('/').get(getOfficerDetails).patch(updateOfficerDetails)
 
 module.exports = router

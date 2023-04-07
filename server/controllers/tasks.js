@@ -27,20 +27,21 @@ const getTask = async (req, res) => {
 
 
 const updateTask = async (req, res) => {
-    const {
-        body: { description },
-        user: { userId },
-        params: { id: complaintId },
-    } = req
 
-    if (description === '') {
-        throw new BadRequestError('Please fill in description')
-    }
-    const complaint = await Complaint.findByIdAndUpdate({ _id: complaintId, createdBy: userId }, req.body, { new: true, runValidators: true })
-    if (!complaint) {
-        throw new NotFoundError('complaint not found')
-    }
-    res.status(StatusCodes.OK).json({ complaint })
+    // const {
+    //     body: { status: status, feedback: feedback },
+    //     officer: { officerId },
+    //     params: { id: complaintId },
+    // } = req
+
+    // // console.log(status, feedback)  
+
+
+    // const complaint = await Complaint.findByIdAndUpdate({ _id: complaintId }, req.body, { new: true, runValidators: true })
+    // if (!complaint) {
+    //     throw new NotFoundError('complaint not found')
+    // }
+    // res.status(StatusCodes.OK).json({ complaint })
 }
 
 const deleteComplaint = async (req, res) => {
@@ -71,4 +72,38 @@ const deleteComplaint = async (req, res) => {
 
 }
 
-module.exports = { getAllTasks, getTask };
+const passTask = async (req, res) => {
+    const {
+        body: { forwardedTo },
+        officer: { officerId },
+        params: { id: complaintId },
+    } = req
+
+    if (req.body.level === '') {
+        throw new BadRequestError('Please provide a level')
+    }
+
+    const officer = await Officer.findOne({ _id: officerId })
+
+    const newOfficerId = await Officer.findOne({ level: req.body.level, department: officer.department, district: officer.district });
+    // console.log(newOfficerId)
+
+    if (!newOfficerId) {
+        throw new NotFoundError(`no higher ${officer.department} officer in the district`)
+    }
+
+    const complaint = await Complaint.findByIdAndUpdate(complaintId, { officerID: newOfficerId.id }, { new: true, runValidators: true });
+
+    if (!complaint) {
+        throw new NotFoundError('complaint not found')
+    }
+
+    await complaint.addFeedback(`Forwarded the complaint to the level ${req.body.level} officer`)
+
+    // console.log(complaint)
+
+    res.status(StatusCodes.OK).json({ complaint })
+}
+
+module.exports = { getAllTasks, getTask, passTask };
+// module.exports = { getAllTasks, getTask, updateTask };

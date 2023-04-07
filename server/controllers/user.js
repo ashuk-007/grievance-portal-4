@@ -10,13 +10,8 @@ const getUserDetails = async (req, res) => {
 const updateUserDetails = async (req, res) => {
     const {
         body: { description },
-        user: { userId },
-        params: { id: Id },
+        user: { userId }
     } = req
-
-    if (userId != Id) {
-        throw new UnauthenticatedError('You are not permitted to edit this user')
-    }
 
     if (description === '') {
         throw new BadRequestError('Please fill in description')
@@ -24,9 +19,6 @@ const updateUserDetails = async (req, res) => {
 
     const user = await User.findByIdAndUpdate({ _id: userId }, req.body, { new: true, runValidators: true })
 
-    if (!user) {
-        throw new NotFoundError('User not found')
-    }
 
     res.status(StatusCodes.OK).json({ user })
 }

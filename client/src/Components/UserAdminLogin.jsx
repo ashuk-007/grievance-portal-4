@@ -5,20 +5,18 @@ import axios from "axios";
 import { NavLink, useNavigate } from "react-router-dom";
 function Login(props){
   const [loginData, setLoginData] = React.useState({email:"", password:""});
-  const [user,setUser]=React.useState("Citizen");
+  const [user,setUser]=React.useState("Officer");
   function handleChange(e){
     setLoginData({...loginData, [e.target.name]:e.target.value});
   }
   function handleRadio(e){
     setUser(e.target.value);
   }
-
-  const url=user==="Citizen"?"http://localhost:3000/api/v1/auth/login":"abc" 
   const navigate=useNavigate();
  let config = {
    method: "post",
    maxBodyLength: Infinity,
-   url: url,
+   url: (user=="Citizen"?"http://localhost:3000/api/v1/auth/login":"http://localhost:3000/api/v1/auth/officer/login") ,
    headers: {
      Authorization: "Bearer ",
      "Content-Type": "application/json",
@@ -128,9 +126,7 @@ function Login(props){
                   value="Citizen"
                   name="default-radio"
                   className="w-4 h-4   focus:ring-blue-500 "
-                  onChange={(e) => {
-                    handleRadio(e);
-                  }}
+                  onChange={handleRadio}
                 />
                 <label htmlFor="default-radio-1" className="ml-3 text-l  text-white">
                   Citizen 
@@ -144,9 +140,7 @@ function Login(props){
                   value="Officer"
                   name="default-radio"
                   className="w-4 h-4  focus:ring-blue-500"
-                  onChange={(e) => {
-                    handleRadio(e);
-                  }}
+                  onChange={handleRadio}
                 />
                 <label htmlFor="default-radio-2" className="ml-3 text-l  text-white">
                   Officer

@@ -1,6 +1,7 @@
 import React from "react";
 import pfp from "../Images/pfp.png";
 export default function AdminProfile(props){
+  const token=localStorage.getItem("token");
     return (
       <div
         className={

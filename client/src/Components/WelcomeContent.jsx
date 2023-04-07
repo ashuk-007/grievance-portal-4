@@ -56,7 +56,7 @@ const navigate=useNavigate();
       alert("Please fill all the fields");
     }
     else{
-      data.district = data.district[0].toUpperCase() + data.district.slice(1);
+      data.district = data.district[0].toLowerCase() + data.district.slice(1);
       console.log(data)
    try {
       const response = await axios.post(

@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client';
 import axios from "axios";
 function FileNewGrievance(props) {
   const [data, setData] = React.useState({subject:"", description:"", department:""});
+  const [submit, setSubmit] = React.useState(false);
   function handleChange(e){
     setData({...data, [e.target.name]: e.target.value});
   }
@@ -29,6 +30,7 @@ function FileNewGrievance(props) {
         .request(config)
         .then((response) => {
           console.log(JSON.stringify(response.data));
+          setSubmit(true);
         })
         .catch((error) => {
           console.log(error);
@@ -104,6 +106,9 @@ function FileNewGrievance(props) {
           >
             Submit
           </button>
+        </div>
+        <div className="text-light-green flex justify-center mt-3">
+          {submit ? "Your complaint has been filed" : ""}
         </div>
       </form>
     </div>

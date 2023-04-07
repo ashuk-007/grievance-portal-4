@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router()
-const { getAllTasks, getTask } = require('../controllers/tasks')
+const { getAllTasks, getTask, passTask } = require('../controllers/tasks')
 
 // router.route('/').get(getAllComplaints).post(createComplaint)
 // router.route('/:id').get(getComplaint).delete(deleteComplaint)

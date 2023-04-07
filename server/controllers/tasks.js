@@ -85,7 +85,7 @@ const passTask = async (req, res) => {
     const officer = await Officer.findOne({_id: officerId})
     
     const newOfficerId = await Officer.findOne({ level: req.body.level, department: officer.department, district: officer.district });
-    console.log(newOfficerId)
+    // console.log(newOfficerId)
 
     if (!newOfficerId){
         throw new NotFoundError(`no higher ${officer.department} officer in the district`)
@@ -96,8 +96,10 @@ const passTask = async (req, res) => {
     if (!complaint) {
         throw new NotFoundError('complaint not found')
     }
+
+    await complaint.addFeedback(`Forwarded the complaint to the level ${req.body.level} officer`)
     
-    console.log(complaint)
+    // console.log(complaint)
 
     res.status(StatusCodes.OK).json({ complaint })
 }

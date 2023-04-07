@@ -71,4 +71,35 @@ const deleteComplaint = async (req, res) => {
 
 }
 
-module.exports = { getAllTasks, getTask };
+const passTask = async (req, res) => {
+    const {
+        body: { forwardedTo },
+        officer: { officerId },
+        params: { id: complaintId },
+    } = req
+
+    if (req.body.level === '') {
+        throw new BadRequestError('Please provide a level')
+    }
+
+    const officer = await Officer.findOne({_id: officerId})
+    
+    const newOfficerId = await Officer.findOne({ level: req.body.level, department: officer.department, district: officer.district });
+    console.log(newOfficerId)
+
+    if (!newOfficerId){
+        throw new NotFoundError(`no higher ${officer.department} officer in the district`)
+    }
+
+    const complaint = await Complaint.findByIdAndUpdate(complaintId, { officerID: newOfficerId.id }, { new: true, runValidators: true });
+
+    if (!complaint) {
+        throw new NotFoundError('complaint not found')
+    }
+    
+    console.log(complaint)
+
+    res.status(StatusCodes.OK).json({ complaint })
+}
+
+module.exports = { getAllTasks, getTask, passTask };

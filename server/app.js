@@ -45,7 +45,7 @@ const { roleAuthenticationMiddleware } = require('./middleware/roleAuthenticatio
 app.use('/api/v1/auth', authRouter)
 app.use('/api/v1/user', authenticateUser, roleAuthenticationMiddleware('user') , userRouter)
 app.use('/api/v1/complaints', authenticateUser,roleAuthenticationMiddleware('user'), complaintsRouter)
-app.use('/api/v1/tasks', authenticateOfficer, roleAuthenticationMiddleware('officer'), tasksRouter)
+app.use('/api/v1/tasks', authenticateOfficer, tasksRouter)
 
 
 app.use(notFoundMiddleware);

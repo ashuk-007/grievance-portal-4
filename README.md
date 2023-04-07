@@ -4,7 +4,7 @@ pending tasks:
 1. ~~logout~~
 2. ~~user permissions~~
 3. patch requests
-4. passing functionality
+4. ~~passing functionality~~
 5. ~~action history object in complaint schema~~
 6. populate with proper officers
 7. geotagging

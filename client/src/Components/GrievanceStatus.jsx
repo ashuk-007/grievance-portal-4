@@ -23,15 +23,15 @@ export default function GrievanceStatus(props) {
         alert("Error Occured");
       });
   }, []);
-  const complaintData = complaints.map((complaint) => <tr>
+  const complaintData = complaints.map((complaint) => <tr className={complaint.status!="pending"?"bg-light-green":"bg-red"}>
             <td className="border px-4 py-1 whitespace-nowrap">{complaint._id}</td>
-            <td className="border px-4 py-1 whitespace-nowrap">{complaint.createdAt}</td>
+            <td className="border px-4 py-1 whitespace-nowrap">{(complaint.createdAt).slice(0,10)+" at "+(complaint.createdAt).slice(11,16)}</td>
             <td className="border px-8 py-2 whitespace-nowrap">{complaint.department}</td>
             <td className="border px-8 py-2 whitespace-nowrap">{complaint.subject}</td>
             <td className="border px-8 py-2 whitespace-nowrap">{complaint.description}</td>
             <td className="border px-8 py-2 whitespace-nowrap">{complaint.status}</td>
             <td className="border px-8 py-2 whitespace-nowrap">{complaint.updatedAt?complaint.updatedAt:"not updated"}</td>
-            <td className="border px-3 py-2 whitespace-nowrap">reminder</td> 
+            <td className="border px-3 py-2 whitespace-nowrap">Forward</td> 
           </tr>)
   return (
     <div

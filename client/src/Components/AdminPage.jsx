@@ -42,7 +42,7 @@ export default function AdminPage(){
            first="HOME"
            second="GRIEVANCES STATUS"
            third="UPDATE STATUS"
-           fourth="UPDATE PROFILE"
+           fourth=""
          />
          <AdminProfile
            visible={visible}
@@ -53,7 +53,6 @@ export default function AdminPage(){
          />
          <GrievanceStatus visible={visible} />
          <UpdateStatus visible={visible} />
-         <UpdateAdminProfile visible={visible} />
        </div>
        <div className="User-page-content h-100 md:hidden relative">
          <AdminProfile
@@ -66,7 +65,6 @@ export default function AdminPage(){
 
          <GrievanceStatus visible={visible} />
          <UpdateStatus visible={visible} />
-         <UpdateAdminProfile visible={visible} />
        </div>
       <Footer />
      </div>

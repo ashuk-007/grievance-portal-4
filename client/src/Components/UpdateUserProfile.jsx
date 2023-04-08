@@ -1,6 +1,37 @@
 import React from "react";
+import axios from "axios";
 
 export default function UpdateUserProfile(props){
+
+const token = localStorage.getItem("token");
+
+let config = {
+  method: 'patch',
+  maxBodyLength: Infinity,
+  url: 'http://localhost:3000/api/v1/user/',
+  headers: { 
+    Authorization: `Bearer ${token} `, 
+    'Content-Type': 'application/json'
+  }
+};
+const [updateprofile, setUpdateprofile] = React.useState({
+  name: "",
+
+
+});
+
+
+    const handleInput = (event) =>{
+      setUpdateprofile({...updateprofile, [event.target.name]: event.target.value})
+    }
+
+    const handleSubmit = (event) =>{
+      event.preventDefault()
+      axios.patch('http://localhost:3000/api/v1/user/', updateprofile)
+      .then(res => console.log(response.data))
+      .catch(err => console.log(err))
+    }
+
     return(
         <div
            className={
@@ -10,7 +41,7 @@ export default function UpdateUserProfile(props){
            }
          >
            <h1 className="text-center text-4xl md:text-7xl">UPDATE YOUR PROFILE</h1>
-           <form action="" className="flex-row justify-between items-center">
+           <form action="" className="flex-row justify-between items-center" onSubmit={handleSubmit}>
              <div className="name-input flex justify-center items-center mt-6 md:mt-12">
                <label htmlFor="name">
                  <p className=" text-xl md:text-3xl">Name:</p>{" "}
@@ -21,10 +52,11 @@ export default function UpdateUserProfile(props){
                  id="name"
                  placeholder="Name"
                  className=" ml-4 p-1 md:p-2 rounded-md  border border-black"
+                 onChange={handleInput}
                />
              </div>
              <div className="name-input flex justify-center items-center mt-4 md:mt-8">
-               <label htmlFor="name">
+               <label htmlFor="email">
                  <p className="text-xl md:text-3xl">Email:</p>
                </label>
                <input
@@ -33,6 +65,7 @@ export default function UpdateUserProfile(props){
                  id="email"
                  placeholder="Email"
                  className=" ml-4 p-1 md:p-2 rounded-md  border border-black"
+                 onChange={handleInput}
                />
              </div>
              <div className="name-input flex justify-center items-center mt-4 md:mt-8">
@@ -45,6 +78,7 @@ export default function UpdateUserProfile(props){
                  id="phone"
                  placeholder="Contact Number"
                  className=" ml-4 p-1 md:p-2 rounded-md  border border-black"
+                 onChange={handleInput}
                />
              </div>
              <div className="name-input flex justify-center items-center mt-4 md:mt-8">
@@ -57,6 +91,7 @@ export default function UpdateUserProfile(props){
                  id="name"
                  placeholder="Name"
                  className=" ml-4 p-1 md:p-2 rounded-md  border border-black"
+                 onChange={handleInput}
                />
              </div>
              <div className="name-input flex justify-center items-center mt-4 md:mt-8">

@@ -1,6 +1,6 @@
 const Complaint = require('../models/Complaint')
 const { StatusCodes } = require('http-status-codes')
-const { BadRequestError, NotFoundError } = require('../errors')
+const { BadRequestError, NotFoundError, UnauthenticatedError } = require('../errors')
 const User = require('../models/User')
 const Officer = require('../models/Officer')
 
@@ -26,7 +26,7 @@ const getTask = async (req, res) => {
 //updateTask
 
 
-const updateTask = async (req, res) => {
+// const updateTask = async (req, res) => {
 
     // const {
     //     body: { status: status, feedback: feedback },
@@ -42,7 +42,7 @@ const updateTask = async (req, res) => {
     //     throw new NotFoundError('complaint not found')
     // }
     // res.status(StatusCodes.OK).json({ complaint })
-}
+// }
 
 const deleteComplaint = async (req, res) => {
     const { user: { userId }, params: { id: complaintId } } = req
@@ -98,6 +98,10 @@ const passTask = async (req, res) => {
         throw new NotFoundError('complaint not found')
     }
 
+    if (complaint.officerID != officerId){
+        throw new UnauthenticatedError('not authorized to pass this task')
+    }
+
     await complaint.addFeedback(`Forwarded the complaint to the level ${req.body.level} officer`)
 
     // console.log(complaint)
@@ -105,5 +109,42 @@ const passTask = async (req, res) => {
     res.status(StatusCodes.OK).json({ complaint })
 }
 
-module.exports = { getAllTasks, getTask, passTask };
+const updateTask = async (req, res) => {
+    const {
+        body: { feedback },
+        officer: { officerId },
+        params: { id: complaintId },
+    } = req
+
+    if (req.body.feedback === '') {
+        throw new BadRequestError('Please enter the task feedback')
+    }
+
+    const officer = await Officer.findOne({ _id: officerId })
+
+    // const newOfficerId = await Officer.findOne({ level: req.body.level, department: officer.department, district: officer.district });
+    // console.log(newOfficerId)
+
+    // if (!newOfficerId) {
+    //     throw new NotFoundError(`no higher ${officer.department} officer in the district`)
+    // }
+
+    const complaint = await Complaint.findById(complaintId)
+
+    if (!complaint) {
+        throw new NotFoundError('complaint not found')
+    }
+
+    if (complaint.officerID != officerId){
+        throw new UnauthenticatedError('not authorized to update this task')
+    }
+
+    await complaint.addFeedback(req.body.feedback)
+
+    // console.log(complaint)
+
+    res.status(StatusCodes.OK).json({ complaint })
+}
+
+module.exports = { getAllTasks, getTask, passTask, updateTask };
 // module.exports = { getAllTasks, getTask, updateTask };

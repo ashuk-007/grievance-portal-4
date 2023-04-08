@@ -18,10 +18,11 @@ module.exports = {
     },
     colors: {
       "dark-cyan": "#132238",
-      white: "#ffffff",
+      "white": "#ffffff",
       "dark-blue": "#364e68",
       "light-blue": "#98ccd3",
       "light-green": "#28B397",
+      "red": "#ff5349",
     },
   },
   plugins: [],

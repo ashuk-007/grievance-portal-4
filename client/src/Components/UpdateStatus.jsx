@@ -1,6 +1,13 @@
 import React from "react";
 
 export default function UpdateStatus(props) {
+  const [id, setId] = React.useState("");
+  function handleIDChange(e) {
+    setId(e.target.value);
+  }
+  React.useEffect(() => {
+    
+  },[id])
   return (
     <div
       class={
@@ -25,6 +32,8 @@ export default function UpdateStatus(props) {
             id="id"
             placeholder="Grievance ID"
             className="border1 border border-black mx-auto  md:ml-3 md:mt-0 rounded-md p-1"
+            name="id"
+            onChange={handleIDChange}
           />
           <button
             type="submit"

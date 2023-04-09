@@ -62,6 +62,10 @@ const ComplaintSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
+// ComplaintSchema.methods.sendMail = async function (officer) {
+
+// }
+
 ComplaintSchema.methods.assignOfficer = async function (officer) {
   this.officerID = officer;
   await this.save();

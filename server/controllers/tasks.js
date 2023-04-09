@@ -30,53 +30,6 @@ const getTask = async (req, res) => {
   res.status(StatusCodes.OK).json({ complaint });
 };
 
-//updateTask
-
-// const updateTask = async (req, res) => {
-
-// const {
-//     body: { status: status, feedback: feedback },
-//     officer: { officerId },
-//     params: { id: complaintId },
-// } = req
-
-// // console.log(status, feedback)
-
-// const complaint = await Complaint.findByIdAndUpdate({ _id: complaintId }, req.body, { new: true, runValidators: true })
-// if (!complaint) {
-//     throw new NotFoundError('complaint not found')
-// }
-// res.status(StatusCodes.OK).json({ complaint })
-// }
-
-const deleteComplaint = async (req, res) => {
-  const {
-    user: { userId },
-    params: { id: complaintId },
-  } = req;
-
-  const complaint = await Complaint.findByIdAndRemove({
-    _id: complaintId,
-    createdBy: userId,
-  });
-
-  if (!complaint) {
-    throw new NotFoundError("Complaint not found");
-  }
-
-  const officer = await Officer.findOne({ _id: complaint.officerID });
-
-  if (officer) {
-    officer.complaints = officer.complaints.filter((complaintId) => {
-      return complaintId.toString() !== this._id.toString();
-    });
-    await officer.save();
-  } else {
-    console.log("no officer has the complaint");
-  }
-
-  res.status(StatusCodes.OK).json({ complaint });
-};
 
 const passTask = async (req, res) => {
   const {
@@ -85,14 +38,27 @@ const passTask = async (req, res) => {
     params: { id: complaintId },
   } = req;
 
-  if (req.body.level === "") {
-    throw new BadRequestError("Please provide a level");
-  }
+  // if (req.body.level === "") {
+  //   throw new BadRequestError("Please provide a level");
+  // }
 
   const officer = await Officer.findOne({ _id: officerId });
+  const compl = await Complaint.findOne({ _id: complaintId })
+  if (!compl) {
+    throw new NotFoundError("complaint not found");
+  }
+
+  if (compl.officerID != officerId) {
+    throw new UnauthenticatedError("not authorized to update this task");
+  }
+  if (compl.status === "resolved") {
+    throw new BadRequestError("Complaint already resolved. It can't be passed.")
+  }
+
+
 
   const newOfficerId = await Officer.findOne({
-    level: req.body.level,
+    level: (officer.level + 1),
     department: officer.department,
     district: officer.district,
   });
@@ -110,16 +76,17 @@ const passTask = async (req, res) => {
     { new: true, runValidators: true }
   );
 
-  if (!complaint) {
-    throw new NotFoundError("complaint not found");
-  }
 
-  if (complaint.officerID != officerId) {
-    throw new UnauthenticatedError("not authorized to pass this task");
-  }
+
+  // if (complaint.officerID != officerId) {
+  //   throw new UnauthenticatedError("not authorized to pass this task");
+  // }
 
   await complaint.addFeedback(
-    `Forwarded the complaint to the level ${req.body.level} officer`
+    officer.name, officer.level, `Forwarded the complaint to the level ${newOfficerId.level} officer`
+  );
+  await complaint.addFeedback(
+    newOfficerId.name, newOfficerId.level, `Complaint received by level ${newOfficerId.level} officer`
   );
 
   // console.log(complaint)
@@ -140,33 +107,39 @@ const updateTask = async (req, res) => {
 
   const officer = await Officer.findOne({ _id: officerId });
 
-  // const newOfficerId = await Officer.findOne({ level: req.body.level, department: officer.department, district: officer.district });
-  // console.log(newOfficerId)
-
-  // if (!newOfficerId) {
-  //     throw new NotFoundError(`no higher ${officer.department} officer in the district`)
-  // }
-
   const complaint = await Complaint.findById(complaintId);
 
   if (!complaint) {
     throw new NotFoundError("complaint not found");
+  }
+  if (complaint.status === "resolved") {
+    throw new BadRequestError("Complaint already resolved. No more updations allowed.")
   }
 
   if (complaint.officerID != officerId) {
     throw new UnauthenticatedError("not authorized to update this task");
   }
 
-  console.log(req.body.status)
-  console.log(req.body.feedback)
+  if (req.body.status === complaint.status && !req.body.feedback) {
+    throw new BadRequestError("Duplicate changes not allowed. Add valid feedback or change status.")
+  }
 
-  if (req.body.status != "" || typeof req.body.status !== "undefined") {
+  // console.log(req.body.status)
+  // console.log(req.body.feedback)
+
+  if (req.body.status) {
     await complaint.updateStatus(req.body.status);
+
   }
 
-  if (req.body.feedback != "" || typeof req.body.feedback !== "undefined") {
-    await complaint.addFeedback(req.body.feedback);
+  if (req.body.feedback) {
+    await complaint.addFeedback(officer.name, officer.level, req.body.feedback);
+
+  } else {
+    await complaint.addFeedback(officer.name, officer.level, `Status updated.`);
+
   }
+
 
   // console.log(complaint)
 
@@ -174,4 +147,4 @@ const updateTask = async (req, res) => {
 };
 
 module.exports = { getAllTasks, getTask, passTask, updateTask };
-// module.exports = { getAllTasks, getTask, updateTask };
+

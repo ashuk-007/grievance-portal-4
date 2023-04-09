@@ -21,7 +21,7 @@ const UserSchema = new mongoose.Schema({
     password: {
         type: String,
         required: [true, 'Please provide password'],
-        minLength: 6,
+        minLength: [6, 'Password must be a minimum of 6 characters'],
 
     },
     district: {
@@ -32,12 +32,12 @@ const UserSchema = new mongoose.Schema({
     phone: {
         type: String,
         required: [true, 'Please provide phone number'],
-        minLength: 10,
+        minLength: [10, 'Phone number must be a minimum of 10 characters'],
     },
     age: {
         type: Number,
         required: [true, 'Please provide age'],
-        min: 18,
+        min: [18, 'Age must be a minimum of 18 years'],
     },
     role: {
         type: String,

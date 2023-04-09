@@ -28,18 +28,18 @@ const OfficerSchema = new mongoose.Schema({
     password: {
         type: String,
         required: [true, 'pls provide password'],
-        minLength: 6,
+        minLength: [6, 'Password must be a minimum of 6 characters'],
     },
     district: {
         type: String,
         required: [true, 'pls provide district'],
         minLength: 3,
     },
-    complaints: [{
-        type: mongoose.Types.ObjectId,
-        ref: 'Complaint',
-        required: false
-    }],
+    // complaints: [{
+    //     type: mongoose.Types.ObjectId,
+    //     ref: 'Complaint',
+    //     required: false
+    // }],
     role: {
         type: String,
         enum: ['user', 'admin', 'officer'],
@@ -72,6 +72,7 @@ OfficerSchema.methods.addComplaint = async function (complaint) {
 OfficerSchema.methods.comparePassword = async function (candidatePassword) {
 
     const isMatch = await bcrypt.compare(candidatePassword, this.password)
+
     // console.log(isMatch)
     return isMatch
 }

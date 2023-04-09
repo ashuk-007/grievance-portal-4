@@ -1,109 +1,111 @@
 import React from "react";
 import axios from "axios";
 export default function UpdateUserProfile(props){
-    const [data,setData] = React.useState({
-      name:"",
-      age:"",
-      phone:"",
-      district:"",
-    })
-    function handleChange(e){
-      setData({...data,[e.target.name]:e.target.value})
-    }
-    const token=localStorage.getItem("token")
-    let config = {
-      method: "patch",
-      maxBodyLength: Infinity,
-      url: "http://localhost:3000/api/v1/user",
-      headers: {
-        Authorization:
-          `Bearer ${token}`,
-        "Content-Type": "application/json",
-      },
-      data: data,
-    };
-    function handleSubmit(e){
-      e.preventDefault()
-      if(data.name==""||data.age==""||data.phone==""||data.district==""){
-        alert("Please fill all the fields")
-        return
-      }
-      else{
-        axios
-          .request(config)
-          .then((response) => {
-            console.log(JSON.stringify(response.data));
-          })
-          .catch((error) => {
-            console.log(error);
-          });
-      }
-    }
-    return (
-      <div
-        className={
-          props.visible == "update"
-            ? "p-4 update-profile-content dashboard w-full md:w-3/4 h-100  pt-16"
-            : "hidden"
-        }
-      >
-        <h1 className="text-center text-4xl md:text-7xl">
-          UPDATE YOUR PROFILE
-        </h1>
-        <form action="" className="flex-row justify-between items-center">
-          <div className="name-input flex justify-center items-center mt-6 md:mt-12">
-            <label htmlFor="name">
-              <p className=" text-xl md:text-3xl">Name:</p>{" "}
-            </label>
-            <input
-              type="text"
-              name="name"
-              id="name"
-              placeholder="Name"
-              className=" ml-4 p-1 md:p-2 rounded-md  border border-black"
-              onChange={handleChange}
-            />
-          </div>
-          <div className="name-input flex justify-center items-center mt-4 md:mt-8">
-            <label htmlFor="name">
-              <p className="text-xl md:text-3xl">Age:</p>
-            </label>
-            <input
-              type="number"
-              name="age"
-              id="age"
-              placeholder="Age"
-              className=" ml-4 p-1 md:p-2 rounded-md  border border-black"
-              onChange={handleChange}
-            />
-          </div>
-          <div className="name-input flex justify-center items-center mt-4 md:mt-8">
-            <label htmlFor="phone">
-              <p className="text-xl md:text-3xl">PhoneNo.:</p>{" "}
-            </label>
-            <input
-              type="tel"
-              name="phone"
-              id="phone"
-              placeholder="Contact Number"
-              className=" ml-4 p-1 md:p-2 rounded-md  border border-black"
-              onChange={handleChange}
-            />
-          </div>
-          <div className="name-input flex justify-center items-center mt-4 md:mt-8">
-            <label htmlFor="name">
-              <p className="text-xl md:text-3xl"> District:</p>
-            </label>
-            <input
-              type="text"
-              name="district"
-              id="district "
-              placeholder="District"
-              className=" ml-4 p-1 md:p-2 rounded-md  border border-black"
-              onChange={handleChange}
-            />
-          </div>
-          {/* <div className="name-input flex justify-center items-center mt-4 md:mt-8">
+
+const [data, setData] = React.useState({
+  name: "",
+  age: "",
+  phone: "",
+  district: "",
+});
+function handleChange(e) {
+  setData({ ...data, [e.target.name]: e.target.value });
+}
+const token = localStorage.getItem("token");
+let config = {
+  method: "patch",
+  maxBodyLength: Infinity,
+  url: "http://localhost:3000/api/v1/user",
+  headers: {
+    Authorization: `Bearer ${token}`,
+    "Content-Type": "application/json",
+  },
+  data: data,
+};
+function handleSubmit(e) {
+  e.preventDefault();
+  if (
+    data.name == "" ||
+    data.age == "" ||
+    data.phone == "" ||
+    data.district == ""
+  ) {
+    alert("Please fill all the fields");
+    return;
+  } else {
+    axios
+      .request(config)
+      .then((response) => {
+        console.log(JSON.stringify(response.data));
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+}
+    return(
+        <div
+           className={
+             props.visible == "update"
+               ? "p-4 update-profile-content dashboard w-full md:w-3/4 h-100  pt-16"
+               : "hidden"
+           }
+         >
+           <h1 className="text-center text-4xl md:text-7xl">UPDATE YOUR PROFILE</h1>
+           <form action="" className="flex-row justify-between items-center" onSubmit={handleSubmit}>
+             <div className="name-input flex justify-center items-center mt-6 md:mt-12">
+               <label htmlFor="name">
+                 <p className=" text-xl md:text-3xl">Name:</p>{" "}
+               </label>
+               <input
+                 type="text"
+                 name="name"
+                 id="name"
+                 placeholder="Name"
+                 className=" ml-4 p-1 md:p-2 rounded-md  border border-black"
+                 onChange={handleInput}
+               />
+             </div>
+             <div className="name-input flex justify-center items-center mt-4 md:mt-8">
+               <label htmlFor="email">
+                 <p className="text-xl md:text-3xl">Email:</p>
+               </label>
+               <input
+                 type="email"
+                 name="email"
+                 id="email"
+                 placeholder="Email"
+                 className=" ml-4 p-1 md:p-2 rounded-md  border border-black"
+                 onChange={handleInput}
+               />
+             </div>
+             <div className="name-input flex justify-center items-center mt-4 md:mt-8">
+               <label htmlFor="phone">
+                 <p className="text-xl md:text-3xl">PhoneNo.:</p>{" "}
+               </label>
+               <input
+                 type="tel"
+                 name="phone"
+                 id="phone"
+                 placeholder="Contact Number"
+                 className=" ml-4 p-1 md:p-2 rounded-md  border border-black"
+                 onChange={handleInput}
+               />
+             </div>
+             <div className="name-input flex justify-center items-center mt-4 md:mt-8">
+               <label htmlFor="name">
+                 <p className="text-xl md:text-3xl"> Address:</p>
+               </label>
+               <input
+                 type="text"
+                 name="name"
+                 id="name"
+                 placeholder="Name"
+                 className=" ml-4 p-1 md:p-2 rounded-md  border border-black"
+                 onChange={handleInput}
+               />
+             </div>
+             <div className="name-input flex justify-center items-center mt-4 md:mt-8">
                <label htmlFor="pfp">
                  <p className="text-xl md:text-3xl">PFP:</p>
                </label>

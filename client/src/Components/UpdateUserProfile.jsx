@@ -105,7 +105,7 @@ function handleSubmit(e) {
                  onChange={handleInput}
                />
              </div>
-             <div className="name-input flex justify-center items-center mt-4 md:mt-8">
+            {/* <div className="name-input flex justify-center items-center mt-4 md:mt-8">
                <label htmlFor="pfp">
                  <p className="text-xl md:text-3xl">PFP:</p>
                </label>

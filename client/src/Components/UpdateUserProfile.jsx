@@ -24,12 +24,7 @@ let config = {
 };
 function handleSubmit(e) {
   e.preventDefault();
-  if (
-    data.name == "" ||
-    data.age == "" ||
-    data.phone == "" ||
-    data.district == ""
-  ) {
+  if (  data.name == "" || data.age == "" || data.phone == "" ||    data.district == "") {
     alert("Please fill all the fields");
     return;
   } else {
@@ -63,20 +58,20 @@ function handleSubmit(e) {
                  id="name"
                  placeholder="Name"
                  className=" ml-4 p-1 md:p-2 rounded-md  border border-black"
-                 onChange={handleInput}
+                 onChange={handleChange}
                />
              </div>
              <div className="name-input flex justify-center items-center mt-4 md:mt-8">
                <label htmlFor="email">
-                 <p className="text-xl md:text-3xl">Email:</p>
+                 <p className="text-xl md:text-3xl">Age:</p>
                </label>
                <input
-                 type="email"
-                 name="email"
-                 id="email"
-                 placeholder="Email"
+                 type="number"
+                 name="age"
+                 id="age"
+                 placeholder="Age"
                  className=" ml-4 p-1 md:p-2 rounded-md  border border-black"
-                 onChange={handleInput}
+                 onChange={handleChange}
                />
              </div>
              <div className="name-input flex justify-center items-center mt-4 md:mt-8">
@@ -89,20 +84,20 @@ function handleSubmit(e) {
                  id="phone"
                  placeholder="Contact Number"
                  className=" ml-4 p-1 md:p-2 rounded-md  border border-black"
-                 onChange={handleInput}
+                 onChange={handleChange}
                />
              </div>
              <div className="name-input flex justify-center items-center mt-4 md:mt-8">
                <label htmlFor="name">
-                 <p className="text-xl md:text-3xl"> Address:</p>
+                 <p className="text-xl md:text-3xl"> District:</p>
                </label>
                <input
                  type="text"
-                 name="name"
-                 id="name"
-                 placeholder="Name"
+                 name="district"
+                 id="district"
+                 placeholder="District"
                  className=" ml-4 p-1 md:p-2 rounded-md  border border-black"
-                 onChange={handleInput}
+                 onChange={handleChange}
                />
              </div>
             {/* <div className="name-input flex justify-center items-center mt-4 md:mt-8">

@@ -15,7 +15,6 @@ export default function MyGrievance(props) {
     },
   };
   const [grievances, setGrievances] = React.useState([]);
-  const id = localStorage.getItem("id");
   React.useEffect(() => {
     axios
       .request(config)
@@ -27,6 +26,9 @@ export default function MyGrievance(props) {
         console.log(error);
       });
   }, []);
+  function handleAction(grievance){
+    console.log(grievance._id);
+  }
   const grievanceData = grievances.map((grievance) => (
     <tr>
       <td className="border px-4 py-1 ">
@@ -36,6 +38,7 @@ export default function MyGrievance(props) {
       <td className="border px-8 py-2">{grievance.subject}</td>
       <td className="border px-8 py-2">{grievance.status}</td>
       <td className="border px-8 py-2 ">reminder</td>
+      <td className="border px-8 py-2 "><button className="bg-light-green hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={()=>handleAction(grievance)}>View</button></td>
     </tr>
   ));
 
@@ -67,9 +70,6 @@ export default function MyGrievance(props) {
               </th>
               <th className="bg-blue-100 border text-left px-3 py-2">
                 Reminder
-              </th>
-              <th className="bg-blue-100 border text-left px-3 py-2">
-                Action history
               </th>
             </tr>
           </thead>

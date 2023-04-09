@@ -1,6 +1,6 @@
 import React from "react";
 import axios from "axios";
-import moment from 'moment';
+import moment from "moment";
 import { Link } from "react-router-dom";
 
 export default function MyGrievance(props) {
@@ -9,36 +9,40 @@ export default function MyGrievance(props) {
   let config = {
     method: "get",
     maxBodyLength: Infinity,
-    url: 'http://localhost:3000/api/v1/complaints',
-    headers: { 
+    url: "http://localhost:3000/api/v1/complaints",
+    headers: {
       Authorization: `Bearer ${token}`,
     },
   };
   const [grievances, setGrievances] = React.useState([]);
-
   React.useEffect(() => {
-    axios.request(config)
-  .then((response) => {
-    console.log(JSON.stringify(response.data));
-    setGrievances(response.data.complaints);
-  })
-  .catch((error) => {
-    console.log(error);
-  });
-  },[]);
-  const grievanceData = grievances.map((grievance) => <tr>
-            <td className="border px-4 py-1 whitespace-nowrap">{moment(grievance.createdAt).format('DD/MM/YYYY HH:mm')}</td>
-            <td className="border px-1 py-1 whitespace-nowrap">{grievance.department}</td>
-            <td className="border px-1 py-2 whitespace-nowrap">{grievance.subject}</td>
-            <td className="border px-2 py-2 whitespace-nowrap">{grievance.status}</td>
-            <td className="border px-10 py-2 whitespace-nowrap ">view</td>
-            <td className="border px-1 py-2 whitespace-nowrap ">send</td>
-
-            </tr>)
-  
+    axios
+      .request(config)
+      .then((response) => {
+        console.log(JSON.stringify(response.data));
+        setGrievances(response.data.complaints);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
+  function handleAction(grievance){
+    console.log(grievance._id);
+  }
+  const grievanceData = grievances.map((grievance) => (
+    <tr>
+      <td className="border px-4 py-1 ">
+        {moment(grievance.createdAt).format("DD/MM/YYYY HH:mm")}
+      </td>
+      <td className="border px-4 py-1">{grievance.department}</td>
+      <td className="border px-8 py-2">{grievance.subject}</td>
+      <td className="border px-8 py-2">{grievance.status}</td>
+      <td className="border px-8 py-2 ">reminder</td>
+      <td className="border px-8 py-2 "><button className="bg-light-green hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={()=>handleAction(grievance)}>View</button></td>
+    </tr>
+  ));
 
   return (
-    
     <div
       className={
         props.visible == "view"
@@ -51,7 +55,7 @@ export default function MyGrievance(props) {
       {/* table starts here */}
       <div className="px-5 py-5">
         <table className="rounded-lg shadow bg-while w-full left-5">
-        <thead>
+          <thead>
             <tr>
               <th className="bg-blue-100 border text-left px-8 py-2">Date</th>
               <th className="bg-blue-100 border text-left px-2 py-2">
@@ -62,16 +66,14 @@ export default function MyGrievance(props) {
               </th>
               <th className="bg-blue-100 border text-left px-2 py-2">Status</th>
               <th className="bg-blue-100 border text-left px-10 py-2">
-              View Action History
+                View Action History
               </th>
               <th className="bg-blue-100 border text-left px-3 py-2">
                 Reminder
               </th>
             </tr>
-            </thead>
-            <tbody>
-              {grievanceData}
-            </tbody>
+          </thead>
+          <tbody>{grievanceData}</tbody>
         </table>
       </div>
     </div>

@@ -14,7 +14,7 @@ export default function MyGrievance(props) {
     },
   };
   const [grievances, setGrievances] = React.useState([]);
-
+  const id=localStorage.getItem("id");
   React.useEffect(() => {
     axios.request(config)
   .then((response) => {
@@ -25,17 +25,27 @@ export default function MyGrievance(props) {
     console.log(error);
   });
   },[]);
-  const grievanceData = grievances.map((grievance) => <tr>
-            <td className="border px-4 py-1 ">{moment(grievance.createdAt).format('DD/MM/YYYY HH:mm')}</td>
-            <td className="border px-4 py-1">{grievance.department}</td>
-            <td className="border px-8 py-2">{grievance.subject}</td>
-            <td className="border px-8 py-2">{grievance.status}</td>
-            <td className="border px-8 py-2 ">reminder</td>
-            </tr>)
+  function handleAction(id){
+    console.log(id);
+  }
+  const grievanceData = grievances.map((grievance) => (
+    <tr>
+      <td className="border px-4 py-1 ">
+        {moment(grievance.createdAt).format("DD/MM/YYYY HH:mm")}
+      </td>
+      <td className="border px-4 py-1">{grievance.department}</td>
+      <td className="border px-8 py-2">{grievance.subject}</td>
+      <td className="border px-8 py-2">{grievance.status}</td>
+      <td className="border px-8 py-2 ">reminder</td>
+      <td className="border px-8 py-2 ">
+        <button onClick={()=>handleAction(grievance._id)}>view action
+        history</button>
+      </td>
+    </tr>
+  ));
   
 
   return (
-    
     <div
       className={
         props.visible == "view"
@@ -48,7 +58,7 @@ export default function MyGrievance(props) {
       {/* table starts here */}
       <div className="px-5 py-5">
         <table className="rounded-lg shadow bg-while w-full left-5">
-        <thead>
+          <thead>
             <tr>
               <th className="bg-blue-100 border text-left px-8 py-2">Date</th>
               <th className="bg-blue-100 border text-left px-8 py-2">
@@ -61,11 +71,12 @@ export default function MyGrievance(props) {
               <th className="bg-blue-100 border text-left px-3 py-2">
                 Reminder
               </th>
+              <th className="bg-blue-100 border text-left px-3 py-2">
+                Action history
+              </th>
             </tr>
-            </thead>
-            <tbody>
-              {grievanceData}
-            </tbody>
+          </thead>
+          <tbody>{grievanceData}</tbody>
         </table>
       </div>
     </div>

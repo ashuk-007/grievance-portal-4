@@ -24,8 +24,7 @@ const createComplaint = async (req, res) => {
     req.body.createdBy = req.user.userId
 
     const user = await User.findOne({ _id: req.user.userId })
-    const district = user.district
-    const department = req.body.department
+
 
     const officer = await Officer.findOne({ district: user.district, level: 1, department: req.body.department })
 
@@ -35,29 +34,13 @@ const createComplaint = async (req, res) => {
 
     const complaint = await Complaint.create(req.body)
     await complaint.assignOfficer(officer._id)
-    await complaint.addFeedback('Complaint received')
+    await complaint.addFeedback(officer.name, officer.level, 'Complaint received')
     // await officer.addComplaint(complaint._id)
 
     // console.log(officer)
     res.status(StatusCodes.CREATED).json({ complaint })
 }
 
-// const updateUserComplaint = async (req, res) => {
-//     const {
-//         body: { description },
-//         user: { userId },
-//         params: { id: complaintId },
-//     } = req
-
-//     if (description === '') {
-//         throw new BadRequestError('Please fill in description')
-//     }
-//     const complaint = await Complaint.findByIdAndUpdate({ _id: complaintId, createdBy: userId }, req.body, { new: true, runValidators: true })
-//     if (!complaint) {
-//         throw new NotFoundError('complaint not found')
-//     }
-//     res.status(StatusCodes.OK).json({ complaint })
-// }
 
 const deleteComplaint = async (req, res) => {
     const { user: { userId }, params: { id: complaintId } } = req
@@ -88,3 +71,20 @@ const deleteComplaint = async (req, res) => {
 }
 
 module.exports = { getAllComplaints, getComplaint, createComplaint, deleteComplaint };
+
+// const updateUserComplaint = async (req, res) => {
+//     const {
+//         body: { description },
+//         user: { userId },
+//         params: { id: complaintId },
+//     } = req
+
+//     if (description === '') {
+//         throw new BadRequestError('Please fill in description')
+//     }
+//     const complaint = await Complaint.findByIdAndUpdate({ _id: complaintId, createdBy: userId }, req.body, { new: true, runValidators: true })
+//     if (!complaint) {
+//         throw new NotFoundError('complaint not found')
+//     }
+//     res.status(StatusCodes.OK).json({ complaint })
+// }

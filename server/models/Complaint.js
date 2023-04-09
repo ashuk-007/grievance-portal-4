@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const Officer = require("./Officer");
 
 const ComplaintSchema = new mongoose.Schema(
   {
@@ -37,10 +38,18 @@ const ComplaintSchema = new mongoose.Schema(
           type: Date,
           default: Date.now(),
         },
-        officerID: {
-          type: mongoose.Types.ObjectId,
-          ref: "Officer",
-          required: [true, "Please provide officer id for action history"],
+        // officerID: {
+        //   type: mongoose.Types.ObjectId,
+        //   ref: "Officer",
+        //   required: [true, "Please provide officer id for action history"],
+        // },
+        officerName: {
+          type: String,
+          required: [true, "Please provide officer name for action history"],
+        },
+        officerLevel: {
+          type: Number,
+          required: [true, "Please provide officer level for action history"],
         },
         feedback: {
           type: String,
@@ -57,8 +66,8 @@ ComplaintSchema.methods.assignOfficer = async function (officer) {
   this.officerID = officer;
   await this.save();
 };
-ComplaintSchema.methods.addFeedback = async function (feedback) {
-  this.actionHistory.push({ officerID: this.officerID, feedback });
+ComplaintSchema.methods.addFeedback = async function (officerName, officerLevel, feedback) {
+  this.actionHistory.push({ officerName, officerLevel, feedback });
   await this.save();
 };
 

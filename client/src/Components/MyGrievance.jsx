@@ -1,6 +1,7 @@
 import React from "react";
 import axios from "axios";
-import moment from 'moment';
+import moment from "moment";
+import { Link } from "react-router-dom";
 
 export default function MyGrievance(props) {
   const token = localStorage.getItem("token");
@@ -8,26 +9,24 @@ export default function MyGrievance(props) {
   let config = {
     method: "get",
     maxBodyLength: Infinity,
-    url: 'http://localhost:3000/api/v1/complaints',
-    headers: { 
+    url: "http://localhost:3000/api/v1/complaints",
+    headers: {
       Authorization: `Bearer ${token}`,
     },
   };
   const [grievances, setGrievances] = React.useState([]);
-  const id=localStorage.getItem("id");
+  const id = localStorage.getItem("id");
   React.useEffect(() => {
-    axios.request(config)
-  .then((response) => {
-    console.log(JSON.stringify(response.data));
-    setGrievances(response.data.complaints);
-  })
-  .catch((error) => {
-    console.log(error);
-  });
-  },[]);
-  function handleAction(id){
-    console.log(id);
-  }
+    axios
+      .request(config)
+      .then((response) => {
+        console.log(JSON.stringify(response.data));
+        setGrievances(response.data.complaints);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
   const grievanceData = grievances.map((grievance) => (
     <tr>
       <td className="border px-4 py-1 ">
@@ -37,13 +36,8 @@ export default function MyGrievance(props) {
       <td className="border px-8 py-2">{grievance.subject}</td>
       <td className="border px-8 py-2">{grievance.status}</td>
       <td className="border px-8 py-2 ">reminder</td>
-      <td className="border px-8 py-2 ">
-        <button onClick={()=>handleAction(grievance._id)}>view action
-        history</button>
-      </td>
     </tr>
   ));
-  
 
   return (
     <div
@@ -61,13 +55,16 @@ export default function MyGrievance(props) {
           <thead>
             <tr>
               <th className="bg-blue-100 border text-left px-8 py-2">Date</th>
-              <th className="bg-blue-100 border text-left px-8 py-2">
+              <th className="bg-blue-100 border text-left px-2 py-2">
                 Department
               </th>
-              <th className="bg-blue-100 border text-left px-20 py-2">
+              <th className="bg-blue-100 border text-left px-28 py-2">
                 Grievance
               </th>
-              <th className="bg-blue-100 border text-left px-8 py-2">Status</th>
+              <th className="bg-blue-100 border text-left px-2 py-2">Status</th>
+              <th className="bg-blue-100 border text-left px-10 py-2">
+                View Action History
+              </th>
               <th className="bg-blue-100 border text-left px-3 py-2">
                 Reminder
               </th>

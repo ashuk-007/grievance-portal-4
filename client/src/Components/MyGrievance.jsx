@@ -1,6 +1,7 @@
 import React from "react";
 import axios from "axios";
 import moment from 'moment';
+import { Link } from "react-router-dom";
 
 export default function MyGrievance(props) {
   const token = localStorage.getItem("token");
@@ -26,11 +27,13 @@ export default function MyGrievance(props) {
   });
   },[]);
   const grievanceData = grievances.map((grievance) => <tr>
-            <td className="border px-4 py-1 ">{moment(grievance.createdAt).format('DD/MM/YYYY HH:mm')}</td>
-            <td className="border px-4 py-1">{grievance.department}</td>
-            <td className="border px-8 py-2">{grievance.subject}</td>
-            <td className="border px-8 py-2">{grievance.status}</td>
-            <td className="border px-8 py-2 ">reminder</td>
+            <td className="border px-4 py-1 whitespace-nowrap">{moment(grievance.createdAt).format('DD/MM/YYYY HH:mm')}</td>
+            <td className="border px-1 py-1 whitespace-nowrap">{grievance.department}</td>
+            <td className="border px-1 py-2 whitespace-nowrap">{grievance.subject}</td>
+            <td className="border px-2 py-2 whitespace-nowrap">{grievance.status}</td>
+            <td className="border px-10 py-2 whitespace-nowrap ">view</td>
+            <td className="border px-1 py-2 whitespace-nowrap ">send</td>
+
             </tr>)
   
 
@@ -51,13 +54,16 @@ export default function MyGrievance(props) {
         <thead>
             <tr>
               <th className="bg-blue-100 border text-left px-8 py-2">Date</th>
-              <th className="bg-blue-100 border text-left px-8 py-2">
+              <th className="bg-blue-100 border text-left px-2 py-2">
                 Department
               </th>
-              <th className="bg-blue-100 border text-left px-20 py-2">
+              <th className="bg-blue-100 border text-left px-28 py-2">
                 Grievance
               </th>
-              <th className="bg-blue-100 border text-left px-8 py-2">Status</th>
+              <th className="bg-blue-100 border text-left px-2 py-2">Status</th>
+              <th className="bg-blue-100 border text-left px-10 py-2">
+              View Action History
+              </th>
               <th className="bg-blue-100 border text-left px-3 py-2">
                 Reminder
               </th>

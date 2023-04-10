@@ -26,19 +26,38 @@ export default function MyGrievance(props) {
         console.log(error);
       });
   }, []);
+  const [actionHistory, setActionHistory] = React.useState({})
   function handleAction(grievance){
-    console.log(grievance._id);
+    setActionHistory(grievance.actionHistory)
+
   }
   const grievanceData = grievances.map((grievance) => (
-    <tr>
-      <td className="border px-4 py-1 ">
+    <tr class="text-gray-700">
+      <td class="px-4 py-3 text-ms font-semibold border">
         {moment(grievance.createdAt).format("DD/MM/YYYY HH:mm")}
       </td>
-      <td className="border px-4 py-1">{grievance.department}</td>
-      <td className="border px-8 py-2">{grievance.subject}</td>
-      <td className="border px-8 py-2">{grievance.status}</td>
-      <td className="border px-8 py-2 ">reminder</td>
-      <td className="border px-8 py-2 "><button className="bg-light-green hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={()=>handleAction(grievance)}>View</button></td>
+      <td class="px-4 py-3 text-ms font-semibold border">
+        {grievance.department}
+      </td>
+      <td class="px-4 py-3 text-ms font-semibold border">
+        {grievance.subject}
+      </td>
+      <td class="px-4 py-3 text-ms font-semibold border">{grievance.status}</td>
+      <td class="px-4 py-3 text-ms font-semibold border">
+        <button
+          className="bg-light-green hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+        >
+         reminder
+        </button>
+      </td>
+      <td class="px-4 py-3 text-ms font-semibold border flex justify-around">
+        <button
+          className="bg-light-green hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+          onClick={() => handleAction(grievance)}
+        >
+          View
+        </button>
+      </td>
     </tr>
   ));
 
@@ -51,31 +70,25 @@ export default function MyGrievance(props) {
       }
     >
       <h1 className="text-center text-4xl md:text-7xl">MY GRIEVANCES</h1>
-      {/* // index.html */}
-      {/* table starts here */}
-      <div className="px-5 py-5">
-        <table className="rounded-lg shadow bg-while w-full left-5">
-          <thead>
-            <tr>
-              <th className="bg-blue-100 border text-left px-8 py-2">Date</th>
-              <th className="bg-blue-100 border text-left px-2 py-2">
-                Department
-              </th>
-              <th className="bg-blue-100 border text-left px-28 py-2">
-                Grievance
-              </th>
-              <th className="bg-blue-100 border text-left px-2 py-2">Status</th>
-              <th className="bg-blue-100 border text-left px-10 py-2">
-                View Action History
-              </th>
-              <th className="bg-blue-100 border text-left px-3 py-2">
-                Reminder
-              </th>
-            </tr>
-          </thead>
-          <tbody>{grievanceData}</tbody>
-        </table>
-      </div>
+      <section class="container mx-auto font-mono">
+        <div class="w-full pt-4 mb-8 overflow-y-scroll overflow-x-scroll h-120 rounded-lg shadow-lg">
+          <div class="w-full overflow-x-auto">
+            <table class="w-full">
+              <thead>
+                <tr class="text-md font-semibold tracking-wide text-left text-gray-900 bg-gray-100 uppercase border-b border-gray-600">
+                  <th class="px-4 py-3">Date</th>
+                  <th class="px-4 py-3">Department</th>
+                  <th class="px-4 py-3">Grievance</th>
+                  <th class="px-4 py-3">Status</th>
+                  <th class="px-4 py-3">Reminder</th>
+                  <th class="px-4 py-3 mx-auto">View Action History</th>
+                </tr>
+              </thead>
+              <tbody class="bg-white">{grievanceData}</tbody>
+            </table>
+          </div>
+        </div>
+      </section>
     </div>
   );
 }

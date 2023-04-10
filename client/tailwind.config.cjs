@@ -5,6 +5,7 @@ module.exports = {
     extend: {
       height: {
         100: "45.5rem",
+        120: "35.5rem",
       },
       animation: {
         scroll: "scroll 40s linear infinite",

@@ -23,16 +23,40 @@ export default function GrievanceStatus(props) {
         alert("Error Occured");
       });
   }, []);
-  const complaintData = complaints.map((complaint) => <tr className={complaint.status!="pending"?"bg-light-green":"bg-red"}>
-            <td className="border px-4 py-1 whitespace-nowrap">{complaint._id}</td>
-            <td className="border px-4 py-1 whitespace-nowrap">{(complaint.createdAt).slice(0,10)+" at "+(complaint.createdAt).slice(11,16)}</td>
-            <td className="border px-8 py-2 whitespace-nowrap">{complaint.department}</td>
-            <td className="border px-8 py-2 whitespace-nowrap">{complaint.subject}</td>
-            <td className="border px-8 py-2 whitespace-nowrap">{complaint.description}</td>
-            <td className="border px-8 py-2 whitespace-nowrap">{complaint.status}</td>
-            <td className="border px-8 py-2 whitespace-nowrap">{complaint.updatedAt?complaint.updatedAt:"not updated"}</td>
-            <td className="border px-3 py-2 whitespace-nowrap">Forward</td> 
-          </tr>)
+   const complaintData = complaints.map((complaint) => (
+
+     <tr class="text-gray-700">
+       <td class="px-4 py-3 text-ms font-semibold border">{complaint._id}</td>
+       <td class="px-4 py-3 text-ms font-semibold border">
+         {complaint.createdAt.slice(0, 10) +
+           " at " +
+           complaint.createdAt.slice(11, 16)}
+       </td>
+       <td class="px-4 py-3 text-ms font-semibold border">
+         {complaint.department}
+       </td>
+       <td class="px-4 py-3 text-ms font-semibold border">
+         {complaint.subject}
+       </td>
+       <td class="px-4 py-3 text-ms font-semibold border">
+         {complaint.description}
+       </td>
+       <td class="px-4 py-3 text-ms font-semibold border">
+         {complaint.status}
+       </td>
+       <td class="px-4 py-3 text-ms font-semibold border">
+         {complaint.updatedAt ? complaint.updatedAt : "not updated"}
+       </td>
+       <td class="px-4 py-3 text-ms font-semibold border">
+         <button
+           className="bg-light-green hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+           
+         >
+          Forward
+         </button>
+       </td>
+     </tr>
+   ));
   return (
     <div
       class={
@@ -44,26 +68,25 @@ export default function GrievanceStatus(props) {
       <h1 className="text-center font-bold text-3xl md:text-6xl">
         GRIEVANCES STATUS
       </h1>
-      {/* // index.html */}
-      <div className="px-5 py-5  overflow-auto rounded-lg shadow mt-16 md:mt-36">
-        <table className="rounded-lg shadow bg-while w-full left-5">
-          <tr>
-            <th className="bg-blue-100 border text-left px-8 py-2">ID</th>
-            <th className="bg-blue-100 border text-left px-8 py-2">Time</th>
-            <th className="bg-blue-100 border text-left px-8 py-2">
-              Department
-            </th>
-            <th className="bg-blue-100 border text-left px-20 py-2">Subject</th>
-            <th className="bg-blue-100 border text-left px-8 py-2">
-              Description
-            </th>
-            <th className="bg-blue-100 border text-left px-8 py-2">Status</th>
-            <th className="bg-blue-100 border text-left px-8 py-2">UpdatedTime</th>
-            <th className="bg-blue-100 border text-left px-3 py-2">Reminder</th>
-          </tr>
-          {complaintData}
+        <div class="w-full mb-8 overflow-y-scroll overflow-x-scroll h-120 rounded-lg shadow-lg pt-8">
+          <div class="w-full overflow-x-auto">
+        <table class="w-full">
+          <thead>
+            <tr class="text-md font-semibold tracking-wide text-left text-gray-900 bg-gray-100 uppercase border-b border-gray-600">
+              <th class="px-4 py-3">ID</th>
+              <th class="px-4 py-3">Time</th>
+              <th class="px-4 py-3">Department</th>
+              <th class="px-4 py-3">Subject</th>
+              <th class="px-4 py-3">Description</th>
+              <th class="px-4 py-3 mx-auto">Status</th>
+              <th class="px-4 py-3 mx-auto">UpdatedTime</th>
+              <th class="px-4 py-3 mx-auto">Forward</th>
+            </tr>
+          </thead>
+          <tbody class="bg-white">{complaintData}</tbody>
         </table>
-      </div>
+        </div>
+        </div>
     </div>
   );
 }

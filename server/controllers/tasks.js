@@ -7,6 +7,8 @@ const {
 } = require("../errors");
 const User = require("../models/User");
 const Officer = require("../models/Officer");
+var nodemailer = require('nodemailer');
+// const { findById } = require("../models/User");
 
 const getAllTasks = async (req, res) => {
   // console.log(req.officer);
@@ -78,6 +80,8 @@ const passTask = async (req, res) => {
 
 
 
+  // console.log(officer.name, officer.level)
+  // console.log(newOfficerId.name, newOfficerId.level)
   // if (complaint.officerID != officerId) {
   //   throw new UnauthenticatedError("not authorized to pass this task");
   // }
@@ -89,6 +93,11 @@ const passTask = async (req, res) => {
     newOfficerId.name, newOfficerId.level, `Complaint received by level ${newOfficerId.level} officer`
   );
 
+
+  const body = `Complaint transferred to the level ${newOfficerId.level} officer`
+
+  const user = await User.findOne({_id: complaint.createdBy})
+  await sendEmail(user.email, complaint.subject, body)
   // console.log(complaint)
 
   res.status(StatusCodes.OK).json({ complaint });
@@ -140,11 +149,42 @@ const updateTask = async (req, res) => {
 
   }
 
+  const bod = `Status updated about your grievance ${complaint.subject}`
+  const user = await findById({_id: complaint.createdBy})
+  await sendEmail(user.email, complaint.subject, bod)
+
 
   // console.log(complaint)
 
   res.status(StatusCodes.OK).json({ complaint });
 };
+
+const sendEmail = async (to, subject, body) => {
+  try {
+    let transporter = nodemailer.createTransport({
+      host: 'smtp.gmail.com',
+      port: 465,
+      secure: true,
+      auth: {
+        user: 'grievanceportal25@gmail.com',
+        pass: 'xtovkwiqixktkimo',
+      },
+    });
+
+    let info = await transporter.sendMail({
+      from: ' "Grievance Portal" <grievanceportaliiita@gmail.com>',
+      to: to,
+      subject: `New Update about your grievance ${subject}`,
+      text: `New Update About your grievance ${subject},
+      Update: ${body}`
+    });
+
+    console.log('Message sent: %s', info.messageId);
+  } catch (err) {
+    console.error(err);
+  }
+};
+
 
 module.exports = { getAllTasks, getTask, passTask, updateTask };
 

@@ -11,6 +11,7 @@ export default function AdminProfile(props){
      Authorization: `Bearer ${token}`,
    },
  };
+ const [loading, setLoading] = React.useState(false);
  const [officerData, setOfficerData] = React.useState({});
  React.useEffect(() => {
    axios
@@ -18,6 +19,7 @@ export default function AdminProfile(props){
      .then((response) => {
        console.log(JSON.stringify(response.data));
        setOfficerData(response.data.officer);
+        setLoading(true);
      })
      .catch((error) => {
        console.log(error);

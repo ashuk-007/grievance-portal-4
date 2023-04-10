@@ -111,7 +111,14 @@ export default function GrievanceStatus(props) {
        </td>
      </tr>
    ));
+   function checkLogin() {
+     if (!token) {
+       navigate("/userAdminLogin");
+     }
+   }
   return (
+    <>
+    {checkLogin}
     <div
       class={
         props.visible == "view"
@@ -142,6 +149,6 @@ export default function GrievanceStatus(props) {
         </table>
         </div>
         </div>
-    </div>
+    </div></>
   );
 }

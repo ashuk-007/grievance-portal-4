@@ -56,11 +56,9 @@ function Login(props){
         <div className="  px-8 md:w-2/3">
           <div className="md:px-20 px-10 pt-20 md:pt-48 py-20 ">
             <div className="w-full md:w-2/3 h-64 ">
-              <h2 className=" mt-0 text-6xl font-bold text-dark-blue">
-                Grievsol
-              </h2>
+              <h2 className=" mt-0 text-6xl font-bold text-dark-blue">आवाज़</h2>
 
-              <p className=" mt-4 text-dark-blue">
+              <p className=" mt-4 text-2xl text-dark-blue">
                 This web application allows the concerned users and admins to
                 communicate regarding the grievances with the provided features
                 in order to simplify the tedious procedure of listing the
@@ -129,8 +127,11 @@ function Login(props){
                   className="w-4 h-4   focus:ring-blue-500 "
                   onChange={handleRadio}
                 />
-                <label htmlFor="default-radio-1" className="ml-3 text-l  text-white">
-                  Citizen 
+                <label
+                  htmlFor="default-radio-1"
+                  className="ml-3 text-l  text-white"
+                >
+                  Citizen
                 </label>
               </div>
               <div className="flex items-center py-0">
@@ -143,13 +144,19 @@ function Login(props){
                   className="w-4 h-4  focus:ring-blue-500"
                   onChange={handleRadio}
                 />
-                <label htmlFor="default-radio-2" className="ml-3 text-l  text-white">
+                <label
+                  htmlFor="default-radio-2"
+                  className="ml-3 text-l  text-white"
+                >
                   Officer
                 </label>
               </div>
 
               <div className="mt-6 flex justify-center ">
-                <button className="w-1/2 hover:animate-bounce  px-4 py-2  text-white bg-light-green rounded-md" onClick={handleSubmit}>
+                <button
+                  className="w-1/2 hover:animate-bounce  px-4 py-2  text-white bg-light-green rounded-md"
+                  onClick={handleSubmit}
+                >
                   Sign in
                 </button>
               </div>

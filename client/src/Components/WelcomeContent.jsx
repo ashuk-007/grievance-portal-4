@@ -80,126 +80,126 @@ const navigate=useNavigate();
 
   return (
     <>
-    <div className="welcome-content flex-row md:flex justify-between md:h-100">
-      <div className="w-full md:w-2/3 h-64 ">
-        <h1 className="pl-0 md:pl-32 text-center md:text-left text-5xl md:text-8xl pt-16 md:pt-48 font-semibold text-dark-blue">
-          WELCOME TO GRIEVSOL
-        </h1>
-        <h3 className="text-center md:text-left pl-0 md:pl-32 text-l md:text-2xl text-dark-blue mt-2 md:mt-6 mb-8 md:mb-0">
-          An initiative by Government of India
-        </h3>
-      </div>
-      <div className="w-3/4 m-auto mt-2 mb-10  md:mb-0 md:m-0 rounded-md md:rounded-none md:w-1/3 bg-dark-blue overflow-hidden">
-        <h1 className="text-3xl md:text-4xl text-white ml-16 md:ml-0 md:text-left  md:pl-16 pt-8 md:pt-20 md:mb-8">
-          SIGN UP
-        </h1>
-        <form action="">
-          <input
-            type="text"
-            name="name"
-            id="name"
-            placeholder="Name"
-            className="w-48 md:w-80 p-2 md:p-3 rounded-md md:ml-16 ml-12 mt-4 mb-4 md:m-0 md:mt-4"
-            onChange={handleChange}
-          />
-
-          <input
-            type="email"
-            name="email"
-            id="email"
-            placeholder="Email"
-            className="w-48 md:w-80 p-2 md:p-3 rounded-md md:ml-16 ml-12 mb-4  md:m-0 md:mt-4"
-            onChange={handleChange}
-          />
-
-          <input
-            type="password"
-            name="password"
-            id="password"
-            placeholder="Password(min 6)"
-            className="form-control w-48 md:w-80 p-2 md:p-3 rounded-md md:ml-16 ml-12 mb-4  md:m-0 md:mt-4"
-            ref={password}
-            onChange={handleChange}
-          />
-
-          <input
-            type="password"
-            name="confirmPassword"
-            id="confirmPassword"
-            placeholder="Confirm Password"
-            className={
-              cPasswordClass +
-              ` w-48 md:w-80 p-2 md:p-3 rounded-md md:ml-16 ml-12 mb-4  md:m-0 md:mt-4`
-            }
-            onChange={checkPasswords}
-            ref={cPassword}
-          />
-          <input
-            type="phone"
-            name="phone"
-            id="phone"
-            placeholder="Phone Number"
-            className="form-control w-48 md:w-80 p-2 md:p-3 rounded-md md:ml-16 ml-12 mb-4  md:m-0 md:mt-4"
-            onChange={handleChange}
-          />
-
-          <div className="w-80 hidden justify-between mt-4 ml-16 md:flex md:visible">
+      <div className="welcome-content flex-row md:flex justify-between md:h-100">
+        <div className="w-full md:w-2/3 h-64 ">
+          <h1 className="pl-0 md:pl-32 text-center md:text-left text-5xl md:text-7xl pt-16 md:pt-48 font-semibold text-dark-blue">
+            WELCOME TO<br /> <span className="text-6xl md:text-9xl">आवाज़</span>
+          </h1>
+          <h3 className="text-center md:text-left pl-0 md:pl-32 text-l md:text-2xl text-dark-blue mt-2 md:mt-6 mb-8 md:mb-0">
+            An initiative by Government of India
+          </h3>
+        </div>
+        <div className="w-3/4 m-auto mt-2 mb-10  md:mb-0 md:m-0 rounded-md md:rounded-none md:w-1/3 bg-dark-blue overflow-hidden">
+          <h1 className="text-3xl md:text-4xl text-white ml-16 md:ml-0 md:text-left  md:pl-16 pt-8 md:pt-20 md:mb-8">
+            SIGN UP
+          </h1>
+          <form action="">
             <input
               type="text"
-              name="district"
-              id="district"
-              placeholder="District"
-              className="rounded-md w-48 p-2 md:p-3"
+              name="name"
+              id="name"
+              placeholder="Name"
+              className="w-48 md:w-80 p-2 md:p-3 rounded-md md:ml-16 ml-12 mt-4 mb-4 md:m-0 md:mt-4"
               onChange={handleChange}
             />
+
             <input
-              type="number"
-              name="age"
-              id="age"
-              placeholder="Age(>18)"
-              className="rounded-md w-24 p-2 md:p-3"
-              onChange={handleChange}
-            />
-          </div>
-          <div className="md:hidden">
-            <input
-              type="text"
-              name="district"
-              id="district"
-              placeholder="District"
+              type="email"
+              name="email"
+              id="email"
+              placeholder="Email"
               className="w-48 md:w-80 p-2 md:p-3 rounded-md md:ml-16 ml-12 mb-4  md:m-0 md:mt-4"
               onChange={handleChange}
             />
+
             <input
-              type="number"
-              name="age"
-              id="age"
-              placeholder="age(>18)"
-              className="w-48 md:w-80 p-2 md:p-3 rounded-md md:ml-16 ml-12 mb-4  md:m-0 md:mt-4"
+              type="password"
+              name="password"
+              id="password"
+              placeholder="Password(min 6)"
+              className="form-control w-48 md:w-80 p-2 md:p-3 rounded-md md:ml-16 ml-12 mb-4  md:m-0 md:mt-4"
+              ref={password}
               onChange={handleChange}
             />
-          </div>
-          <div className="m-auto md:ml-16 ml-12 mb-8">
-            <h3 className="text-white mt-4">
-              Already have an account?{" "}
-              <NavLink to="/userlogin" className="text-light-green">
-                Login
-              </NavLink>
-            </h3>
-          </div>
-          <div className="w-80 flex justify-center mt-2 md:mt-2 ml-16  ">
-            <button
-              type="submit"
-              className="hover:animate-bounce ml-0 md:ml-16 md:w-48 bg-light-green text-white p-3 rounded-3xl m-auto mb-4 md:m-auto  "
-              onClick={handleSubmit}
-            >
-              Create Account
-            </button>
-          </div>
-        </form>
+
+            <input
+              type="password"
+              name="confirmPassword"
+              id="confirmPassword"
+              placeholder="Confirm Password"
+              className={
+                cPasswordClass +
+                ` w-48 md:w-80 p-2 md:p-3 rounded-md md:ml-16 ml-12 mb-4  md:m-0 md:mt-4`
+              }
+              onChange={checkPasswords}
+              ref={cPassword}
+            />
+            <input
+              type="phone"
+              name="phone"
+              id="phone"
+              placeholder="Phone Number"
+              className="form-control w-48 md:w-80 p-2 md:p-3 rounded-md md:ml-16 ml-12 mb-4  md:m-0 md:mt-4"
+              onChange={handleChange}
+            />
+
+            <div className="w-80 hidden justify-between mt-4 ml-16 md:flex md:visible">
+              <input
+                type="text"
+                name="district"
+                id="district"
+                placeholder="District"
+                className="rounded-md w-48 p-2 md:p-3"
+                onChange={handleChange}
+              />
+              <input
+                type="number"
+                name="age"
+                id="age"
+                placeholder="Age(>18)"
+                className="rounded-md w-24 p-2 md:p-3"
+                onChange={handleChange}
+              />
+            </div>
+            <div className="md:hidden">
+              <input
+                type="text"
+                name="district"
+                id="district"
+                placeholder="District"
+                className="w-48 md:w-80 p-2 md:p-3 rounded-md md:ml-16 ml-12 mb-4  md:m-0 md:mt-4"
+                onChange={handleChange}
+              />
+              <input
+                type="number"
+                name="age"
+                id="age"
+                placeholder="age(>18)"
+                className="w-48 md:w-80 p-2 md:p-3 rounded-md md:ml-16 ml-12 mb-4  md:m-0 md:mt-4"
+                onChange={handleChange}
+              />
+            </div>
+            <div className="m-auto md:ml-16 ml-12 mb-8">
+              <h3 className="text-white mt-4">
+                Already have an account?{" "}
+                <NavLink to="/userlogin" className="text-light-green">
+                  Login
+                </NavLink>
+              </h3>
+            </div>
+            <div className="w-80 flex justify-center mt-2 md:mt-2 ml-16  ">
+              <button
+                type="submit"
+                className="hover:animate-bounce ml-0 md:ml-16 md:w-48 bg-light-green text-white p-3 rounded-3xl m-auto mb-4 md:m-auto  "
+                onClick={handleSubmit}
+              >
+                Create Account
+              </button>
+            </div>
+          </form>
+        </div>
       </div>
-    </div>
-    <Footer />
+      <Footer />
     </>
   );
 }

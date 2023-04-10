@@ -12,9 +12,13 @@ export default function AdminPage(){
         setIsClicked(val)
         setVisible(vis)
     }
+    if (localStorage.getItem("token") == null) {
+      window.location.href = "/userlogin";
+    }
+    const token=localStorage.getItem("token")
     const[visible,setVisible]=React.useState("profile")
    return (
-     <div className="admin-Page h-3/4 ">
+     <div className={token==null?"hidden":"admin-Page h-3/4 "}>
        <div className="navbar hidden md:block">
          <UserNavbar
            first=""

@@ -76,8 +76,13 @@ export default function MyGrievance(props) {
       </tr>
     </Fragment>
   ));
-
+function checkLogin() {
+  if (!token) {
+    navigate("/userAdminLogin");
+  }
+}
   return (
+    <>{checkLogin}
     <div
       className={
         props.visible == "view"
@@ -105,6 +110,6 @@ export default function MyGrievance(props) {
           </div>
         </div>
       </section>
-    </div>
+    </div></>
   );
 }

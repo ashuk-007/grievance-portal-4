@@ -38,7 +38,13 @@ function handleSubmit(e) {
       });
   }
 }
+function checkLogin() {
+  if (!token) {
+    navigate("/userAdminLogin");
+  }
+}
     return(
+      <>{checkLogin}
         <div
            className={
              props.visible == "update"
@@ -122,6 +128,6 @@ function handleSubmit(e) {
             </button>
           </div>
         </form>
-      </div>
+      </div></>
     );
 }

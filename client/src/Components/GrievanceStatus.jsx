@@ -55,13 +55,13 @@ export default function GrievanceStatus(props) {
         console.log(error);
       });  
     }
-
+    
     complaints.sort(function (a, b) {
       return a.status > b.status ? 1 : b.status > a.status ? -1 : 0;
     });
    const complaintData = complaints.map((complaint) => (
      <tr
-       class={complaint.status == "pending" ? "bg-red-" :complaint.status=="resolved"?"bg-green":"bg-yellow"}
+       class={complaint.status == "pending" ? "bg-red" :complaint.status=="resolved"?"bg-green":"bg-yellow"}
      >
        <td class="px-4 py-3 text-ms font-semibold border">{complaint._id}</td>
        <td class="px-4 py-3 text-ms font-semibold border">

@@ -75,7 +75,11 @@ export default function UpdateStatus(props) {
     }
   }
   console.log(data.status)
-  
+  function checkLogin() {
+    if (!token) {
+      navigate("/userAdminLogin");
+    }
+  }
   return (
     <>
       {checkLogin}

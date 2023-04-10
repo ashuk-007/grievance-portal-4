@@ -1,7 +1,8 @@
-import React from "react";
+import React, { Fragment } from "react";
 import axios from "axios";
 import moment from "moment";
 import { Link } from "react-router-dom";
+import Modal from "./Modal";
 
 export default function MyGrievance(props) {
   const token = localStorage.getItem("token");
@@ -26,39 +27,43 @@ export default function MyGrievance(props) {
         console.log(error);
       });
   }, []);
-  const [actionHistory, setActionHistory] = React.useState({})
+  const [isVisible, setIsVisible] = React.useState(false);
+  const [actionHistory, setActionHistory] = React.useState();
   function handleAction(grievance){
     setActionHistory(grievance.actionHistory)
-
+    setIsVisible((prev) => !prev)
   }
   const grievanceData = grievances.map((grievance) => (
-    <tr class="text-gray-700">
-      <td class="px-4 py-3 text-ms font-semibold border">
-        {moment(grievance.createdAt).format("DD/MM/YYYY HH:mm")}
-      </td>
-      <td class="px-4 py-3 text-ms font-semibold border">
-        {grievance.department}
-      </td>
-      <td class="px-4 py-3 text-ms font-semibold border">
-        {grievance.subject}
-      </td>
-      <td class="px-4 py-3 text-ms font-semibold border">{grievance.status}</td>
-      <td class="px-4 py-3 text-ms font-semibold border">
-        <button
-          className="bg-light-green hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-        >
-         reminder
-        </button>
-      </td>
-      <td class="px-4 py-3 text-ms font-semibold border flex justify-around">
-        <button
-          className="bg-light-green hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-          onClick={() => handleAction(grievance)}
-        >
-          View
-        </button>
-      </td>
-    </tr>
+    <Fragment>
+      <tr class="text-gray-700">
+        <td class="px-4 py-3 text-ms font-semibold border">
+          {moment(grievance.createdAt).format("DD/MM/YYYY HH:mm")}
+        </td>
+        <td class="px-4 py-3 text-ms font-semibold border">
+          {grievance.department}
+        </td>
+        <td class="px-4 py-3 text-ms font-semibold border">
+          {grievance.subject}
+        </td>
+        <td class="px-4 py-3 text-ms font-semibold border">
+          {grievance.status}
+        </td>
+        <td class="px-4 py-3 text-ms font-semibold border">
+          <button className="bg-light-green hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+            reminder
+          </button>
+        </td>
+        <td class="px-4 py-3 text-ms font-semibold border">
+          <button
+            className="bg-light-green hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+            onClick={()=>handleAction(grievance)}
+          >
+            View
+          </button>
+          <Modal visible={isVisible} setVisible={setIsVisible} data={actionHistory} />
+        </td>
+      </tr>
+    </Fragment>
   ));
 
   return (

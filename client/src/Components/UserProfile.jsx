@@ -2,6 +2,7 @@ import React from "react";
 import pfp from "../Images/pfp.png"
 import axios from "axios";
 import { useNavigate } from "react-router";
+import Loading from "./Loading";
 export default function UserProfile(props){
   const token = localStorage.getItem("token");
   let config = {
@@ -20,6 +21,7 @@ export default function UserProfile(props){
     .then((response) => {
       console.log(JSON.stringify(response.data));
       setUserData(response.data.user)
+      setLoading(false);
       
     })
     .catch((error) => {
@@ -33,12 +35,14 @@ export default function UserProfile(props){
       navigate("/userAdminLogin")
     }
   }
-    return (
+  const [loading, setLoading] = React.useState(true);
+   return (
+      
       <>
         {checkLogin}
         <div
           className={
-            props.visible == "profile"
+            props.visible == "profile" && loading==false
               ? "p-4 view-profile-content dashboard w-full md:w-3/4 h-100  pt-16 "
               : "hidden"
           }
@@ -78,6 +82,7 @@ export default function UserProfile(props){
             </h4>
           </div>
         </div>
+        {loading==true && <Loading/>}
       </>
     );
 }//05326456990

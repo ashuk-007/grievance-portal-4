@@ -125,7 +125,7 @@ function Login(props){
                   value="Citizen"
                   name="default-radio"
                   className="w-4 h-4   focus:ring-blue-500 "
-                  onChange={handleRadio}
+                  onClick={handleRadio}
                 />
                 <label
                   htmlFor="default-radio-1"
@@ -142,7 +142,7 @@ function Login(props){
                   value="Officer"
                   name="default-radio"
                   className="w-4 h-4  focus:ring-blue-500"
-                  onChange={handleRadio}
+                  onClick={handleRadio}
                 />
                 <label
                   htmlFor="default-radio-2"

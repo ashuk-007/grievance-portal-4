@@ -77,7 +77,6 @@ const navigate=useNavigate();
   
 } 
   }
-  
   return (
     <>
       <div className="welcome-content flex-row md:flex justify-between md:h-100">

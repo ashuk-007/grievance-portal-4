@@ -1,6 +1,7 @@
 import React from "react";
 import pfp from "../Images/pfp.png";
 import axios from "axios";
+import Loading from "./Loading";
 export default function AdminProfile(props){
  const token = localStorage.getItem("token");
  let config = {
@@ -11,7 +12,7 @@ export default function AdminProfile(props){
      Authorization: `Bearer ${token}`,
    },
  };
- const [loading, setLoading] = React.useState(false);
+ const [loading, setLoading] = React.useState(true);
  const [officerData, setOfficerData] = React.useState({});
  React.useEffect(() => {
    axios
@@ -19,7 +20,7 @@ export default function AdminProfile(props){
      .then((response) => {
        console.log(JSON.stringify(response.data));
        setOfficerData(response.data.officer);
-        setLoading(true);
+        setLoading(false);
      })
      .catch((error) => {
        console.log(error);
@@ -36,7 +37,7 @@ export default function AdminProfile(props){
         {checkLogin}
         <div
           className={
-            props.visible == "profile"
+            props.visible == "profile" && loading==false
               ? "p-4 view-profile-content dashboard w-full md:w-3/4 h-100  pt-16 "
               : "hidden"
           }
@@ -78,6 +79,7 @@ export default function AdminProfile(props){
             </h4>
           </div>
         </div>
+        {loading==true && <Loading/>}
       </>
     );
 }

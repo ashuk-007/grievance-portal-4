@@ -9,6 +9,8 @@ module.exports = {
       },
       animation: {
         scroll: "scroll 40s linear infinite",
+        bounce200: "bounce 1s infinite 200ms",
+        bounce400: "bounce 1s infinite 400ms",
       },
       keyframes: {
         scroll: {
@@ -19,13 +21,13 @@ module.exports = {
     },
     colors: {
       "dark-cyan": "#132238",
-      "white": "#ffffff",
+      white: "#ffffff",
       "dark-blue": "#364e68",
       "light-blue": "#98ccd3",
       "light-green": "#28B397",
-      "red": "#FFB6B3",
-      "green": "#BDE7BD",
-      "yellow": "#FDE992",
+      red: "#FFB6B3",
+      green: "#BDE7BD",
+      yellow: "#FDE992",
       "light-gray": "#DEDEDE",
     },
   },

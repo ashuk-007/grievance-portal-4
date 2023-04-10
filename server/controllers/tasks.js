@@ -150,7 +150,7 @@ const updateTask = async (req, res) => {
   }
 
   const bod = `Status updated about your grievance ${complaint.subject}`
-  const user = await findById({_id: complaint.createdBy})
+  const user = await User.findOne({_id: complaint.createdBy})
   await sendEmail(user.email, complaint.subject, bod)
 
 

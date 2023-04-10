@@ -29,12 +29,12 @@ const officerLogin = async (req, res) => {
 
 }
 
-const officerRegister = async (req, res) => {
+// const officerRegister = async (req, res) => {
 
-    const user = await Officer.create({ ...req.body })
-    const token = user.createJWT()
-    res.status(StatusCodes.CREATED).json({ user: { name: user.name }, token })
+//     const user = await Officer.create({ ...req.body })
+//     const token = user.createJWT()
+//     res.status(StatusCodes.CREATED).json({ user: { name: user.name }, token })
 
-}
+// }
 
-module.exports = { officerLogin, officerRegister }
+module.exports = { officerLogin }

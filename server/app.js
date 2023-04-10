@@ -15,6 +15,7 @@ const app = express();
 const connectDB = require('./db/connect.js')
 const authenticateUser = require('./middleware/authentication')
 const authenticateOfficer = require('./middleware/authenticationOfficer')
+const authenticateAdmin = require('./middleware/authenticationAdmin')
 
 // error handler
 const notFoundMiddleware = require('./middleware/not-found');
@@ -39,6 +40,7 @@ const userRouter = require('./routes/user')
 const officerRouter = require('./routes/officer')
 const complaintsRouter = require('./routes/complaints')
 const tasksRouter = require('./routes/tasks');
+const adminRouter = require('./controllers/admin')
 const { roleAuthenticationMiddleware } = require('./middleware/roleAuthentication.js');
 
 // routes
@@ -48,6 +50,7 @@ app.use('/api/v1/user', authenticateUser, roleAuthenticationMiddleware('user'), 
 app.use('/api/v1/complaints', authenticateUser, roleAuthenticationMiddleware('user'), complaintsRouter)
 app.use('/api/v1/officer', authenticateOfficer, roleAuthenticationMiddleware('officer'), officerRouter)
 app.use('/api/v1/tasks', authenticateOfficer, roleAuthenticationMiddleware('officer'), tasksRouter)
+app.use('/api/v1/admin/regofficer', authenticateAdmin, roleAuthenticationMiddleware('admin'), adminRouter)
 
 
 app.use(notFoundMiddleware);

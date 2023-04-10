@@ -16,6 +16,9 @@ export default function MyGrievance(props) {
     },
   };
   const [grievances, setGrievances] = React.useState([]);
+ grievances.sort(function (a, b) {
+   return a.status > b.status ? 1 : b.status > a.status ? -1 : 0;
+ });
   React.useEffect(() => {
     axios
       .request(config)
@@ -35,7 +38,11 @@ export default function MyGrievance(props) {
   }
   const grievanceData = grievances.map((grievance) => (
     <Fragment>
-      <tr class="text-gray-700">
+      <tr
+        class={
+          grievance.status != "resolved" ? "text-gray-700 bg-red" : "bg-green"
+        }
+      >
         <td class="px-4 py-3 text-ms font-semibold border">
           {moment(grievance.createdAt).format("DD/MM/YYYY HH:mm")}
         </td>
@@ -56,11 +63,15 @@ export default function MyGrievance(props) {
         <td class="px-4 py-3 text-ms font-semibold border">
           <button
             className="bg-light-green hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-            onClick={()=>handleAction(grievance)}
+            onClick={() => handleAction(grievance)}
           >
             View
           </button>
-          <Modal visible={isVisible} setVisible={setIsVisible} data={actionHistory} />
+          <Modal
+            visible={isVisible}
+            setVisible={setIsVisible}
+            data={actionHistory}
+          />
         </td>
       </tr>
     </Fragment>

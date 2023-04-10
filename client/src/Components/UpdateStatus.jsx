@@ -143,36 +143,6 @@ export default function UpdateStatus(props) {
             <h1 className="text-lg md:text-xl ml-2 md:ml-4">{complaint.status}</h1>
           </div>
         </div>
-        {/* <div className="name flex justify-start mx-auto mt-4 md:mt-6 items-center">
-          <label
-            htmlFor="main-id"
-            className="text-lg md:text-xl font-semibold"
-          >
-            Main ID:
-          </label>
-          <input
-            type="text"
-            name="main-id"
-            id="main-id"
-            placeholder="Enter the Main ID"
-            className="border1 border border-black mx-auto  md:ml-3 md:mt-0 rounded-md p-1"
-          />
-        </div>
-        <div className="name flex justify-start mx-auto mt-2 md:mt-6 items-center">
-          <label
-            htmlFor="this-id"
-            className="text-lg md:text-xl font-semibold"
-          >
-            This ID:
-          </label>
-          <input
-            type="text"
-            name="this-id"
-            id="this-id"
-            placeholder="Enter New ID"
-            className="border1 border border-black mx-auto  md:ml-3 md:mt-0 rounded-md p-1"
-          /> 
-        </div>*/}
         {complaint.status!="resolved" &&<> 
         <div className="name flex justify-start mx-auto mt-2 md:mt-6 items-center">
           <label htmlFor="status" className="text-lg md:text-xl font-semibold">

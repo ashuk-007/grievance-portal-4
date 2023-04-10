@@ -36,7 +36,8 @@
         cityButton.addEventListener('click', function() {
             getLatLong()
             .then(result => {
-                const city = result.features[0].properties.city;
+                console.log(result);
+                const city = result.features[0].properties.county;
                 cityName.textContent = `You are in ${city}.`;
             })
             .catch(error => {

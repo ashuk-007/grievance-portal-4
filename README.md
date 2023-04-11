@@ -14,4 +14,4 @@ pending tasks:
 10. ~edit profile users~
 11. ~edit profile officers~
 12. ~~register officer but only admin can do it -> for utsav~~
-13. ~send reminders to officers~
+13. send reminders to officers

@@ -15,6 +15,7 @@ export default function AdminPage(){
     if (localStorage.getItem("token") == null) {
       window.location.href = "/userlogin";
     }
+    
     const token=localStorage.getItem("token")
     const[visible,setVisible]=React.useState("profile")
    return (

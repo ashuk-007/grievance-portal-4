@@ -3,6 +3,7 @@ import pfp from "../Images/pfp.png";
 import axios from "axios";
 import Loading from "./Loading";
 export default function AdminProfile(props){
+  
  const token = localStorage.getItem("token");
  let config = {
    method: "get",

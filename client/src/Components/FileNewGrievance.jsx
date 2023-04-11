@@ -31,9 +31,12 @@ function FileNewGrievance(props) {
         .then((response) => {
           console.log(JSON.stringify(response.data));
           setSubmit(true);
+          alert("Grievance Filed Successfully")
+          window.location.reload(true);
         })
         .catch((error) => {
           console.log(error);
+          alert("Error Occured:"+error.response.data.message);
         });
     }
 

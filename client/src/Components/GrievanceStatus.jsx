@@ -50,9 +50,12 @@ export default function GrievanceStatus(props) {
       .request(config2)
       .then((response) => {
         console.log(JSON.stringify(response.data));
+        alert("Forwarded to next level Officer");
+        window.location.reload(true);
       })
       .catch((error) => {
         console.log(error);
+        alert("Error Occured:"+error.response.data.message);
       });  
     }
     

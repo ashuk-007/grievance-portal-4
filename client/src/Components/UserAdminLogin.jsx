@@ -35,7 +35,6 @@ function Login(props){
         .then((response) => {
           console.log(JSON.stringify(response.data));
           localStorage.setItem("token", response.data.token);
-
           {user=="Citizen"?navigate("/userpage"):navigate("/adminpage")}
       })
         .catch((error) => {

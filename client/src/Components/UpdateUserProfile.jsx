@@ -32,9 +32,12 @@ function handleSubmit(e) {
       .request(config)
       .then((response) => {
         console.log(JSON.stringify(response.data));
+        alert("Profile Updated Successfully");
+        window.location.reload(true);
       })
       .catch((error) => {
         console.log(error);
+        alert("Error Occured:" + error.response.data.message);
       });
   }
 }

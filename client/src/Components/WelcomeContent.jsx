@@ -2,7 +2,7 @@ import React from "react";
 import axios from "axios";
 import { NavLink, useNavigate } from "react-router-dom";
 import Footer from "./Footer";    
-import Carousel from "./Carousel";
+
 export default function WelcomeContent() {
   const password = React.useRef();
   const cPassword = React.useRef();
@@ -64,6 +64,7 @@ const navigate=useNavigate();
         "http://localhost:3000/api/v1/auth/register",
         data
       );
+      alert("User created successfully")
       console.log(response)
        navigate("/userlogin", {
          state: {
@@ -78,18 +79,11 @@ const navigate=useNavigate();
   
 } 
   }
-  const slides = [
-    "https://tecdn.b-cdn.net/img/Photos/Slides/img%20(15).jpg",
-    "https://tecdn.b-cdn.net/img/Photos/Slides/img%20(22).jpg",
-    "https://tecdn.b-cdn.net/img/Photos/Slides/img%20(23).jpg",
-  ];
   return (
     <>
       <div className="welcome-content flex-row md:flex justify-between md:h-100">
         <div className="w-full md:w-2/3 h-64 ">
-          {/* <div className="w-2/3 absolute top-0 left-0">
-            <Carousel slides={slides.map((s)=>(<img src={s} alt=""/>))} />
-          </div> */}
+      
           <h1 className="pl-0 md:pl-32 text-center md:text-left text-5xl md:text-7xl pt-16 md:pt-48 font-semibold text-dark-blue">
             WELCOME TO<br /> <span className="text-6xl md:text-9xl">आवाज़</span>
           </h1>

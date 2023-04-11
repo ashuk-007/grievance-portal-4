@@ -1,4 +1,5 @@
 const Admin = require('../models/Admin')
+const Officer = require('../models/Officer')
 const { StatusCodes } = require('http-status-codes')
 const { BadRequestError, UnauthenticatedError } = require('../errors/')
 
@@ -26,5 +27,6 @@ const adminLogin = async (req, res) => {
     res.status(StatusCodes.OK).json({ user: { name: user.name }, token })
 
 }
+
 
 module.exports = { adminLogin }

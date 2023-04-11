@@ -10,4 +10,4 @@ const officerRegister = async (req, res) => {
 
 }
 
-module.exports = officerRegister
+module.exports = { officerRegister }

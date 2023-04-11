@@ -16,7 +16,7 @@ const getComplaint = async (req, res) => {
 
     const complaint = await Complaint.findOne({ _id: complaintId, createdBy: userId })
     if (!complaint) {
-        throw new NotFoundError('Job not found')
+        throw new NotFoundError('Complaint not found')
     }
     res.status(StatusCodes.OK).json({ complaint })
 }
@@ -73,8 +73,17 @@ const deleteComplaint = async (req, res) => {
 
 const sendReminder = async (req, res) => {
     const { user: { userId }, params: { id: complaintId } } = req
-    const complaint = await Complaint.findOne({ _id: complaintId })
+    const complaint = await Complaint.findByIdAndUpdate(
+        complaintId,
+        { lastRemindedAt: Date.now() },
+        { new: true, runValidators: true }
+    );
+    if (complaint.status === 'resolved') {
+        throw new BadRequestError('Complaint is already resolved')
+    }
+
     const officer = await Officer.findOne({ _id: complaint.officerID })
+    await complaint.addFeedback(officer.name, officer.level, 'Reminder mail received by assigned officer.')
 
     const bod = `Gentle reminder regarding the complaint "${complaint.subject}". Please resolve it as soon as possible!`
 

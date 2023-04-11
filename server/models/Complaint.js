@@ -57,6 +57,10 @@ const ComplaintSchema = new mongoose.Schema(
         },
       },
     ],
+    lastRemindedAt: {
+      type: Date,
+      default: 2022 - 01 - 01,
+    }
     //
   },
   { timestamps: true }

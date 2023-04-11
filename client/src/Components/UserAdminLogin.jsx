@@ -53,12 +53,12 @@ function Login(props){
     <>
       <Navbar />
       <div className="flex-row md:flex  md:h-100 mt-0 ">
-        <div className="  px-8 md:w-2/3">
-          <div className="md:px-20 px-10 pt-20 md:pt-48 py-20 ">
+        <div className="  px-8 md:w-2/3 ">
+          <div className="md:px-20 px-10 pt-20  md:pt-48 py-20 ">
             <div className="w-full md:w-2/3 h-64 ">
               <h2 className=" mt-0 text-6xl font-bold text-dark-blue">आवाज़</h2>
 
-              <p className=" mt-4 text-2xl text-dark-blue">
+              <p className=" mt-4 text  md:text-2xl text-dark-blue ">
                 This web application allows the concerned users and admins to
                 communicate regarding the grievances with the provided features
                 in order to simplify the tedious procedure of listing the

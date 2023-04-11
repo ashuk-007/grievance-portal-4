@@ -56,13 +56,15 @@ export default function MyGrievance(props) {
           {grievance.status}
         </td>
         <td class="px-4 py-3 text-ms font-semibold border">
-          <button className="bg-light-green hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+        { grievance.status!="resolved"?
+          <button className="bg-light-green hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" >
             reminder
-          </button>
+          </button>:""
+        }
         </td>
         <td class="px-4 py-3 text-ms font-semibold border">
           <button
-            className="bg-light-green hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+            className="bg-light-green hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ml-8"
             onClick={() => handleAction(grievance)}
           >
             View

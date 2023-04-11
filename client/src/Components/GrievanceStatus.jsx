@@ -61,7 +61,13 @@ export default function GrievanceStatus(props) {
     });
    const complaintData = complaints.map((complaint) => (
      <tr
-       class={complaint.status == "pending" ? "bg-red" :complaint.status=="resolved"?"bg-green":"bg-yellow"}
+       class={
+         complaint.status == "pending"
+           ? "bg-red"
+           : complaint.status == "resolved"
+           ? "bg-green"
+           : "bg-yellow"
+       }
      >
        <td class="px-4 py-3 text-ms font-semibold border">{complaint._id}</td>
        <td class="px-4 py-3 text-ms font-semibold border">
@@ -82,19 +88,24 @@ export default function GrievanceStatus(props) {
          {complaint.status}
        </td>
        <td class="px-4 py-3 text-ms font-semibold border">
-         {complaint.updatedAt ? complaint.updatedAt : "not updated"}
+         {complaint.updatedAt
+           ? complaint.updatedAt.slice(0, 10) +
+             " at " +
+             complaint.updatedAt.slice(11, 16)
+           : "not updated"}
        </td>
        <td class="px-4 py-3 text-ms font-semibold border">
-         {!((complaint.actionHistory[complaint.actionHistory.length - 1].level ==
-           "3") ||
-           (complaint.status == "resolved")) && (
-             <button
-               className="bg-light-green hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-               onClick={() => handleForward(complaint)}
-             >
-               Forward
-             </button>
-           )}
+         {!(
+           complaint.actionHistory[complaint.actionHistory.length - 1].level ==
+             "3" || complaint.status == "resolved"
+         ) && (
+           <button
+             className="bg-light-green hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+             onClick={() => handleForward(complaint)}
+           >
+             Forward
+           </button>
+         )}
        </td>
        <td class="px-4 py-3 text-ms font-semibold border">
          <button

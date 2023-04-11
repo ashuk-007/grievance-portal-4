@@ -14,7 +14,11 @@ export default function Modal(props) {
         <td class="px-4 py-3 text-ms font-semibold border">
           {action.officerLevel}
         </td>
-        <td class="px-4 py-3 text-ms font-semibold border">{action.time}</td>
+        <td class="px-4 py-3 text-ms font-semibold border">
+          {action.time.slice(0, 10) +
+            " at " +
+            action.time.slice(11, 16)}
+        </td>
         <td class="px-4 py-3 text-ms font-semibold border">
           {action.feedback}
         </td>
@@ -24,14 +28,14 @@ export default function Modal(props) {
   i=1;
   return (
     <div className="fixed inset-0 bg-black bg-opacity-5 backdrop-blur flex justify-center items-center">
-      <div className="w-2/3 flex flex-col ">
+      <div className="w-full md:w-2/3 flex flex-col ">
         <button
-          className="text-xl place-self-end mr-2 text-white"
+          className="text-xl place-self-end mr-4 md:mr-2 text-white"
           onClick={() => props.setVisible(!props.visible)}
         >
           X
         </button>
-        <div className="bg-white p-4 border border-black rounded-lg h-100 overflow-x-scroll overflow-y-scroll flex justify-center">
+        <div className="bg-white p-4 border border-black rounded-lg h-96 md:h-100 overflow-x-scroll overflow-y-scroll flex justify-center">
           <table>
             <thead className='text-center'>Action History</thead>
             <tr>

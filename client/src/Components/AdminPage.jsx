@@ -18,7 +18,7 @@ export default function AdminPage(){
     const token=localStorage.getItem("token")
     const[visible,setVisible]=React.useState("profile")
    return (
-     <div className={token==null?"hidden":"admin-Page h-3/4 "}>
+     <div className={token==null?"":"admin-Page h-3/4 "}>
        <div className="navbar hidden md:block">
          <UserNavbar
            first=""
@@ -33,7 +33,7 @@ export default function AdminPage(){
            first="HOME"
            second="STATUS"
            third="UPDATE"
-           fourth="UPDATE PROFILE"
+           fourth=""
            hidden={true}
            handle={handleClick}
          />

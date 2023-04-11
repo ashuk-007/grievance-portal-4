@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 export default function UserNavbar(props){
     return (
       <>
-        <nav className=" navigation-bar w-full  bg-dark-cyan h-40 md:h-20 flex-row md:flex items-center md:items-center justify-between text-white ">
+        <nav className=" navigation-bar w-full bg-dark-cyan h-40 md:h-20 flex-row md:flex items-center md:items-center justify-between text-white sticky top-0 ">
           <div className="w-70 md:w-48 md:nav-left flex items-center justify-between  ml-4 md:m-0 md:ml-10 pt-4 md:pt-0 ">
             <div className="flex justify-center ml-4 items-center">
               <img src={NAVLOGO} alt="" className="h-14" />

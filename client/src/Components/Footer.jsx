@@ -1,5 +1,5 @@
 import React from "react";
-
+import NAVLOGO from "../Images/nav-logo.png";
 export default function footer(props) {
   return (
     <>
@@ -7,14 +7,10 @@ export default function footer(props) {
         <div class="mx-auto w-full max-w-screen-xl p-4 py-6 lg:py-8">
           <div class="md:flex md:justify-between">
             <div class="mb-6 md:mb-0">
-              <a href="https://flowbite.com/" class="flex items-center">
-                <img
-                  src="https://flowbite.com/docs/images/logo.svg"
-                  class="h-8 mr-3"
-                  alt="FlowBite Logo"
-                />
+              <a href="" class="flex items-center">
+                <img src={NAVLOGO} class="h-8 mr-3" alt="FlowBite Logo" />
                 <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">
-                  Grievsol
+                  आवाज़
                 </span>
               </a>
             </div>
@@ -25,13 +21,13 @@ export default function footer(props) {
                 </h2>
                 <ul class="text-gray-600 dark:text-white font-medium">
                   <li class="mb-4">
-                    <a href="https://flowbite.com/" class="hover:underline">
-                      Flowbite
+                    <a href="" class="hover:underline">
+                      Indian Government
                     </a>
                   </li>
                   <li>
-                    <a href="https://tailwindcss.com/" class="hover:underline">
-                      Tailwind CSS
+                    <a href="" class="hover:underline">
+                      NIA
                     </a>
                   </li>
                 </ul>
@@ -42,19 +38,13 @@ export default function footer(props) {
                 </h2>
                 <ul class="text-gray-600 dark:text-white font-medium">
                   <li class="mb-4">
-                    <a
-                      href="https://github.com/themesberg/flowbite"
-                      class="hover:underline "
-                    >
-                      Github
+                    <a href="" class="hover:underline ">
+                      Facebook
                     </a>
                   </li>
                   <li>
-                    <a
-                      href="https://discord.gg/4eeurUVvTy"
-                      class="hover:underline"
-                    >
-                      Discord
+                    <a href="" class="hover:underline">
+                      Instagram
                     </a>
                   </li>
                 </ul>
@@ -65,12 +55,12 @@ export default function footer(props) {
                 </h2>
                 <ul class="text-gray-600 dark:text-white font-medium">
                   <li class="mb-4">
-                    <a href="#" class="hover:underline">
+                    <a href="" class="hover:underline">
                       Privacy Policy
                     </a>
                   </li>
                   <li>
-                    <a href="#" class="hover:underline">
+                    <a href="" class="hover:underline">
                       Terms &amp; Conditions
                     </a>
                   </li>
@@ -82,14 +72,14 @@ export default function footer(props) {
           <div class="sm:flex sm:items-center sm:justify-between">
             <span class="text-sm text-white sm:text-center dark:text-gray-400">
               © 2023{" "}
-              <a href="https://flowbite.com/" class="hover:underline">
-                Flowbite™
+              <a href="" class="hover:underline">
+                आवाज़™
               </a>
               . All Rights Reserved.
             </span>
             <div class="flex mt-4 space-x-6 sm:justify-center sm:mt-0">
               <a
-                href="#"
+                href=""
                 class="text-gray-500 hover:text-gray-900 dark:hover:text-white"
               >
                 <svg
@@ -107,7 +97,7 @@ export default function footer(props) {
                 <span class="sr-only">Facebook page</span>
               </a>
               <a
-                href="#"
+                href=""
                 class="text-gray-500 hover:text-gray-900 dark:hover:text-white"
               >
                 <svg
@@ -125,7 +115,7 @@ export default function footer(props) {
                 <span class="sr-only">Instagram page</span>
               </a>
               <a
-                href="#"
+                href=""
                 class="text-gray-500 hover:text-gray-900 dark:hover:text-white"
               >
                 <svg
@@ -139,7 +129,7 @@ export default function footer(props) {
                 <span class="sr-only">Twitter page</span>
               </a>
               <a
-                href="#"
+                href=""
                 class="text-gray-500 hover:text-gray-900 dark:hover:text-white"
               >
                 <svg
@@ -157,7 +147,7 @@ export default function footer(props) {
                 <span class="sr-only">GitHub account</span>
               </a>
               <a
-                href="#"
+                href=""
                 class="text-gray-500 hover:text-gray-900 dark:hover:text-white"
               >
                 <svg

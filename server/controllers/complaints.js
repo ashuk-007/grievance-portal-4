@@ -4,6 +4,7 @@ const { BadRequestError, NotFoundError } = require('../errors')
 const User = require('../models/User')
 const Officer = require('../models/Officer')
 const { roleAuthenticationMiddleware } = require('../middleware/roleAuthentication')
+var nodemailer = require('nodemailer');
 
 const getAllComplaints = async (req, res) => {
     const complaints = await Complaint.find({ createdBy: req.user.userId }).sort('createdAt')
@@ -70,7 +71,44 @@ const deleteComplaint = async (req, res) => {
 
 }
 
-module.exports = { getAllComplaints, getComplaint, createComplaint, deleteComplaint };
+const sendReminder = async (req, res) => {
+    const { user: { userId }, params: { id: complaintId } } = req
+    const complaint = await Complaint.findOne({ _id: complaintId })
+    const officer = await Officer.findOne({ _id: complaint.officerID })
+
+    const bod = `Gentle reminder regarding the complaint "${complaint.subject}". Please resolve it as soon as possible!`
+
+    await sendEmail(officer.email, complaint.subject, bod)
+
+    res.status(StatusCodes.OK).json({ complaint })
+}
+
+const sendEmail = async (to, subject, body) => {
+    try {
+        let transporter = nodemailer.createTransport({
+            host: 'smtp.gmail.com',
+            port: 465,
+            secure: true,
+            auth: {
+                user: 'grievanceportal25@gmail.com',
+                pass: 'xtovkwiqixktkimo',
+            },
+        });
+
+        let info = await transporter.sendMail({
+            from: ' "Grievance Portal" <grievanceportal25@gmail.com>',
+            to: to,
+            subject: `Reminder about unresolved grievance "${subject}"`,
+            text: `Message from grievance portal: ${body}`
+        });
+
+        console.log('Message sent: %s', info.messageId);
+    } catch (err) {
+        console.error(err);
+    }
+};
+
+module.exports = { getAllComplaints, getComplaint, createComplaint, deleteComplaint, sendReminder };
 
 // const updateUserComplaint = async (req, res) => {
 //     const {

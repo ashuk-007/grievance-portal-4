@@ -96,7 +96,7 @@ const passTask = async (req, res) => {
 
   const body = `Complaint transferred to the level ${newOfficerId.level} officer`
 
-  const user = await User.findOne({_id: complaint.createdBy})
+  const user = await User.findOne({ _id: complaint.createdBy })
   await sendEmail(user.email, complaint.subject, body)
   // console.log(complaint)
 
@@ -149,8 +149,8 @@ const updateTask = async (req, res) => {
 
   }
 
-  const bod = `Status updated about your grievance ${complaint.subject}`
-  const user = await User.findOne({_id: complaint.createdBy})
+  const bod = `Status updated about your grievance "${complaint.subject}"`
+  const user = await User.findOne({ _id: complaint.createdBy })
   await sendEmail(user.email, complaint.subject, bod)
 
 
@@ -174,9 +174,8 @@ const sendEmail = async (to, subject, body) => {
     let info = await transporter.sendMail({
       from: ' "Grievance Portal" <grievanceportaliiita@gmail.com>',
       to: to,
-      subject: `New Update about your grievance ${subject}`,
-      text: `New Update About your grievance ${subject},
-      Update: ${body}`
+      subject: `New Update about your grievance "${subject}"`,
+      text: `Update: ${body}`
     });
 
     console.log('Message sent: %s', info.messageId);

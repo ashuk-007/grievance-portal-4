@@ -50,7 +50,7 @@ app.use('/api/v1/user', authenticateUser, roleAuthenticationMiddleware('user'), 
 app.use('/api/v1/complaints', authenticateUser, roleAuthenticationMiddleware('user'), complaintsRouter)
 app.use('/api/v1/officer', authenticateOfficer, roleAuthenticationMiddleware('officer'), officerRouter)
 app.use('/api/v1/tasks', authenticateOfficer, roleAuthenticationMiddleware('officer'), tasksRouter)
-app.use('/api/v1/admin/', authenticateAdmin, roleAuthenticationMiddleware('admin'), adminRouter)
+app.use('/api/v1/manage', authenticateAdmin, roleAuthenticationMiddleware('admin'), adminRouter)
 
 
 app.use(notFoundMiddleware);

@@ -2,12 +2,17 @@ const Officer = require('../models/Officer')
 const { StatusCodes } = require('http-status-codes')
 const { BadRequestError, UnauthenticatedError } = require('../errors/')
 
-const officerRegister = async (req, res) => {
+const registerOfficer = async (req, res) => {
 
-    const user = await Officer.create({ ...req.body })
-    const token = user.createJWT()
-    res.status(StatusCodes.CREATED).json({ user: { name: user.name }, token })
+    try {
+        const user = await Officer.create({ ...req.body });
+        const token = user.createJWT();
+        res.status(StatusCodes.CREATED).json({ user: { name: user.name }, token });
+    } catch (error) {
+        // console.log(error);
+        res.status(400).json({ error: error.message });
+    }
 
 }
 
-module.exports = { officerRegister }
+module.exports = { registerOfficer }

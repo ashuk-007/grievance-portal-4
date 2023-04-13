@@ -1,5 +1,6 @@
 import React from "react";
 import axios from "axios";
+import Loading from "./Loading";
 export default function UpdateStatus(props) {
   const token=localStorage.getItem("token")
   const [id, setId] = React.useState("");
@@ -33,6 +34,7 @@ export default function UpdateStatus(props) {
    },
    data: data,
  };
+ const [loading, setLoading] = React.useState(false);
  function onSubmit(e){
   e.preventDefault()
   if(data.status=="" && data.feedback==""){
@@ -40,10 +42,12 @@ export default function UpdateStatus(props) {
     return;
   }
   else{
+    setLoading(true);
     axios
       .request(config2)
       .then((response) => {
         console.log(JSON.stringify(response.data));
+        setLoading(false);
         alert("Status Updated");
         window.location.reload(true);
       })
@@ -211,6 +215,7 @@ export default function UpdateStatus(props) {
                 >
                   Submit
                 </button>
+               { loading && <Loading />}
               </div>
             </>
           )}

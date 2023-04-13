@@ -1,5 +1,6 @@
 import React from "react";
 import axios from "axios";
+import Loading from "./Loading";
 export default function UpdateUserProfile(props){
 
 const [data, setData] = React.useState({
@@ -28,10 +29,12 @@ function handleSubmit(e) {
     alert("Please fill all the fields");
     return;
   } else {
+    setLoading(true);
     axios
       .request(config)
       .then((response) => {
         console.log(JSON.stringify(response.data));
+        setLoading(false);
         alert("Profile Updated Successfully");
         window.location.reload(true);
       })
@@ -41,6 +44,7 @@ function handleSubmit(e) {
       });
   }
 }
+const [loading,setLoading]=React.useState(false);
 function checkLogin() {
   if (!token) {
     navigate("/userAdminLogin");
@@ -129,6 +133,7 @@ function checkLogin() {
             >
               UPDATE
             </button>
+            {loading && <Loading />}
           </div>
         </form>
       </div></>

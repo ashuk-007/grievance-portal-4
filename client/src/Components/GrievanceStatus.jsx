@@ -1,6 +1,7 @@
 import React from "react";
 import axios from "axios";
 import Modal from "./Modal";
+import Loading from "./Loading";
 export default function GrievanceStatus(props) {
   const token = localStorage.getItem("token");
   let config = {
@@ -37,6 +38,7 @@ export default function GrievanceStatus(props) {
   }
   function handleLevelForward(id){
     let level = JSON.stringify({});
+    setLoading(true)
     let config2 = {
       method: "patch",
       maxBodyLength: Infinity,
@@ -50,6 +52,7 @@ export default function GrievanceStatus(props) {
       .request(config2)
       .then((response) => {
         console.log(JSON.stringify(response.data));
+        setLoading(false)
         alert("Forwarded to next level Officer");
         window.location.reload(true);
       })
@@ -58,7 +61,7 @@ export default function GrievanceStatus(props) {
         alert("Error Occured:"+error.response.data.message);
       });  
     }
-    
+    const [loading, setLoading] = React.useState(false); 
     complaints.sort(function (a, b) {
       return a.status > b.status ? 1 : b.status > a.status ? -1 : 0;
     });
@@ -88,7 +91,7 @@ export default function GrievanceStatus(props) {
          {complaint.description}
        </td>
        <td class="px-4 py-3 text-ms font-semibold border">
-         {complaint.userEmail}
+         {complaint.contact}
        </td>
        <td class="px-4 py-3 text-ms font-semibold border">
          {complaint.status}
@@ -104,12 +107,15 @@ export default function GrievanceStatus(props) {
          {complaint.actionHistory[complaint.actionHistory.length - 1]
            .officerLevel != "3" &&
            complaint.status != "resolved" && (
+            <>
              <button
                className="bg-light-green hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                onClick={() => handleForward(complaint)}
              >
                Forward
              </button>
+            {loading && <Loading />}
+             </>
            )}
        </td>
        <td class="px-4 py-3 text-ms font-semibold border">

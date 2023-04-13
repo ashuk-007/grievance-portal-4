@@ -64,7 +64,7 @@ export default function MyGrievance(props) {
     <Fragment>
       <tr
         class={
-          grievance.status != "resolved" ? "text-gray-700 bg-red" : "bg-green"
+          grievance.status != "resolved" ? (grievance.status=="pending"?"bg-red":"bg-yellow"): "bg-green"
         }
       >
         <td class="px-4 py-3 text-ms font-semibold border">

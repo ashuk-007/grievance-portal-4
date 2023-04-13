@@ -37,6 +37,7 @@ const getComplaint = async (req, res) => {
 const createComplaint = async (req, res) => {
   req.body.createdBy = req.user.userId;
 
+
   const user = await User.findOne({ _id: req.user.userId });
 
   const officer = await Officer.findOne({
@@ -51,6 +52,7 @@ const createComplaint = async (req, res) => {
 
   const complaint = await Complaint.create(req.body);
   await complaint.assignOfficer(officer._id);
+  await complaint.assignEmail(user.email);
   await complaint.addFeedback(
     officer.name,
     officer.level,

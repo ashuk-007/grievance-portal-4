@@ -28,10 +28,9 @@ const ComplaintSchema = new mongoose.Schema(
       ref: "User",
       required: [true, "Please provide user id"],
     },
-    userEmail: {
+    contact: {
       type: String,
-      match: [/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/, 'Please provide valid email'
-      ]
+      unique: false,
     },
     officerID: {
       type: mongoose.Types.ObjectId,
@@ -70,17 +69,18 @@ const ComplaintSchema = new mongoose.Schema(
 
 // }
 
-ComplaintSchema.pre('save', async function () {
 
-  const user = await User.findOne({ _id: this.createdBy });
-  this.userEmail = user.email
-
-})
 
 ComplaintSchema.methods.assignOfficer = async function (officer) {
   this.officerID = officer;
   await this.save();
 };
+
+ComplaintSchema.methods.assignEmail = async function (email) {
+  this.contact = email;
+  await this.save();
+};
+
 ComplaintSchema.methods.addFeedback = async function (officerName, officerLevel, feedback) {
   this.actionHistory.push({ officerName, officerLevel, feedback });
   await this.save();

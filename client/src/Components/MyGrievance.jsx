@@ -3,7 +3,7 @@ import axios from "axios";
 import moment from "moment";
 import { Link } from "react-router-dom";
 import Modal from "./Modal";
-
+import Loading from "./Loading";
 export default function MyGrievance(props) {
   const token = localStorage.getItem("token");
 
@@ -38,6 +38,7 @@ export default function MyGrievance(props) {
   }
 
   function handleReminder(id){
+    setLoading(true)
     let config2 = {
       method: "patch",
       maxBodyLength: Infinity,
@@ -49,6 +50,7 @@ export default function MyGrievance(props) {
     axios
       .request(config2)
       .then((response) => {
+         setLoading(false);
         alert("Reminder Sent Successfully")
         window.location.reload(true);
       })
@@ -56,6 +58,8 @@ export default function MyGrievance(props) {
         console.log(error);
       });
   }
+  const [loading, setLoading] = React.useState(false);
+
   const grievanceData = grievances.map((grievance) => (
     <Fragment>
       <tr
@@ -79,12 +83,15 @@ export default function MyGrievance(props) {
           {grievance.status != "resolved" ? (
             grievance.lastRemindedAt == null || new Date().getDate() - new Date(grievance.lastRemindedAt).getDate()>1
             ) ? (
+              <>
               <button
                 className="bg-light-green hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                 onClick={()=>handleReminder(grievance._id)}
               >
                 reminder
               </button>
+              {loading==true && <Loading /> }
+              </>
             ) : (
               `Cooldown for ${
               7-(  new Date().getDate() -

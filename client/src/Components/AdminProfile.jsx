@@ -60,9 +60,9 @@ export default function AdminProfile(props){
             </h4>
           </div>
           <div className="name-input flex justify-center items-center mt-6 md:mt-10">
-            <h4 className="text-xl md:text-3xl font-bold ml-6">Level:</h4>
+            <h4 className="text-xl md:text-3xl font-bold ml-6">Designation:</h4>
             <h4 className="text-xl md:text-3xl ml-4 md:ml-8">
-              {officerData.level}
+              {officerData.level==1?"Gram Panchayat":(officerData.level==2?"Tehsildar":"Municipal Corporation officer")}
             </h4>
           </div>
           <div className="name-input flex justify-center items-center mt-6 md:mt-10">

@@ -88,6 +88,9 @@ export default function GrievanceStatus(props) {
          {complaint.description}
        </td>
        <td class="px-4 py-3 text-ms font-semibold border">
+         {complaint.userEmail}
+       </td>
+       <td class="px-4 py-3 text-ms font-semibold border">
          {complaint.status}
        </td>
        <td class="px-4 py-3 text-ms font-semibold border">
@@ -98,17 +101,16 @@ export default function GrievanceStatus(props) {
            : "not updated"}
        </td>
        <td class="px-4 py-3 text-ms font-semibold border">
-         {(
-           complaint.actionHistory[complaint.actionHistory.length - 1].officerLevel !=
-             "3" && complaint.status != "resolved"
-         ) && (
-           <button
-             className="bg-light-green hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-             onClick={() => handleForward(complaint)}
-           >
-             Forward
-           </button>
-         )}
+         {complaint.actionHistory[complaint.actionHistory.length - 1]
+           .officerLevel != "3" &&
+           complaint.status != "resolved" && (
+             <button
+               className="bg-light-green hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+               onClick={() => handleForward(complaint)}
+             >
+               Forward
+             </button>
+           )}
        </td>
        <td class="px-4 py-3 text-ms font-semibold border">
          <button
@@ -153,6 +155,7 @@ export default function GrievanceStatus(props) {
               <th class="px-4 py-3">Department</th>
               <th class="px-4 py-3">Subject</th>
               <th class="px-4 py-3">Description</th>
+              <th class="px-4 py-3">Created by</th>
               <th class="px-4 py-3 mx-auto">Status</th>
               <th class="px-4 py-3 mx-auto">UpdatedTime</th>
               <th class="px-4 py-3 mx-auto">Forward</th>

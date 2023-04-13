@@ -12,7 +12,7 @@ export default function Modal(props) {
           {action.officerName}
         </td>
         <td class="px-4 py-3 text-ms font-semibold border">
-          {action.officerLevel}
+          {action.officerLevel==1?"Gram panchayat":action.officerLevel==2?"Tehsildar":"Municipal Corporation Officer"}
         </td>
         <td class="px-4 py-3 text-ms font-semibold border">
           {action.time.slice(0, 10) +
@@ -41,7 +41,7 @@ export default function Modal(props) {
             <tr>
               <th>S No.</th>
               <th>Officer Name</th>
-              <th>Officer Level</th>
+              <th>Officer Designation</th>
               <th>Time of action</th>
               <th>Feedback</th>
             </tr>

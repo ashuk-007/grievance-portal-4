@@ -9,6 +9,9 @@ const User = require("../models/User");
 const Officer = require("../models/Officer");
 var nodemailer = require('nodemailer');
 // const { findById } = require("../models/User");
+const accountSid = 'AC4109f98ba850a5476ba4581780d566ab';
+const authToken = '125e8970acfa7234ca91f7e4b1032207';
+const client = require('twilio')(accountSid, authToken);
 
 const getAllTasks = async (req, res) => {
   // console.log(req.officer);
@@ -98,6 +101,9 @@ const passTask = async (req, res) => {
 
   const user = await User.findOne({ _id: complaint.createdBy })
   await sendEmail(user.email, complaint.subject, body)
+  const userPhone = "+91" + user.phone.toString();
+  // console.log(userPhone)
+  await sendSMS(userPhone, body)
   // console.log(complaint)
 
   res.status(StatusCodes.OK).json({ complaint });
@@ -152,6 +158,9 @@ const updateTask = async (req, res) => {
   const bod = `Status updated about your grievance "${complaint.subject}"`
   const user = await User.findOne({ _id: complaint.createdBy })
   await sendEmail(user.email, complaint.subject, bod)
+  const userPhone = "+91" + user.phone.toString();
+  // console.log(userPhone)
+  await sendSMS(userPhone, bod)
 
 
   // console.log(complaint)
@@ -179,6 +188,20 @@ const sendEmail = async (to, subject, body) => {
     });
 
     console.log('Message sent: %s', info.messageId);
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+const sendSMS = async (to, body) => {
+  try {
+    const message = await client.messages.create({
+      body: body,
+      from: '+15075162002',
+      to: to
+    });
+
+    console.log('Message sent: %s', message.sid);
   } catch (err) {
     console.error(err);
   }

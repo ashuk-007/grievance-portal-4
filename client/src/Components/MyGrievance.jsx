@@ -36,6 +36,26 @@ export default function MyGrievance(props) {
     setActionHistory(grievance.actionHistory)
     setIsVisible((prev) => !prev)
   }
+
+  function handleReminder(id){
+    let config2 = {
+      method: "patch",
+      maxBodyLength: Infinity,
+      url: `http://localhost:3000/api/v1/complaints/reminder/${id}`,
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+    axios
+      .request(config2)
+      .then((response) => {
+        alert("Reminder Sent Successfully")
+        window.location.reload(true);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
   const grievanceData = grievances.map((grievance) => (
     <Fragment>
       <tr
@@ -56,11 +76,24 @@ export default function MyGrievance(props) {
           {grievance.status}
         </td>
         <td class="px-4 py-3 text-ms font-semibold border">
-        { grievance.status!="resolved"?
-          <button className="bg-light-green hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" >
-            reminder
-          </button>:""
-        }
+          {grievance.status != "resolved" ? (
+            grievance.lastRemindedAt == null || new Date().getDate() - new Date(grievance.lastRemindedAt).getDate()>1
+            ) ? (
+              <button
+                className="bg-light-green hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                onClick={()=>handleReminder(grievance._id)}
+              >
+                reminder
+              </button>
+            ) : (
+              `Cooldown for ${
+              7-(  new Date().getDate() -
+                  new Date(grievance.lastRemindedAt).getDate())
+              } more days`
+            )
+          : (
+            "resolved"
+          )}
         </td>
         <td class="px-4 py-3 text-ms font-semibold border">
           <button

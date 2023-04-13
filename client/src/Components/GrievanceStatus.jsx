@@ -98,9 +98,9 @@ export default function GrievanceStatus(props) {
            : "not updated"}
        </td>
        <td class="px-4 py-3 text-ms font-semibold border">
-         {!(
-           complaint.actionHistory[complaint.actionHistory.length - 1].level ==
-             "3" || complaint.status == "resolved"
+         {(
+           complaint.actionHistory[complaint.actionHistory.length - 1].officerLevel !=
+             "3" && complaint.status != "resolved"
          ) && (
            <button
              className="bg-light-green hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"

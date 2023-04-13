@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const Officer = require("./Officer");
+const User = require("./User");
 
 const ComplaintSchema = new mongoose.Schema(
   {
@@ -28,6 +28,12 @@ const ComplaintSchema = new mongoose.Schema(
       ref: "User",
       required: [true, "Please provide user id"],
     },
+    userEmail: {
+      type: String,
+      match: [/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/, 'Please provide valid email'
+      ],
+      unique: true,
+    },
     officerID: {
       type: mongoose.Types.ObjectId,
       ref: "Officer",
@@ -38,11 +44,6 @@ const ComplaintSchema = new mongoose.Schema(
           type: Date,
           default: Date.now(),
         },
-        // officerID: {
-        //   type: mongoose.Types.ObjectId,
-        //   ref: "Officer",
-        //   required: [true, "Please provide officer id for action history"],
-        // },
         officerName: {
           type: String,
           required: [true, "Please provide officer name for action history"],
@@ -69,6 +70,13 @@ const ComplaintSchema = new mongoose.Schema(
 // ComplaintSchema.methods.sendMail = async function (officer) {
 
 // }
+
+ComplaintSchema.pre('save', async function () {
+
+  const user = await User.findOne({ _id: this.createdBy });
+  this.userEmail = user.email
+
+})
 
 ComplaintSchema.methods.assignOfficer = async function (officer) {
   this.officerID = officer;

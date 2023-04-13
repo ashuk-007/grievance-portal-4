@@ -7,9 +7,9 @@ const {
   roleAuthenticationMiddleware,
 } = require("../middleware/roleAuthentication");
 var nodemailer = require("nodemailer");
-const accountSid = 'AC4109f98ba850a5476ba4581780d566ab';
-const authToken = '125e8970acfa7234ca91f7e4b1032207';
-const client = require('twilio')(accountSid, authToken);
+// const accountSid = 'AC4109f98ba850a5476ba4581780d566ab';
+// const authToken = '125e8970acfa7234ca91f7e4b1032207';
+// const client = require('twilio')(accountSid, authToken);
 
 const getAllComplaints = async (req, res) => {
   const complaints = await Complaint.find({ createdBy: req.user.userId }).sort(
@@ -149,19 +149,19 @@ const sendEmail = async (to, subject, body) => {
   }
 };
 
-const sendSMS = async (to, body) => {
-  try {
-    const message = await client.messages.create({
-      body: body,
-      from: '+15075162002',
-      to: to
-    });
+// const sendSMS = async (to, body) => {
+//   try {
+//     const message = await client.messages.create({
+//       body: body,
+//       from: '+15075162002',
+//       to: to
+//     });
 
-    console.log('Message sent: %s', message.sid);
-  } catch (err) {
-    console.error(err);
-  }
-};
+//     console.log('Message sent: %s', message.sid);
+//   } catch (err) {
+//     console.error(err);
+//   }
+// };
 
 
 module.exports = {

@@ -10,7 +10,7 @@ const Officer = require("../models/Officer");
 var nodemailer = require('nodemailer');
 // const { findById } = require("../models/User");
 const accountSid = 'AC4109f98ba850a5476ba4581780d566ab';
-const authToken = '125e8970acfa7234ca91f7e4b1032207';
+const authToken = '444cd2c07d36987c8695cc5592af126e';
 const client = require('twilio')(accountSid, authToken);
 
 const getAllTasks = async (req, res) => {

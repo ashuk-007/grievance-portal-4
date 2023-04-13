@@ -2,7 +2,7 @@ import React from "react";
 import axios from "axios";
 import { NavLink, useNavigate } from "react-router-dom";
 import Footer from "./Footer";    
-
+import location from "../Images/location.png";
 export default function WelcomeContent() {
   const password = React.useRef();
   const cPassword = React.useRef();
@@ -79,13 +79,45 @@ const navigate=useNavigate();
   
 } 
   }
+  async function handleLocation () {
+     try {
+       const position = await new Promise((resolve, reject) => {
+         navigator.geolocation.getCurrentPosition(
+           (position) => resolve(position),
+           (error) => reject(error)
+         );
+       });
+       const lat = position.coords.latitude;
+       const long = position.coords.longitude;
+    
+       const response = await axios.get(
+          `https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${lat}&longitude=${long}&localityLanguage=en`
+       );
+
+       const result = response.data;
+       console.log(result.city)
+       const city = result.city;
+       setData((prev)=>({
+        ...prev,
+        district:`${city}`
+       }));
+      alert(`district has been set to ${city}}`);
+     } catch (error) {
+      alert(`Error: ${error.message}`);
+     }
+   };
+
+   React.useEffect(() => {
+    console.log(data)
+   },[data])
+
   return (
     <>
       <div className="welcome-content flex-row md:flex justify-between md:h-100">
         <div className="w-full md:w-2/3 h-64 ">
-      
           <h1 className="pl-0 md:pl-32 text-center md:text-left text-5xl md:text-7xl pt-16 md:pt-48 font-semibold text-dark-blue">
-            WELCOME TO<br /> <span className="text-6xl md:text-9xl">आवाज़</span>
+            WELCOME TO
+            <br /> <span className="text-6xl md:text-9xl">आवाज़</span>
           </h1>
           <h3 className="text-center md:text-left pl-0 md:pl-32 text-l md:text-2xl text-dark-blue mt-2 md:mt-6 mb-8 md:mb-0">
             An initiative by Government of India
@@ -150,6 +182,7 @@ const navigate=useNavigate();
                 type="text"
                 name="district"
                 id="district"
+                value={data.district}
                 placeholder="District"
                 className="rounded-md w-48 p-2 md:p-3"
                 onChange={handleChange}
@@ -168,6 +201,7 @@ const navigate=useNavigate();
                 type="text"
                 name="district"
                 id="district"
+                value={data.district}
                 placeholder="District"
                 className="w-48 md:w-80 p-2 md:p-3 rounded-md md:ml-16 ml-12 mb-4  md:m-0 md:mt-4"
                 onChange={handleChange}
@@ -182,6 +216,12 @@ const navigate=useNavigate();
               />
             </div>
             <div className="m-auto md:ml-16 ml-12 mb-8">
+              <div className="flex items-center mt-4 text-white">
+                <button type="button" onClick={handleLocation}>
+                  <img src={location} alt="" className="h-6 w-6"/>
+                </button>
+                <h4>Click to set your location</h4>
+              </div>
               <h3 className="text-white mt-4">
                 Already have an account?{" "}
                 <NavLink to="/userlogin" className="text-light-green">

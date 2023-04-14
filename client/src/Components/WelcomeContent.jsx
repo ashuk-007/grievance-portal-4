@@ -3,6 +3,7 @@ import axios from "axios";
 import { NavLink, useNavigate } from "react-router-dom";
 import Footer from "./Footer";    
 import location from "../Images/location.png";
+import Loading from "./Loading";
 export default function WelcomeContent() {
   const password = React.useRef();
   const cPassword = React.useRef();
@@ -59,11 +60,13 @@ const navigate=useNavigate();
     else{
       data.district = data.district[0].toUpperCase() + data.district.slice(1);
       console.log(data)
+      setLoading(true);
    try {
       const response = await axios.post(
         "http://localhost:3000/api/v1/auth/register",
         data
       );
+      setLoading(false);
       alert("User created successfully")
       console.log(response)
        navigate("/userlogin", {
@@ -110,7 +113,7 @@ const navigate=useNavigate();
    React.useEffect(() => {
     console.log(data)
    },[data])
-
+   const [loading,setLoading]=React.useState(false)
   return (
     <>
       <div className="welcome-content flex-row md:flex justify-between md:h-100">
@@ -237,6 +240,7 @@ const navigate=useNavigate();
               >
                 Create Account
               </button>
+              {loading && <Loading/>}
             </div>
           </form>
         </div>

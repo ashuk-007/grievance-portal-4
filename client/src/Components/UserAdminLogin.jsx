@@ -3,6 +3,7 @@ import Navbar from "./Navbar";
 import Footer from "./Footer";   
 import axios from "axios";
 import { NavLink, useNavigate } from "react-router-dom";
+import Loading from "./Loading";
 function Login(props){
   const [loginData, setLoginData] = React.useState({email:"", password:""});
   const [user,setUser]=React.useState("Officer");
@@ -25,20 +26,24 @@ function Login(props){
  };
   async function handleSubmit(e){
     e.preventDefault();
+    setLoading(true);
     if(loginData.email=="" || loginData.password==""){
+      setLoading(false)
       alert("Please fill all the fields");
     }
-    else{
+    else{ 
       try {
       axios
         .request(config)
         .then((response) => {
           console.log(JSON.stringify(response.data));
           localStorage.setItem("token", response.data.token);
+          setLoading(false);
           {user=="Citizen"?navigate("/userpage"):navigate("/adminpage")}
       })
         .catch((error) => {
           if(error.response.status==401){
+            setLoading(false)
             alert("Invalid Credentials");
           }
         });
@@ -48,6 +53,7 @@ function Login(props){
     }
     }
   }
+  const [loading,setLoading]=React.useState(false);
   return (
     <>
       <Navbar />
@@ -158,6 +164,7 @@ function Login(props){
                 >
                   Sign in
                 </button>
+                {loading && <Loading />}
               </div>
             </form>
 

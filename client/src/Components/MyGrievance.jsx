@@ -124,34 +124,38 @@ function checkLogin() {
   }
 }
   return (
-    <>{checkLogin}
-    <div
-      className={
-        props.visible == "view"
-          ? "p-4 view-grievance dashboard w-full md:w-3/4 h-100  pt-10  "
-          : "hidden"
-      }
-    >
-      <h1 className="text-center text-4xl md:text-7xl">MY GRIEVANCES</h1>
-      <section class="container mx-auto font-mono">
-        <div class="w-full pt-4 mb-8 overflow-y-scroll overflow-x-scroll h-120 rounded-lg shadow-lg">
-          <div class="w-full overflow-x-auto">
-            <table class="w-full">
-              <thead>
-                <tr class="text-md font-semibold tracking-wide text-left text-gray-900 bg-gray-100 uppercase border-b border-gray-600">
-                  <th class="px-4 py-3">Date</th>
-                  <th class="px-4 py-3">Department</th>
-                  <th class="px-4 py-3">Grievance</th>
-                  <th class="px-4 py-3">Status</th>
-                  <th class="px-4 py-3">Reminder</th>
-                  <th class="px-4 py-3 mx-auto">View Action History</th>
-                </tr>
-              </thead>
-              <tbody class="bg-white">{grievanceData}</tbody>
-            </table>
+    <>
+      {checkLogin}
+      <div
+        className={
+          props.visible == "view"
+            ? "p-4 view-grievance dashboard w-full md:w-3/4 h-100  pt-10  "
+            : "hidden"
+        }
+      >
+        <h1 className="text-center text-4xl md:text-7xl font-semibold">
+          MY GRIEVANCES
+        </h1>
+        <section class="container mx-auto font-mono flex justify-center">
+          <div class=" pt-4 mb-8 overflow-y-scroll overflow-x-scroll h-120  mt-4 border-2 shadow-2xl rounded-xl p-6 overflow-hidden w-5/6">
+            <div class="w-full overflow-x-auto">
+              <table class="w-full">
+                <thead>
+                  <tr class="text-md font-semibold tracking-wide text-left text-gray-900 bg-gray-100 uppercase border-b border-gray-600">
+                    <th class="px-4 py-3">Date</th>
+                    <th class="px-4 py-3">Department</th>
+                    <th class="px-4 py-3">Grievance</th>
+                    <th class="px-4 py-3">Status</th>
+                    <th class="px-4 py-3">Reminder</th>
+                    <th class="px-4 py-3 mx-auto">View Action History</th>
+                  </tr>
+                </thead>
+                <tbody class="bg-white">{grievanceData}</tbody>
+              </table>
+            </div>
           </div>
-        </div>
-      </section>
-    </div></>
+        </section>
+      </div>
+    </>
   );
 }

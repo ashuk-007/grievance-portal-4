@@ -38,7 +38,7 @@ export default function AdminProfile(props){
         {checkLogin}
         <div
           className={
-            props.visible == "profile" && loading==false
+            props.visible == "profile" && loading == false
               ? "p-4 view-profile-content dashboard w-full md:w-3/4 h-100  pt-16 "
               : "hidden"
           }
@@ -47,40 +47,52 @@ export default function AdminProfile(props){
           <h1 className="text-center text-3xl  md:text-7xl font-semibold">
             YOUR PROFILE
           </h1>
-          <div className="name-input flex justify-center items-center mt-12 md:mt-24">
-            <h4 className="text-xl md:text-3xl font-bold ml-6">Name:</h4>
-            <h4 className="text-xl md:text-3xl ml-4 md:ml-8">
-              {officerData.name}
-            </h4>
-          </div>
-          <div className="name-input flex justify-center items-center mt-6 md:mt-10">
-            <h4 className="text-xl md:text-3xl font-bold ml-6">Email:</h4>
-            <h4 className="text-xl md:text-3xl ml-4 md:ml-8">
-              {officerData.email}
-            </h4>
-          </div>
-          <div className="name-input flex justify-center items-center mt-6 md:mt-10">
-            <h4 className="text-xl md:text-3xl font-bold ml-6">Designation:</h4>
-            <h4 className="text-xl md:text-3xl ml-4 md:ml-8">
-              {officerData.level==1?"Gram Panchayat":(officerData.level==2?"Tehsildar":"Municipal Corporation officer")}
-            </h4>
-          </div>
-          <div className="name-input flex justify-center items-center mt-6 md:mt-10">
-            <h4 className="text-xl md:text-3xl font-bold ml-6">Department:</h4>
-            <h4 className="text-xl md:text-3xl ml-4 md:ml-8">
-              {officerData.department}
-            </h4>
-          </div>
-          <div className="name-input flex justify-center items-center mt-6 md:mt-10">
-            <h4 className="text-xl md:text-3xl text-center font-bold ml-6">
-              District:
-            </h4>
-            <h4 className="text-xl md:text-3xl text-center ml-4 md:ml-8">
-              {officerData.district}
-            </h4>
+          <div className="flex justify-center">
+            <div className="border-2 mix-blend- shadow-2xl w-4/6 mt-12 md:mt-24 p-8 rounded-xl">
+              <div className="name-input flex justify-center items-center">
+                <h4 className="text-xl md:text-3xl font-bold ml-6">Name:</h4>
+                <h4 className="text-xl md:text-3xl ml-4 md:ml-8">
+                  {officerData.name}
+                </h4>
+              </div>
+              <div className="name-input flex justify-center items-center mt-6 md:mt-10">
+                <h4 className="text-xl md:text-3xl font-bold ml-6">Email:</h4>
+                <h4 className="text-xl md:text-3xl ml-4 md:ml-8">
+                  {officerData.email}
+                </h4>
+              </div>
+              <div className="name-input flex justify-center items-center mt-6 md:mt-10">
+                <h4 className="text-xl md:text-3xl font-bold ml-6">
+                  Designation:
+                </h4>
+                <h4 className="text-xl md:text-3xl ml-4 md:ml-8">
+                  {officerData.level == 1
+                    ? "Gram Panchayat"
+                    : officerData.level == 2
+                    ? "Tehsildar"
+                    : "Municipal Corporation officer"}
+                </h4>
+              </div>
+              <div className="name-input flex justify-center items-center mt-6 md:mt-10">
+                <h4 className="text-xl md:text-3xl font-bold ml-6">
+                  Department:
+                </h4>
+                <h4 className="text-xl md:text-3xl ml-4 md:ml-8">
+                  {officerData.department}
+                </h4>
+              </div>
+              <div className="name-input flex justify-center items-center mt-6 md:mt-10">
+                <h4 className="text-xl md:text-3xl text-center font-bold ml-6">
+                  District:
+                </h4>
+                <h4 className="text-xl md:text-3xl text-center ml-4 md:ml-8">
+                  {officerData.district}
+                </h4>
+              </div>
+            </div>
           </div>
         </div>
-        {loading==true && <Loading/>}
+        {loading == true && <Loading />}
       </>
     );
 }

@@ -37,52 +37,56 @@ export default function UserProfile(props){
   }
   const [loading, setLoading] = React.useState(true);
    return (
-      
-      <>
-        {checkLogin}
-        <div
-          className={
-            props.visible == "profile" && loading==false
-              ? "p-4 view-profile-content dashboard w-full md:w-3/4 h-100  pt-16 "
-              : "hidden"
-          }
-        >
-          <img src={pfp} alt="pfp" className="mx-auto md:hidden w-1/2 mb-16" />
-          <h1 className="text-center text-3xl  md:text-7xl">YOUR PROFILE</h1>
-          <div className="name-input flex justify-center items-center mt-12 md:mt-24">
-            <h4 className="text-xl md:text-3xl font-bold ml-6">Name:</h4>
-            <h4 className="text-xl md:text-3xl ml-4 md:ml-8">
-              {userData.name}
-            </h4>
-          </div>
-          <div className="name-input flex justify-center items-center mt-6 md:mt-10">
-            <h4 className="text-xl md:text-3xl font-bold ml-6">Email:</h4>
-            <h4 className="text-xl md:text-3xl ml-4 md:ml-8">
-              {userData.email}
-            </h4>
-          </div>
-          <div className="name-input flex justify-center items-center mt-6 md:mt-10">
-            <h4 className="text-xl md:text-3xl font-bold ml-6">
-              Phone Number:
-            </h4>
-            <h4 className="text-xl md:text-3xl ml-4 md:ml-8">
-              {userData.phone}
-            </h4>
-          </div>
-          <div className="name-input flex justify-center items-center mt-6 md:mt-10">
-            <h4 className="text-xl md:text-3xl font-bold ml-6">Age:</h4>
-            <h4 className="text-xl md:text-3xl ml-4 md:ml-8">{userData.age}</h4>
-          </div>
-          <div className="name-input flex justify-center items-center mt-6 md:mt-10">
-            <h4 className="text-xl md:text-3xl text-center font-bold ml-6">
-              District:
-            </h4>
-            <h4 className="text-xl md:text-3xl  ml-4 md:ml-8">
-              {userData.district}
-            </h4>
-          </div>
-        </div>
-        {loading==true && <Loading/>}
-      </>
-    );
+     <>
+       {checkLogin}
+       <div
+         className={
+           props.visible == "profile" && loading == false
+             ? "p-4 view-profile-content dashboard w-full md:w-3/4 h-100  pt-16 "
+             : "hidden"
+         }
+       >
+         <h1 className="text-center text-3xl  md:text-7xl font-semibold">YOUR PROFILE</h1>
+         <div className="flex justify-center">
+           <div className="border-2 mix-blend- shadow-2xl w-4/6 mt-12 md:mt-24 p-8 rounded-xl">
+             <div className="name-input flex justify-center items-center">
+               <h4 className="text-xl md:text-3xl font-bold ml-6">Name:</h4>
+               <h4 className="text-xl md:text-3xl ml-4 md:ml-8">
+                 {userData.name}
+               </h4>
+             </div>
+             <div className="name-input flex justify-center items-center mt-6 md:mt-10">
+               <h4 className="text-xl md:text-3xl font-bold ml-6">Email:</h4>
+               <h4 className="text-xl md:text-3xl ml-4 md:ml-8">
+                 {userData.email}
+               </h4>
+             </div>
+             <div className="name-input flex justify-center items-center mt-6 md:mt-10">
+               <h4 className="text-xl md:text-3xl font-bold ml-6">
+                 Phone Number:
+               </h4>
+               <h4 className="text-xl md:text-3xl ml-4 md:ml-8">
+                 {userData.phone}
+               </h4>
+             </div>
+             <div className="name-input flex justify-center items-center mt-6 md:mt-10">
+               <h4 className="text-xl md:text-3xl font-bold ml-6">Age:</h4>
+               <h4 className="text-xl md:text-3xl ml-4 md:ml-8">
+                 {userData.age}
+               </h4>
+             </div>
+             <div className="name-input flex justify-center items-center mt-6 md:mt-10">
+               <h4 className="text-xl md:text-3xl text-center font-bold ml-6">
+                 District:
+               </h4>
+               <h4 className="text-xl md:text-3xl  ml-4 md:ml-8">
+                 {userData.district}
+               </h4>
+             </div>
+           </div>
+         </div>
+       </div>
+       {loading == true && <Loading />}
+     </>
+   );
 }//05326456990

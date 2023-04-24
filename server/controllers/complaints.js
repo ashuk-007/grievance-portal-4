@@ -1,4 +1,5 @@
 const Complaint = require("../models/Complaint");
+const OfficerRatings = require("../models/OfficerRatings")
 const { StatusCodes } = require("http-status-codes");
 const { BadRequestError, NotFoundError, UnauthenticatedError } = require("../errors");
 const User = require("../models/User");
@@ -164,21 +165,27 @@ const rateOfficer = async (req, res) => {
   } = req;
   // console.log(req);
   const numberofstars = req.body.rating;
-  console.log(numberofstars);
-
   const complaint = await Complaint.findOne({ _id: complaintId });
-  console.log(complaint)
 
   if (complaint.status !== "resolved") {
     throw new BadRequestError("Can't give feedback unless complaint is resolved.");
   }
+  if (complaint.isRated) {
+    throw new BadRequestError("Complaint already rated.")
+  }
 
-  const officer = await Officer.findById({ _id: complaint.officerID });
-  console.log(officer)
-  await officer.addRating(numberofstars, complaintId, userId);
+  const officer = await Officer.findOne({ _id: complaint.officerID });
+
+
+  const officerRating = await OfficerRatings.findOne({ OfficerId: complaint.officerID });
+
+  // console.log(officerRating);
+  await officerRating.addRating(numberofstars, complaintId, userId);
+  await complaint.setRated();
 
   const bod = `You have been rated! \nComplaint subject : ${complaint.subject} \nRating : ${numberofstars}`;
 
+  console.log(officer.email, complaint.subject, bod);
   await sendEmail(officer.email, complaint.subject, bod);
 
   res.status(StatusCodes.OK).json({ officer });

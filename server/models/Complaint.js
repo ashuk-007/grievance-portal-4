@@ -90,6 +90,11 @@ ComplaintSchema.methods.addFeedback = async function (officerName, officerLevel,
   await this.save();
 };
 
+ComplaintSchema.methods.setRated = async function () {
+  this.isRated = true;
+  await this.save();
+};
+
 ComplaintSchema.methods.updateStatus = async function (status) {
   this.status = status;
   await this.save();

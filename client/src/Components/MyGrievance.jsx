@@ -36,7 +36,29 @@ export default function MyGrievance(props) {
     setActionHistory(grievance.actionHistory)
     setIsVisible((prev) => !prev)
   }
+  function handleReopen(id){
+    let config = {
+      method: "patch",
+      maxBodyLength: Infinity,
+      url: `http://localhost:3000/api/v1/complaints/${id}`,
+      headers: {
+        Authorization:
+          `Bearer ${token}`,
+      },
+    };
 
+    axios
+      .request(config)
+      .then((response) => {
+        console.log(JSON.stringify(response.data));
+        alert("Reopened Successfully");
+        window.location.reload(true);
+      })
+      .catch((error) => {
+        console.log(error);
+        alert("Error Occured")
+      });
+  }
   function handleReminder(id){
     setLoading(true)
     let config2 = {
@@ -56,6 +78,7 @@ export default function MyGrievance(props) {
       })
       .catch((error) => {
         console.log(error);
+        alert("Error Occured")
       });
   }
   const [loading, setLoading] = React.useState(false);
@@ -64,7 +87,11 @@ export default function MyGrievance(props) {
     <Fragment>
       <tr
         class={
-          grievance.status != "resolved" ? (grievance.status=="pending"?"bg-red":"bg-yellow"): "bg-green"
+          grievance.status != "resolved"
+            ? grievance.status == "pending"
+              ? "bg-red"
+              : "bg-yellow"
+            : "bg-green"
         }
       >
         <td class="px-4 py-3 text-ms font-semibold border">
@@ -81,24 +108,27 @@ export default function MyGrievance(props) {
         </td>
         <td class="px-4 py-3 text-ms font-semibold border">
           {grievance.status != "resolved" ? (
-            grievance.lastRemindedAt == null || new Date().getDate() - new Date(grievance.lastRemindedAt).getDate()>1
-            ) ? (
+            grievance.lastRemindedAt == null ||
+            new Date().getDate() -
+              new Date(grievance.lastRemindedAt).getDate() >
+              1 ? (
               <>
-              <button
-                className="bg-light-green hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-                onClick={()=>handleReminder(grievance._id)}
-              >
-                reminder
-              </button>
-              {loading==true && <Loading /> }
+                <button
+                  className="bg-light-green hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                  onClick={() => handleReminder(grievance._id)}
+                >
+                  reminder
+                </button>
+                {loading == true && <Loading />}
               </>
             ) : (
               `Cooldown for ${
-              7-(  new Date().getDate() -
+                7 -
+                (new Date().getDate() -
                   new Date(grievance.lastRemindedAt).getDate())
               } more days`
             )
-          : (
+          ) : (
             "resolved"
           )}
         </td>
@@ -114,6 +144,26 @@ export default function MyGrievance(props) {
             setVisible={setIsVisible}
             data={actionHistory}
           />
+        </td>
+        <td class="px-4 py-3 text-ms font-semibold border">
+          {grievance.status=="resolved" && <form>
+            <select name="rating" id="rating" className="rounded-2xl">
+              <option value="">--Rate--</option>
+              <option value={1}>1 Star</option>
+              <option value={2}>2 Star</option>
+              <option value={3}>3 Star</option>
+              <option value={4}>4 Star</option>
+              <option value={5}>5 Star</option>
+            </select>
+          </form>}
+        </td>
+        <td class="px-4 py-3 text-ms font-semibold border">
+          {grievance.status=="resolved" && <button
+            className="bg-light-green hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ml-8"
+            onClick={() => handleReopen(grievance._id)}
+          >
+           Reopen
+          </button>}
         </td>
       </tr>
     </Fragment>
@@ -148,6 +198,8 @@ function checkLogin() {
                     <th class="px-4 py-3">Status</th>
                     <th class="px-4 py-3">Reminder</th>
                     <th class="px-4 py-3 mx-auto">View Action History</th>
+                    <th class="px-4 py-3 mx-auto">Give Rating</th>
+                    <th class="px-4 py-3 mx-auto">Reopen</th>
                   </tr>
                 </thead>
                 <tbody class="bg-white">{grievanceData}</tbody>

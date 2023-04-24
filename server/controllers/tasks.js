@@ -8,10 +8,12 @@ const {
 const User = require("../models/User");
 const Officer = require("../models/Officer");
 var nodemailer = require('nodemailer');
+const { config } = require("dotenv");
 // const { findById } = require("../models/User");
 const accountSid = 'AC4109f98ba850a5476ba4581780d566ab';
-const authToken = '444cd2c07d36987c8695cc5592af126e';
+const authToken = process.env.TWILIO_AUTH;
 const client = require('twilio')(accountSid, authToken);
+require('dotenv').config();
 
 const getAllTasks = async (req, res) => {
   // console.log(req.officer);

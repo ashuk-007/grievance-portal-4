@@ -153,7 +153,7 @@ const sendReminder = async (req, res) => {
 
   const bod = `Gentle reminder regarding the complaint "${complaint.subject}". Please resolve it as soon as possible!`;
 
-  await sendEmail(officer.email, complaint.subject, bod);
+  await sendEmail(officer.email, complaint.subject, bod, "Reminder about Grievance");
 
   res.status(StatusCodes.OK).json({ complaint });
 };
@@ -185,13 +185,12 @@ const rateOfficer = async (req, res) => {
 
   const bod = `You have been rated! \nComplaint subject : ${complaint.subject} \nRating : ${numberofstars}`;
 
-  console.log(officer.email, complaint.subject, bod);
-  await sendEmail(officer.email, complaint.subject, bod);
+  await sendEmail(officer.email, complaint.subject, bod, "You have been rated!");
 
   res.status(StatusCodes.OK).json({ officer });
 };
 
-const sendEmail = async (to, subject, body) => {
+const sendEmail = async (to, subject, body, head) => {
   try {
     let transporter = nodemailer.createTransport({
       host: "smtp.gmail.com",
@@ -206,7 +205,7 @@ const sendEmail = async (to, subject, body) => {
     let info = await transporter.sendMail({
       from: ' "Grievance Portal" <grievanceportal25@gmail.com>',
       to: to,
-      subject: `Reminder about unresolved grievance "${subject}"`,
+      subject: head,
       text: `Message from grievance portal: ${body}`,
     });
 

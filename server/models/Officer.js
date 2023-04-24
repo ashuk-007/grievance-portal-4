@@ -44,7 +44,30 @@ const OfficerSchema = new mongoose.Schema({
         type: String,
         enum: ['user', 'admin', 'officer'],
         default: 'officer',
-    }
+    },
+    avgRating: {
+        type: Number,
+        default: null,
+        required: false,
+    },
+
+    ratings: [
+        {
+            numberofstars: {
+                type: Number,
+                required: true,
+            },
+            complaintId: {
+                type: mongoose.Types.ObjectId,
+                ref: 'Complaint',
+            },
+            userId: {
+                type: mongoose.Types.ObjectId,
+                ref: 'User',
+            },
+        }
+
+    ]
 })
 
 OfficerSchema.pre('save', async function () {
@@ -64,10 +87,23 @@ OfficerSchema.methods.createJWT = function () {
     })
 }
 
-OfficerSchema.methods.addComplaint = async function (complaint) {
-    this.complaints.push(complaint)
-    await this.save()
-}
+OfficerSchema.methods.addRating = async function (numberofstars, complaintId, userId) {
+
+    console.log({ numberofstars, complaintId, userId });
+    this.ratings.push({ numberofstars, complaintId, userId });
+
+    let oldavg;
+
+
+    if (!this.avgRating) oldavg = 0;
+    else oldavg = this.avgRating;
+
+    let n = this.ratings.length;
+    let newavg = (oldavg * (n - 1) + numberofstars) / n;
+    this.avgRating = newavg;
+
+    await this.save();
+};
 
 OfficerSchema.methods.comparePassword = async function (candidatePassword) {
 

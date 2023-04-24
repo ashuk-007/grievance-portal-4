@@ -126,6 +126,33 @@ const sendReminder = async (req, res) => {
   res.status(StatusCodes.OK).json({ complaint });
 };
 
+const rateOfficer = async (req, res) => {
+  const {
+    user: { userId },
+    params: { id: complaintId },
+  } = req;
+  // console.log(req);
+  const numberofstars = req.body.rating;
+  console.log(numberofstars);
+
+  const complaint = await Complaint.findOne({ _id: complaintId });
+  console.log(complaint)
+
+  if (complaint.status !== "resolved") {
+    throw new BadRequestError("Can't give feedback unless complaint is resolved.");
+  }
+
+  const officer = await Officer.findById({ _id: complaint.officerID });
+  console.log(officer)
+  await officer.addRating(numberofstars, complaintId, userId);
+
+  const bod = `You have been rated! \nComplaint subject : ${complaint.subject} \nRating : ${numberofstars}`;
+
+  await sendEmail(officer.email, complaint.subject, bod);
+
+  res.status(StatusCodes.OK).json({ officer });
+};
+
 const sendEmail = async (to, subject, body) => {
   try {
     let transporter = nodemailer.createTransport({
@@ -172,6 +199,7 @@ module.exports = {
   createComplaint,
   deleteComplaint,
   sendReminder,
+  rateOfficer
 };
 
 // const updateUserComplaint = async (req, res) => {

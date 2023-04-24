@@ -131,6 +131,9 @@ export default function GrievanceStatus(props) {
            data={actionHistory}
          />
        </td>
+      <td class="px-4 py-3 text-ms font-semibold border">
+        4.5
+      </td> 
      </tr>
    ));
    function checkLogin() {
@@ -140,38 +143,42 @@ export default function GrievanceStatus(props) {
    }
   return (
     <>
-    {checkLogin}
-    <div
-      class={
-        props.visible == "view"
-          ? "p-4 view-grievance dashboard w-full md:w-3/4 h-100  pt-10  "
-          : "hidden"
-      }
-    >
-      <h1 className="text-center font-bold text-3xl md:text-6xl">
-        GRIEVANCES STATUS
-      </h1>
-        <div class="w-full mb-8 overflow-y-scroll overflow-x-scroll h-120 rounded-lg shadow-lg pt-8">
-          <div class="w-full overflow-x-auto">
-        <table class="w-full">
-          <thead>
-            <tr class="text-md font-semibold tracking-wide text-left text-gray-900 bg-gray uppercase ">
-              <th class="px-4 py-3">ID</th>
-              <th class="px-4 py-3">Time</th>
-              <th class="px-4 py-3">Department</th>
-              <th class="px-4 py-3">Subject</th>
-              <th class="px-4 py-3">Description</th>
-              <th class="px-4 py-3">Created by</th>
-              <th class="px-4 py-3 mx-auto">Status</th>
-              <th class="px-4 py-3 mx-auto">UpdatedTime</th>
-              <th class="px-4 py-3 mx-auto">Forward</th>
-              <th class="px-4 py-3 mx-auto">Action History</th>
-            </tr>
-          </thead>
-          <tbody class="bg-white">{complaintData}</tbody>
-        </table>
+      {checkLogin}
+      <div
+        class={
+          props.visible == "view"
+            ? "p-4 view-grievance dashboard w-full md:w-3/4 h-100  pt-10  "
+            : "hidden"
+        }
+      >
+        <h1 className="text-center font-bold text-3xl md:text-6xl">
+          GRIEVANCES STATUS
+        </h1>
+        <div className="flex justify-center">
+          <div class="w-5/6 mb-8 overflow-y-scroll overflow-x-scroll h-120 border-2 shadow-2xl rounded-xl mt-4 p-6">
+            <div class="w-full overflow-x-auto">
+              <table class="w-full">
+                <thead>
+                  <tr class="text-md font-semibold tracking-wide text-left text-gray-900 bg-gray uppercase ">
+                    <th class="px-4 py-3">ID</th>
+                    <th class="px-4 py-3">Time</th>
+                    <th class="px-4 py-3">Department</th>
+                    <th class="px-4 py-3">Subject</th>
+                    <th class="px-4 py-3">Description</th>
+                    <th class="px-4 py-3">Created by</th>
+                    <th class="px-4 py-3 mx-auto">Status</th>
+                    <th class="px-4 py-3 mx-auto">UpdatedTime</th>
+                    <th class="px-4 py-3 mx-auto">Forward</th>
+                    <th class="px-4 py-3 mx-auto">Action History</th>
+                    <th class="px-4 py-3 mx-auto">Rating (on scale of 5)</th>
+                  </tr>
+                </thead>
+                <tbody class="bg-white">{complaintData}</tbody>
+              </table>
+            </div>
+          </div>
         </div>
-        </div>
-    </div></>
+      </div>
+    </>
   );
 }

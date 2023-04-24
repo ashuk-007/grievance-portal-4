@@ -1,6 +1,6 @@
 const Complaint = require("../models/Complaint");
 const { StatusCodes } = require("http-status-codes");
-const { BadRequestError, NotFoundError } = require("../errors");
+const { BadRequestError, NotFoundError, UnauthenticatedError } = require("../errors");
 const User = require("../models/User");
 const Officer = require("../models/Officer");
 const {
@@ -31,6 +31,37 @@ const getComplaint = async (req, res) => {
   if (!complaint) {
     throw new NotFoundError("Complaint not found");
   }
+  res.status(StatusCodes.OK).json({ complaint });
+};
+
+const reopenTask = async (req, res) => {
+  const {
+    user: { userId },
+    params: { id: complaintId },
+  } = req;
+
+  const complaint = await Complaint.findById(complaintId);
+
+  // console.log(complaint)
+  // console.log(userId)
+
+  if (!complaint) {
+    throw new NotFoundError("complaint not found");
+  }
+  if (complaint.status !== "resolved") {
+    throw new BadRequestError("Complaint is already opened")
+  }
+
+  if (complaint.createdBy != userId) {
+    throw new UnauthenticatedError("not authorized to update this task");
+  }
+
+  if (req.body.status === complaint.status && !req.body.feedback) {
+    throw new BadRequestError("Duplicate changes not allowed. Add valid feedback or change status.")
+  }
+
+  await complaint.updateStatus("pending");
+
   res.status(StatusCodes.OK).json({ complaint });
 };
 
@@ -199,7 +230,8 @@ module.exports = {
   createComplaint,
   deleteComplaint,
   sendReminder,
-  rateOfficer
+  reopenTask,
+  rateOfficer,
 };
 
 // const updateUserComplaint = async (req, res) => {

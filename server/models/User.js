@@ -2,6 +2,7 @@ const mongoose = require('mongoose')
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcryptjs')
 const dotenv = require('dotenv')
+const crypto = require('crypto');
 
 
 const UserSchema = new mongoose.Schema({
@@ -43,7 +44,9 @@ const UserSchema = new mongoose.Schema({
         type: String,
         enum: ['user', 'admin', 'officer'],
         default: 'user',
-    }
+    },
+    passwordResetToken: String,
+    passwordResetExpires: Date,
 })
 
 UserSchema.pre('save', async function () {
@@ -56,6 +59,16 @@ UserSchema.pre('save', async function () {
 UserSchema.methods.getName = function () {
     return this.name
 }
+
+UserSchema.methods.generatePasswordResetToken = function() {
+    const resetToken = crypto.randomBytes(20).toString('hex');
+    this.passwordResetToken = crypto
+      .createHash('sha256')
+      .update(resetToken)
+      .digest('hex');
+    this.passwordResetExpires = Date.now() + 60 * 60 * 1000; // 1 hour
+    return resetToken;
+  };
 
 UserSchema.methods.createJWT = function () {
     return jwt.sign({ userId: this._id, name: this.name }, process.env.JWT_SECRET, {

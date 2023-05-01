@@ -7,6 +7,7 @@ import UserAdminLogin from "./Components/UserAdminLogin"
 import AdminPage from "./Components/AdminPage"
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Footer from './Components/Footer'
+import ForgotPassword from './Components/ForgotPassword'
 export default function App() {
   return (
     <>
@@ -16,6 +17,7 @@ export default function App() {
           <Route path="/userpage" element={<UserPage />} />
           <Route path="/userlogin" element={<UserAdminLogin />} />
           <Route path="/adminpage" element={<AdminPage />} />
+          <Route path="/ForgotPassword" element={<ForgotPassword />}/>
         </Routes>
       </BrowserRouter>
   

@@ -54,6 +54,9 @@ function Login(props){
     }
   }
   const [loading,setLoading]=React.useState(false);
+  function forgotPassword(){
+    navigate("/ForgotPassword");
+  }
   return (
     <>
       <Navbar />
@@ -103,12 +106,13 @@ function Login(props){
                   <label htmlFor="password" className="text-sm text-white">
                     Password
                   </label>
-                  <a
+                  <button
                     href="#"
                     className="text-sm text-gray-400 text-white hover:underline"
+                    onClick={forgotPassword}
                   >
                     Forgot password?
-                  </a>
+                  </button>
                 </div>
 
                 <input

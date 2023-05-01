@@ -1,0 +1,65 @@
+[
+    {
+        "name":"Aditya Sharma",
+        "level":"1",
+        "department":"Health",
+        "email":"iit2021041@iiita.ac.in",
+        "password":"adityamaali123",
+        "district":"delhi",
+        "complaints": []
+    },
+    {
+        "name":"Wael Abrar",
+        "level":"2",
+        "department":"Pension",
+        "email":"iec2021001@iiita.ac.in",
+        "password":"gujaratkawael",
+        "district":"delhi",
+        "complaints": []
+    },
+    {
+        "name":"Aryan Anand",
+        "level":"3",
+        "department":"Pension",
+        "email":"aryan@gmail.com",
+        "password":"blackboy",
+        "district":"delhi",
+        "complaints": []
+    },
+    {
+        "name":"Amitesh",
+        "level":"1",
+        "department":"other",
+        "email":"zeaton@iiita.ac.in",
+        "password":"amitanshu",
+        "district":"panipat",
+        "complaints": []
+    },
+    {
+        "name":"Aastha",
+        "level":"2",
+        "department":"Health",
+        "email":"asta@iiita.ac.in",
+        "password":"gaypasta",
+        "district":"panipat",
+        "complaints": []
+    },
+    {
+        "name":"Ankur TA",
+        "level":"3",
+        "department":"Education",
+        "email":"ankur@iiita.ac.in",
+        "password":"ankurgay",
+        "district":"panipat",
+        "complaints": []
+    },
+    {
+        "name":"Rahul Chhabra",
+        "level":"2",
+        "department":"other",
+        "email":"chhaber@iiita.ac.in",
+        "password":"chhabruh",
+        "district":"allahabad",
+        "complaints": []
+    }
+]

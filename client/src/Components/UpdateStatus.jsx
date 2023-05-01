@@ -128,13 +128,13 @@ export default function UpdateStatus(props) {
           </div>
         </div>
 
-        <h1 className="text-3xl md:text-5xl text-center mt-10 font-semibold">
+        <h1 className="text-3xl md:text-5xl text-center mt-4 md:mt-10 font-semibold">
           GRIEVANCE INFORMATION
         </h1>
-        <div className="flex justify-center mt-8">
+        <div className="flex justify-center md:mt-8">
           <form
             action=""
-            className="mt-10 px-6 border-2 p-6 rounded-xl shadow-2xl w-4/6"
+            className=" mt-4 md:mt-10 px-6 border-2 p-6 rounded-xl shadow-2xl md:w-4/6"
           >
             <div className="md:flex justify-start mx-auto items-center mb-4">
               <div className="name flex justify-start mx-auto md:m-0 items-center">
@@ -203,7 +203,7 @@ export default function UpdateStatus(props) {
                     name="feedback"
                     id="feedback"
                     placeholder="Enter Feedback"
-                    className="border1 border border-black mx-auto ml-4 md:ml-3 md:mt-0 rounded-md p-1 w-96"
+                    className="border1 border border-black mx-auto ml-4 md:ml-3 md:mt-0 rounded-md p-1"
                     onChange={handleChange}
                   />
                 </div>

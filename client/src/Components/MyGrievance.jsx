@@ -240,7 +240,7 @@ function checkLogin() {
           MY GRIEVANCES
         </h1>
         <section class="container mx-auto font-mono flex justify-center">
-          <div class=" pt-4 mb-8 overflow-y-scroll overflow-x-scroll h-120  mt-4 border-2 shadow-2xl rounded-xl p-6 overflow-hidden w-5/6">
+          <div class=" pt-4 mb-8 overflow-y-scroll overflow-x-scroll h-120  mt-4 border-2 shadow-2xl rounded-xl p-6 overflow-hidden w-11/12 md:w-5/6">
             <div class="w-full overflow-x-auto">
               <table class="w-full">
                 <thead>

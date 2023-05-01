@@ -48,7 +48,7 @@ export default function UserProfile(props){
        >
          <h1 className="text-center text-3xl  md:text-7xl font-semibold">YOUR PROFILE</h1>
          <div className="flex justify-center">
-           <div className="border-2 mix-blend- shadow-2xl w-4/6 mt-12 md:mt-24 p-8 rounded-xl">
+           <div className="border-2 mix-blend- shadow-2xl md:w-4/6 mt-12 md:mt-24 p-8 rounded-xl">
              <div className="name-input flex justify-center items-center">
                <h4 className="text-xl md:text-3xl font-bold ml-6">Name:</h4>
                <h4 className="text-xl md:text-3xl ml-4 md:ml-8">

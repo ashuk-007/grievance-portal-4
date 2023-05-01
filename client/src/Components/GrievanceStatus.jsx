@@ -155,7 +155,7 @@ export default function GrievanceStatus(props) {
           GRIEVANCES STATUS
         </h1>
         <div className="flex justify-center">
-          <div class="w-5/6 mb-8 overflow-y-scroll overflow-x-scroll h-120 border-2 shadow-2xl rounded-xl mt-4 p-6">
+          <div class="md:w-5/6 mb-8 overflow-y-scroll overflow-x-scroll h-120 border-2 shadow-2xl rounded-xl mt-4 p-6">
             <div class="w-full overflow-x-auto">
               <table class="w-full">
                 <thead>

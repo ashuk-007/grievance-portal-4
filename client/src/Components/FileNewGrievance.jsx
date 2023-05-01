@@ -65,7 +65,7 @@ function FileNewGrievance(props) {
           File New Grievance
         </h1>
         <div className='flex justify-center'>
-          <form className="border-2 shadow-2xl p-6 mt-8 w-4/6 rounded-xl">
+          <form className="border-2 shadow-2xl p-6 mt-8 w-11/12 md:w-4/6 rounded-xl">
             <div className="grid grid-cols-1 gap-6 sm:grid-cols-1 px-4">
               <div>
                 <label className="text-black dark:text-gray-200" htmlFor="Dept">

@@ -66,7 +66,7 @@ function checkLogin() {
           <div className="mt-16 flex justify-center">
             <form
               action=""
-              className="flex-row justify-between items-center border-2 w-4/6 rounded-xl p-6 shadow-2xl"
+              className="flex-row justify-between items-center border-2 w-11/12 md:w-4/6 rounded-xl p-6 shadow-2xl"
               onSubmit={handleSubmit}
             >
               <div className="name-input flex justify-center items-center mt-4">

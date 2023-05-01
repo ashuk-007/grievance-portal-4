@@ -59,7 +59,11 @@ const ComplaintSchema = new mongoose.Schema(
     lastRemindedAt: {
       type: Date,
       default: 2022 - 01 - 01,
-    }
+    },
+    isRated: {
+      type: Boolean,
+      default: false,
+    },
     //
   },
   { timestamps: true }
@@ -83,6 +87,11 @@ ComplaintSchema.methods.assignEmail = async function (email) {
 
 ComplaintSchema.methods.addFeedback = async function (officerName, officerLevel, feedback) {
   this.actionHistory.push({ officerName, officerLevel, feedback });
+  await this.save();
+};
+
+ComplaintSchema.methods.setRated = async function () {
+  this.isRated = true;
   await this.save();
 };
 

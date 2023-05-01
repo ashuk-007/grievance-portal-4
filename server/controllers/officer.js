@@ -1,10 +1,13 @@
 const { StatusCodes } = require('http-status-codes')
 const { BadRequestError, NotFoundError, UnauthenticatedError } = require('../errors')
 const Officer = require('../models/Officer')
+const OfficerRatings = require('../models/OfficerRatings')
 
 const getOfficerDetails = async (req, res) => {
     const officer = await Officer.findOne({ _id: req.officer.officerId })
-    res.status(StatusCodes.OK).json({ officer })
+    const officerRating = await OfficerRatings.findOne({ OfficerId: req.officer.officerId })
+
+    res.status(StatusCodes.OK).json({ officer, officerRating })
 }
 
 const updateOfficerDetails = async (req, res) => {

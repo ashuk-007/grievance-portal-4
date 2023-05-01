@@ -1,4 +1,5 @@
 const Complaint = require("../models/Complaint");
+const OfficerRatings = require("../models/OfficerRatings")
 const { StatusCodes } = require("http-status-codes");
 const { BadRequestError, NotFoundError, UnauthenticatedError } = require("../errors");
 const User = require("../models/User");
@@ -152,12 +153,44 @@ const sendReminder = async (req, res) => {
 
   const bod = `Gentle reminder regarding the complaint "${complaint.subject}". Please resolve it as soon as possible!`;
 
-  await sendEmail(officer.email, complaint.subject, bod);
+  await sendEmail(officer.email, complaint.subject, bod, "Reminder about Grievance");
 
   res.status(StatusCodes.OK).json({ complaint });
 };
 
-const sendEmail = async (to, subject, body) => {
+const rateOfficer = async (req, res) => {
+  const {
+    user: { userId },
+    params: { id: complaintId },
+  } = req;
+  // console.log(req);
+  const numberofstars = req.body.rating;
+  const complaint = await Complaint.findOne({ _id: complaintId });
+
+  if (complaint.status !== "resolved") {
+    throw new BadRequestError("Can't give feedback unless complaint is resolved.");
+  }
+  if (complaint.isRated) {
+    throw new BadRequestError("Complaint already rated.")
+  }
+
+  const officer = await Officer.findOne({ _id: complaint.officerID });
+
+
+  const officerRating = await OfficerRatings.findOne({ OfficerId: complaint.officerID });
+
+  // console.log(officerRating);
+  await officerRating.addRating(numberofstars, complaintId, userId);
+  await complaint.setRated();
+
+  const bod = `You have been rated! \nComplaint subject : ${complaint.subject} \nRating : ${numberofstars}`;
+
+  await sendEmail(officer.email, complaint.subject, bod, "You have been rated!");
+
+  res.status(StatusCodes.OK).json({ officer });
+};
+
+const sendEmail = async (to, subject, body, head) => {
   try {
     let transporter = nodemailer.createTransport({
       host: "smtp.gmail.com",
@@ -172,7 +205,7 @@ const sendEmail = async (to, subject, body) => {
     let info = await transporter.sendMail({
       from: ' "Grievance Portal" <grievanceportal25@gmail.com>',
       to: to,
-      subject: `Reminder about unresolved grievance "${subject}"`,
+      subject: head,
       text: `Message from grievance portal: ${body}`,
     });
 
@@ -203,7 +236,8 @@ module.exports = {
   createComplaint,
   deleteComplaint,
   sendReminder,
-  reopenTask
+  reopenTask,
+  rateOfficer,
 };
 
 // const updateUserComplaint = async (req, res) => {

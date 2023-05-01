@@ -21,7 +21,7 @@ const createOfficers = async () => {
     // });
 
     // Batch the insertions
-    const batchSize = 1000;
+    const batchSize = 100;
     let officerBatch = [];
 
     let flag = false

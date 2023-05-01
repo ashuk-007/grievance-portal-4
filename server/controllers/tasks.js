@@ -101,9 +101,9 @@ const passTask = async (req, res) => {
 
   const user = await User.findOne({ _id: complaint.createdBy })
   await sendEmail(user.email, complaint.subject, body)
-  const userPhone = "+91" + user.phone.toString();
+  // const userPhone = "+91" + user.phone.toString();
   // console.log(userPhone)
-  await sendSMS(userPhone, body)
+  // await sendSMS(userPhone, body)
   // console.log(complaint)
 
   res.status(StatusCodes.OK).json({ complaint });
@@ -160,7 +160,7 @@ const updateTask = async (req, res) => {
   await sendEmail(user.email, complaint.subject, bod)
   const userPhone = "+91" + user.phone.toString();
   // console.log(userPhone)
-  await sendSMS(userPhone, bod)
+  // await sendSMS(userPhone, bod)
 
 
   // console.log(complaint)

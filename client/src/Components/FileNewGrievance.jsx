@@ -61,7 +61,7 @@ function FileNewGrievance(props) {
             : "hidden"
         }
       >
-        <h1 className="md:text-6xl text-4xl font-bold text-black capitalize dark:text-black py-4 text-center px-20  ">
+        <h1 className="md:text-7xl text-4xl font-bold text-black capitalize dark:text-black py-4 text-center px-20  ">
           File New Grievance
         </h1>
         <div className='flex justify-center'>

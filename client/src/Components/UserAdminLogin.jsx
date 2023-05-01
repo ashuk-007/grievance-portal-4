@@ -6,7 +6,7 @@ import { NavLink, useNavigate } from "react-router-dom";
 import Loading from "./Loading";
 function Login(props){
   const [loginData, setLoginData] = React.useState({email:"", password:""});
-  const [user,setUser]=React.useState("Officer");
+  const [user,setUser]=React.useState("Citizen");
   function handleChange(e){
     setLoginData({...loginData, [e.target.name]:e.target.value});
   }
@@ -125,6 +125,7 @@ function Login(props){
 
               <div className="mb-2 mt-8 py-1">
                 <input
+                  checked
                   id="default-radio-1"
                   type="radio"
                   value="Citizen"
@@ -141,7 +142,6 @@ function Login(props){
               </div>
               <div className="flex items-center py-0">
                 <input
-                  checked
                   id="default-radio-2"
                   type="radio"
                   value="Officer"

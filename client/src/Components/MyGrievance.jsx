@@ -90,12 +90,14 @@ export default function MyGrievance(props) {
     
   }
 console.log(rating);
+
   function handleRating(id){
     if(rating==-1){
       alert("Rating not given")
     }
     else{
       setLoading(true)
+      
       let config3 = {
         method: "patch",
         maxBodyLength: Infinity,
@@ -105,14 +107,16 @@ console.log(rating);
           Authorization:
             `Bearer ${token}`,
         },
-        data: rating
+        data:{"rating":rating},
       };
+
       axios
         .request(config3)
         .then((response) => {
           console.log(JSON.stringify(response.data));
-          setLoading(false)
           alert("Rating submitted")
+          window.location.reload(true)
+          setLoading(false);
         })
         .catch((error) => {
           console.log(error);
@@ -183,7 +187,7 @@ console.log(rating);
           />
         </td>
         <td class="px-4 py-3 text-ms font-semibold border">
-          {grievance.status == "resolved" && (
+          {grievance.status == "resolved" && grievance.isRated==false && (
             <button
               className="bg-light-green hover:bg-blue-700 text-white font-bold py-2 px-4 rounded  "
               onClick={() => handleReopen(grievance._id)}
@@ -193,7 +197,7 @@ console.log(rating);
           )}
         </td>
         <td class="px-4 py-3 text-ms font-semibold border">
-          {grievance.status == "resolved" && (
+          {grievance.status == "resolved" && grievance.isRated==false? (
             <form className="flex justify-evenly">
               <select
                 name="rating"
@@ -216,7 +220,7 @@ console.log(rating);
                 Rate
               </button>
             </form>
-          )}
+          ):(grievance.status=="resolved"?"Thank you for your feedback":"We are working on it")}
         </td>
       </tr>
     </Fragment>

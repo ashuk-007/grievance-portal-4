@@ -131,9 +131,6 @@ export default function GrievanceStatus(props) {
            data={actionHistory}
          />
        </td>
-      <td class="px-4 py-3 text-ms font-semibold border">
-        4.5
-      </td> 
      </tr>
    ));
    function checkLogin() {
@@ -170,7 +167,6 @@ export default function GrievanceStatus(props) {
                     <th class="px-4 py-3 mx-auto">UpdatedTime</th>
                     <th class="px-4 py-3 mx-auto">Forward</th>
                     <th class="px-4 py-3 mx-auto">Action History</th>
-                    <th class="px-4 py-3 mx-auto">Rating (on scale of 5)</th>
                   </tr>
                 </thead>
                 <tbody class="bg-white">{complaintData}</tbody>

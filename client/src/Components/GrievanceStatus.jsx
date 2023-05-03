@@ -107,14 +107,14 @@ export default function GrievanceStatus(props) {
          {complaint.actionHistory[complaint.actionHistory.length - 1]
            .officerLevel != "3" &&
            complaint.status != "resolved" && (
-            <>
-             <button
-               className="bg-light-green hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-               onClick={() => handleForward(complaint)}
-             >
-               Forward
-             </button>
-            {loading && <Loading />}
+             <>
+               <button
+                 className="bg-light-green hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                 onClick={() => handleForward(complaint)}
+               >
+                 Forward
+               </button>
+               {loading && <Loading />}
              </>
            )}
        </td>
@@ -130,6 +130,9 @@ export default function GrievanceStatus(props) {
            setVisible={setIsVisible}
            data={actionHistory}
          />
+       </td>
+       <td class="px-4 py-3 text-ms font-semibold border">
+         {complaint.status=="resolved"?(complaint.rating==null?"Not rated yet":complaint.rating):"Not resolved yet"}
        </td>
      </tr>
    ));
@@ -167,6 +170,7 @@ export default function GrievanceStatus(props) {
                     <th class="px-4 py-3 mx-auto">UpdatedTime</th>
                     <th class="px-4 py-3 mx-auto">Forward</th>
                     <th class="px-4 py-3 mx-auto">Action History</th>
+                    <th class="px-4 py-3 mx-auto">Rating</th>
                   </tr>
                 </thead>
                 <tbody class="bg-white">{complaintData}</tbody>

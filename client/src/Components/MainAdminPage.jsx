@@ -2,6 +2,9 @@ import React from 'react'
 import UserNavbar from "./UserNavbar";
 import Dashboard from "./Dashboard";
 import Footer from "./Footer";
+import MainAdminProfile from './MainAdminProfile';
+import ViewOfficerDetails from './ViewOfficerDetails';
+import AddNewOfficer from './AddNewOfficer';
 export default function MainAdminPage() {
     const token=localStorage.getItem("token")
     const [isClicked, setIsClicked] = React.useState("1");
@@ -38,20 +41,20 @@ export default function MainAdminPage() {
           third="NEW OFFICER"
           fourth=""
         />
-        {/* <AdminProfile
-          visible={visible}
+        <MainAdminProfile
+            visible={visible}
         />
-        <GrievanceStatus visible={visible} />
-        <UpdateStatus visible={visible} /> */}
+        
+        <ViewOfficerDetails visible={visible} />
+        <AddNewOfficer visible={visible} />
       </div>
-      {/* <div className="User-page-content h-100 md:hidden relative">
-        <AdminProfile
+      <div className="User-page-content h-100 md:hidden relative">
+        <MainAdminProfile
           visible={visible}
         />
-
-        <GrievanceStatus visible={visible} />
-        <UpdateStatus visible={visible} />
-      </div> */}
+        <ViewOfficerDetails visible={visible} />
+        <AddNewOfficer visible={visible} />
+      </div>
       <Footer />
     </div>
   );

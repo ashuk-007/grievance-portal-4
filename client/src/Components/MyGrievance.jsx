@@ -1,10 +1,8 @@
 import React, { Fragment } from "react";
 import axios from "axios";
 import moment from "moment";
-import { Link } from "react-router-dom";
 import Modal from "./Modal";
 import Loading from "./Loading";
-import { composeInitialProps } from "react-i18next";
 export default function MyGrievance(props) {
   const token = localStorage.getItem("token");
 
@@ -124,6 +122,31 @@ console.log(rating);
         });
     }
   }
+  function handleDelete(id){
+    setLoading(true)
+    let config = {
+      method: "delete",
+      maxBodyLength: Infinity,
+      url: `http://localhost:3000/api/v1/complaints/${id}`,
+      headers: {
+        Authorization:
+          `Bearer ${token}`,
+      },
+    };
+    axios
+      .request(config)
+      .then((response) => {
+        console.log(JSON.stringify(response.data))
+        alert("Deleted Successfully")
+        setLoading(false)
+        window.location.reload(true)
+      })
+      .catch((error) => {
+        console.log(error);
+        alert("Error Occured")
+        setLoading(false)
+      });
+  }
   const grievanceData = grievances.map((grievance) => (
     <Fragment>
       <tr
@@ -187,7 +210,7 @@ console.log(rating);
           />
         </td>
         <td class="px-4 py-3 text-ms font-semibold border">
-          {grievance.status == "resolved" && grievance.isRated==false && (
+          {grievance.status == "resolved" && grievance.isRated == false && (
             <button
               className="bg-light-green hover:bg-blue-700 text-white font-bold py-2 px-4 rounded  "
               onClick={() => handleReopen(grievance._id)}
@@ -197,7 +220,7 @@ console.log(rating);
           )}
         </td>
         <td class="px-4 py-3 text-ms font-semibold border">
-          {grievance.status == "resolved" && grievance.isRated==false? (
+          {grievance.status == "resolved" && grievance.isRated == false ? (
             <form className="flex justify-evenly">
               <select
                 name="rating"
@@ -215,12 +238,26 @@ console.log(rating);
               </select>
               <button
                 className="bg-light-green hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ml-4 "
-                onClick={()=>handleRating(grievance._id)}
+                onClick={() => handleRating(grievance._id)}
               >
                 Rate
               </button>
             </form>
-          ):(grievance.status=="resolved"?"Thank you for your feedback":"We are working on it")}
+          ) : grievance.status == "resolved" ? (
+            "Thank you for your feedback"
+          ) : (
+            "We are working on it"
+          )}
+        </td>
+        <td class="px-4 py-3 text-ms font-semibold border">
+          {grievance.status != "resolved" && (
+            <button
+              className="bg-light-green hover:bg-blue-700 text-white font-bold py-2 px-4 rounded  "
+              onClick={() => handleDelete(grievance._id)}
+            >
+             Delete
+            </button>
+          )}
         </td>
       </tr>
     </Fragment>
@@ -257,6 +294,7 @@ function checkLogin() {
                     <th class="px-4 py-3 mx-auto">View Action History</th>
                     <th class="px-4 py-3 mx-auto">Reopen</th>
                     <th class="px-4 py-3 mx-auto">Give Rating</th>
+                    <th class="px-4 py-3 mx-auto">Delete Complaint</th>
                   </tr>
                 </thead>
                 <tbody class="bg-white">{grievanceData}</tbody>

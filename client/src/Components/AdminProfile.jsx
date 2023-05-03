@@ -51,7 +51,7 @@ export default function AdminProfile(props){
             YOUR PROFILE
           </h1>
           <div className="flex justify-center">
-            <div className="border-2 mix-blend- shadow-2xl w-11/12  md:w-4/6 mt-12 md:mt-24 p-8 rounded-xl">
+            <div className="border-2 mix-blend- shadow-2xl w-11/12  md:w-4/6 mt-6 md:mt-12 p-8 rounded-xl">
               <div className="name-input flex justify-center items-center">
                 <h4 className="text-xl md:text-3xl font-bold ml-6">Name:</h4>
                 <h4 className="text-xl md:text-3xl ml-4 md:ml-8">
@@ -98,7 +98,7 @@ export default function AdminProfile(props){
                  Rating:
                 </h4>
                 <h4 className="text-xl md:text-3xl text-center ml-4 md:ml-8">
-                  {officerRatingData.avgRating}
+                  {officerRatingData.avgRating==null?"Not Rated":officerRatingData.avgRating}
                 </h4>
               </div>
             </div>

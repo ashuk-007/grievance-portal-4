@@ -125,18 +125,11 @@ const deleteComplaint = async (req, res) => {
   if (!complaint) {
     throw new NotFoundError("Complaint not found");
   }
-
-  const officer = await Officer.findOne({ _id: complaint.officerID });
-
-  if (officer) {
-    officer.complaints = officer.complaints.filter((complaintId) => {
-      return complaintId.toString() !== this._id.toString();
-    });
-    await officer.save();
-  } else {
-    console.log("no officer has the complaint");
+  if (complaint.status === 'resolved') {
+    throw new BadRequestError("Cannot delete a resolved complaint")
   }
 
+  await Complaint.deleteOne({ _id: complaintId });
   res.status(StatusCodes.OK).json({ complaint });
 };
 

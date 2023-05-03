@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const Officer = require("./Officer");
-const User = require("./User")
+const User = require("./User");
+const { number } = require("joi");
 
 const OfficerRatingsSchema = new mongoose.Schema(
     {
@@ -42,9 +43,9 @@ const OfficerRatingsSchema = new mongoose.Schema(
 
 OfficerRatingsSchema.methods.addRating = async function (numberofstars, complaintId, userId) {
 
+    numberofstars = Number(numberofstars);
     console.log({ numberofstars, complaintId, userId });
     this.ratings.push({ numberofstars, complaintId, userId });
-
     let oldavg;
 
 
@@ -54,6 +55,7 @@ OfficerRatingsSchema.methods.addRating = async function (numberofstars, complain
     let n = this.ratings.length;
     let newavg = (oldavg * (n - 1) + numberofstars) / n;
     this.avgRating = newavg;
+    console.log(typeof n, typeof numberofstars, typeof oldavg, typeof newavg);
 
     await this.save();
 };

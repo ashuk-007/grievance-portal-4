@@ -35,6 +35,9 @@ const start = async () => {
     // console.log("data created.");
 
     await Complaint.deleteMany();
+    console.log("complaints deleted")
+    await OfficerRatings.updateMany({}, { avgRating: null, ratings: [] });
+    console.log("officer ratings updated")
     // await OfficerRatings.deleteMany()
     // await Officer.create(officerValues)
     // await Officer.updateMany(

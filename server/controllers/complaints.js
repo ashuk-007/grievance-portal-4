@@ -42,6 +42,7 @@ const reopenTask = async (req, res) => {
   } = req;
 
   const complaint = await Complaint.findById(complaintId);
+  const officer = await Officer.findById(complaint.officerID);
 
   // console.log(complaint)
   // console.log(userId)

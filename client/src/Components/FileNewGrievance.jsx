@@ -80,8 +80,9 @@ function FileNewGrievance(props) {
                   <option>--SELECT--</option>
                   <option value="Education">Education</option>
                   <option value="Health">Health</option>
+                  <option value="Transport">Transport</option>
                   <option value="Pension">Pension</option>
-                  <option value="others">others</option>
+                  <option value="other">other</option>
                 </select>
               </div>
 

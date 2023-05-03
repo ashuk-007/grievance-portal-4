@@ -40,8 +40,8 @@ To run the Grievance Portal locally, follow these steps:
 
 ## Other Details
 
-1.To login as an officer in the portal the format is [district][department][level(1,2 & 3)]@gmail.com and the password is "password".
-2.To login as a district admin the format is [district]admin@gmail.com and the password is "password".
+- To login as an officer in the portal the format is [district][department][level(1,2 & 3)]@gmail.com and the password is "password".
+- To login as a district admin the format is [district]admin@gmail.com and the password is "password".
 
 ## License
 

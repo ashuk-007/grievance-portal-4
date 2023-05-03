@@ -52,6 +52,9 @@ const reopenTask = async (req, res) => {
   if (complaint.status !== "resolved") {
     throw new BadRequestError("Complaint is already opened")
   }
+  if (complaint.reopensCount >= 3) {
+    throw new BadRequestError("Cannot reopen complaint more than 3 times")
+  }
 
   if (complaint.createdBy != userId) {
     throw new UnauthenticatedError("not authorized to update this task");
@@ -62,6 +65,17 @@ const reopenTask = async (req, res) => {
   }
 
   await complaint.updateStatus("pending");
+  await complaint.addFeedback(
+    officer.name,
+    officer.level,
+    "Complaint reopened by citizen."
+  );
+
+  await complaint.incrementReopens();
+
+  const bod = `The complaint "${complaint.subject}" has been reopened by the citizen. Please resolve it as soon as possible!`;
+
+  await sendEmail(officer.email, complaint.subject, bod, "Reopened Grievance");
 
   res.status(StatusCodes.OK).json({ complaint });
 };
@@ -181,7 +195,7 @@ const rateOfficer = async (req, res) => {
 
   // console.log(officerRating);
   await officerRating.addRating(numberofstars, complaintId, userId);
-  await complaint.setRated();
+  await complaint.setRated(numberofstars);
 
   const bod = `You have been rated! \nComplaint subject : ${complaint.subject} \nRating : ${numberofstars}`;
 

@@ -51,10 +51,6 @@ export default function AdminPage(){
          />
          <AdminProfile
            visible={visible}
-           uName={"Vishesh Vijayvargiya"}
-           mail={"iit2021114@iiita.ac.in"}
-           contact={"0123456789"}
-           address={"PLOT NO-2,EAST VINOD NAGAR, DELHI"}
          />
          <GrievanceStatus visible={visible} />
          <UpdateStatus visible={visible} />
@@ -62,10 +58,6 @@ export default function AdminPage(){
        <div className="User-page-content h-100 md:hidden relative">
          <AdminProfile
            visible={visible}
-           uName={"Vishesh Vijayvargiya"}
-           mail={"iit2021114@iiita.ac.in"}
-           contact={"0123456789"}
-           address={"PlotNo.-2,East Vinod Nagar,Delhi"}
          />
 
          <GrievanceStatus visible={visible} />

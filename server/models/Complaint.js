@@ -64,6 +64,14 @@ const ComplaintSchema = new mongoose.Schema(
       type: Boolean,
       default: false,
     },
+    rating: {
+      type: Number,
+      default: 0,
+    },
+    reopenCount: {
+      type: Number,
+      default: 0,
+    }
     //
   },
   { timestamps: true }
@@ -90,13 +98,19 @@ ComplaintSchema.methods.addFeedback = async function (officerName, officerLevel,
   await this.save();
 };
 
-ComplaintSchema.methods.setRated = async function () {
+ComplaintSchema.methods.setRated = async function (numberofstars) {
   this.isRated = true;
+  this.rating = numberofstars;
   await this.save();
 };
 
 ComplaintSchema.methods.updateStatus = async function (status) {
   this.status = status;
+  await this.save();
+};
+
+ComplaintSchema.methods.incrementReopens = async function () {
+  this.reopenCount = this.reopenCount + 1;
   await this.save();
 };
 

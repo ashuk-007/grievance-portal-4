@@ -42,6 +42,7 @@ const reopenTask = async (req, res) => {
   } = req;
 
   const complaint = await Complaint.findById(complaintId);
+  const officer = await Officer.findById(complaint.officerID);
 
   // console.log(complaint)
   // console.log(userId)
@@ -51,6 +52,9 @@ const reopenTask = async (req, res) => {
   }
   if (complaint.status !== "resolved") {
     throw new BadRequestError("Complaint is already opened")
+  }
+  if (complaint.reopensCount >= 3) {
+    throw new BadRequestError("Cannot reopen complaint more than 3 times")
   }
 
   if (complaint.createdBy != userId) {
@@ -62,6 +66,17 @@ const reopenTask = async (req, res) => {
   }
 
   await complaint.updateStatus("pending");
+  await complaint.addFeedback(
+    officer.name,
+    officer.level,
+    "Complaint reopened by citizen."
+  );
+
+  await complaint.incrementReopens();
+
+  const bod = `The complaint "${complaint.subject}" has been reopened by the citizen. Please resolve it as soon as possible!`;
+
+  await sendEmail(officer.email, complaint.subject, bod, "Reopened Grievance");
 
   res.status(StatusCodes.OK).json({ complaint });
 };
@@ -110,18 +125,11 @@ const deleteComplaint = async (req, res) => {
   if (!complaint) {
     throw new NotFoundError("Complaint not found");
   }
-
-  const officer = await Officer.findOne({ _id: complaint.officerID });
-
-  if (officer) {
-    officer.complaints = officer.complaints.filter((complaintId) => {
-      return complaintId.toString() !== this._id.toString();
-    });
-    await officer.save();
-  } else {
-    console.log("no officer has the complaint");
+  if (complaint.status === 'resolved') {
+    throw new BadRequestError("Cannot delete a resolved complaint")
   }
 
+  await Complaint.deleteOne({ _id: complaintId });
   res.status(StatusCodes.OK).json({ complaint });
 };
 
@@ -181,7 +189,7 @@ const rateOfficer = async (req, res) => {
 
   // console.log(officerRating);
   await officerRating.addRating(numberofstars, complaintId, userId);
-  await complaint.setRated();
+  await complaint.setRated(numberofstars);
 
   const bod = `You have been rated! \nComplaint subject : ${complaint.subject} \nRating : ${numberofstars}`;
 

@@ -164,7 +164,7 @@ const updateTask = async (req, res) => {
   await sendEmail(user.email, complaint.subject, bod)
   const userPhone = "+91" + user.phone.toString();
   // console.log(userPhone)
-  await sendSMS(userPhone, bod)
+  // await sendSMS(userPhone, bod)
 
 
   // console.log(complaint)

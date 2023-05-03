@@ -70,11 +70,13 @@ export default function UpdateStatus(props) {
       alert("Please enter the grievance ID");
     }
     else{
+      setLoading(true);
       axios
         .request(config)
         .then((response) => {
           console.log(JSON.stringify(response.data));
           setComplaint(response.data.complaint)
+          setLoading(false)
         })
         .catch((error) => {
           console.log(error);
@@ -124,7 +126,8 @@ export default function UpdateStatus(props) {
               >
                 GET DETAILS
               </button>
-            </form>
+              {loading && <Loading />}
+            </form  >
           </div>
         </div>
 

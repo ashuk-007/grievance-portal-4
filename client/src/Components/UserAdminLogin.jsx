@@ -17,7 +17,7 @@ function Login(props){
  let config = {
    method: "post",
    maxBodyLength: Infinity,
-   url: (user=="Citizen"?"http://localhost:3000/api/v1/auth/login":"http://localhost:3000/api/v1/auth/officer/login") ,
+   url: (user=="Citizen"?("http://localhost:3000/api/v1/auth/login"):(user=="Officer"?("http://localhost:3000/api/v1/auth/officer/login"):("http://localhost:3000/api/v1/auth/admin/login"))) ,
    headers: {
      Authorization: "Bearer ",
      "Content-Type": "application/json",
@@ -39,7 +39,7 @@ function Login(props){
           console.log(JSON.stringify(response.data));
           localStorage.setItem("token", response.data.token);
           setLoading(false);
-          {user=="Citizen"?navigate("/userpage"):navigate("/adminpage")}
+          {user=="Citizen"?navigate("/userpage"):(user=="Officer"?navigate("/adminpage"):navigate("/MainAdminPage"))}
       })
         .catch((error) => {
           if(error.response.status==401){
@@ -54,6 +54,9 @@ function Login(props){
     }
   }
   const [loading,setLoading]=React.useState(false);
+  function forgotPassword(){
+    navigate("/ForgotPassword");
+  }
   return (
     <>
       <Navbar />
@@ -103,12 +106,13 @@ function Login(props){
                   <label htmlFor="password" className="text-sm text-white">
                     Password
                   </label>
-                  <a
+                  <button
                     href="#"
                     className="text-sm text-gray-400 text-white hover:underline"
+                    onClick={forgotPassword}
                   >
                     Forgot password?
-                  </a>
+                  </button>
                 </div>
 
                 <input
@@ -140,8 +144,8 @@ function Login(props){
                   Citizen
                 </label>
               </div>
-              <div className="flex items-center py-0">
-                <input
+              <div className=" mb-2 mt-2 flex items-center py-0">
+                <input 
                   id="default-radio-2"
                   type="radio"
                   value="Officer"
@@ -154,6 +158,22 @@ function Login(props){
                   className="ml-3 text-l  text-white"
                 >
                   Officer
+                </label>
+              </div>
+              <div className="mt-2 flex items-center py-0">
+                <input
+                  id="default-radio-2"
+                  type="radio"
+                  value="Admin"
+                  name="default-radio"
+                  className="w-4 h-4  focus:ring-blue-500"
+                  onClick={handleRadio}
+                />
+                <label
+                  htmlFor="default-radio-2"
+                  className="ml-3 text-l  text-white"
+                >
+                  Admin
                 </label>
               </div>
 

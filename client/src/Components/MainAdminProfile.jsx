@@ -3,7 +3,31 @@ import pfp from "../Images/pfp.png";
 import axios from "axios";
 import Loading from "./Loading";
 export default function MainAdminProfile(props) {
-    const [loading, setLoading] = React.useState(false);
+    const [adminData,setAdminData]=React.useState({})
+    const token = localStorage.getItem("token");
+    let config = {
+      method: "get",
+      maxBodyLength: Infinity,
+      url: "http://localhost:3000/api/v1/manage/",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization:
+          `Bearer ${token}`,
+      },
+    };
+    React.useState(() => {
+      axios
+        .request(config)
+        .then((response) => {
+          console.log(JSON.stringify(response.data));
+          setAdminData(response.data.admin)
+          setLoading(false)
+        })
+        .catch((error) => {
+          console.log(error);
+        }); 
+    }, []);
+    const [loading, setLoading] = React.useState(true);
     function checkLogin() {
         if (!token) {
             navigate("/userAdminLogin");
@@ -28,34 +52,22 @@ export default function MainAdminProfile(props) {
             <div className="name-input flex justify-center items-center">
               <h4 className="text-xl md:text-3xl font-bold ml-6">Name:</h4>
               <h4 className="text-xl md:text-3xl ml-4 md:ml-8">
-                {/* {officerData.name} */}
+                {adminData.name}
               </h4>
             </div>
             <div className="name-input flex justify-center items-center mt-6 md:mt-10">
               <h4 className="text-xl md:text-3xl font-bold ml-6">Email:</h4>
               {"\n"}
               <h4 className="text-xl md:text-3xl ml-4 md:ml-8">
-                {/* {officerData.email} */}
+               {adminData.email} 
               </h4>
             </div>
             <div className="name-input flex justify-center items-center mt-6 md:mt-10">
               <h4 className="text-xl md:text-3xl font-bold ml-6">
-                Designation:
+                Role:
               </h4>
               <h4 className="text-xl md:text-3xl ml-4 md:ml-8">
-                {/* {officerData.level == 1
-                  ? "Gram Panchayat"
-                  : officerData.level == 2
-                  ? "Tehsildar"
-                  : "Municipal Corporation officer"} */}
-              </h4>
-            </div>
-            <div className="name-input flex justify-center items-center mt-6 md:mt-10">
-              <h4 className="text-xl md:text-3xl font-bold ml-6">
-                Department:
-              </h4>
-              <h4 className="text-xl md:text-3xl ml-4 md:ml-8">
-                {/* {officerData.department} */}
+                {adminData.role}
               </h4>
             </div>
             <div className="name-input flex justify-center items-center mt-6 md:mt-10">
@@ -63,17 +75,7 @@ export default function MainAdminProfile(props) {
                 District:
               </h4>
               <h4 className="text-xl md:text-3xl text-center ml-4 md:ml-8">
-                {/* {officerData.district} */}
-              </h4>
-            </div>
-            <div className="name-input flex justify-center items-center mt-6 md:mt-10">
-              <h4 className="text-xl md:text-3xl text-center font-bold ml-6">
-                Rating:
-              </h4>
-              <h4 className="text-xl md:text-3xl text-center ml-4 md:ml-8">
-                {/* {officerRatingData.avgRating == null
-                  ? "Not Rated"
-                  : officerRatingData.avgRating} */}
+                {adminData.district}
               </h4>
             </div>
           </div>

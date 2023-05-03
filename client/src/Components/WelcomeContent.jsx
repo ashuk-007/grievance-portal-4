@@ -57,6 +57,12 @@ const navigate=useNavigate();
     else if(data.name=="" || data.email=="" || data.password=="" || data.age=="" || data.phone=="" || data.district==""){
       alert("Please fill all the fields");
     }
+    else if(password.current.value.length<6){
+      alert("password should be minimum 6 characters")
+    }
+    else if(data.age<18){
+      alert("Age should be greater than 18")
+    }
     else{
       data.district = data.district[0].toUpperCase() + data.district.slice(1);
       console.log(data)

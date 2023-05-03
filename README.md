@@ -38,7 +38,7 @@ To run the Grievance Portal locally, follow these steps:
 5. Start the frontend server using `npm run dev` command in the client directory.
 6. Access the application in your web browser at `http://localhost:5173`.
 
-## Other Details
+## Login Details
 
 - To login as an officer in the portal the format is [district][department][level(1,2 & 3)]@gmail.com and the password is "password".
 - To login as a district admin the format is [district]admin@gmail.com and the password is "password".

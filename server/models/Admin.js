@@ -4,21 +4,25 @@ const bcrypt = require('bcryptjs')
 const dotenv = require('dotenv')
 
 const AdminSchema = new mongoose.Schema({
-    name:{
+    name: {
         type: String,
         required: true,
     },
     email: {
-            type: String,
-            required: [true,'pls provide email'],
-            match: [/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/, 'Please provide valid email'
-            ],
-            unique: true,
+        type: String,
+        required: [true, 'pls provide email'],
+        match: [/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/, 'Please provide valid email'
+        ],
+        unique: true,
     },
     password: {
-            type: String,
-            required: [true,'pls provide password'],
-            minLength: 6,
+        type: String,
+        required: [true, 'pls provide password'],
+        minLength: 6,
+    },
+    district: {
+        type: String,
+        required: true,
     },
     role: {
         type: String,

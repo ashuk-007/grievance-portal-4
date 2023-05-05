@@ -39,7 +39,7 @@ export default function ForgotPassword() {
               console.log(JSON.stringify(response.data));
               setLoading(false);
               alert("Check your email for reset link");
-              Navigate("/userlogin")
+              Navigate("/ResetPassword")
             })
             .catch((error) => {
               console.log(error);

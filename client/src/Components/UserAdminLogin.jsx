@@ -55,8 +55,7 @@ function Login(props){
   }
   const [loading,setLoading]=React.useState(false);
   function forgotPassword(){
-    // navigate("/ForgotPassword");
-    navigate("/ResetPassword")
+    navigate("/ForgotPassword");
   }
   return (
     <>

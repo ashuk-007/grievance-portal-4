@@ -8,6 +8,7 @@ export default function ForgotPassword() {
   const [loading, setLoading] = React.useState(false);
   const [password, setPassword] = React.useState({
      password: "",
+     token:""
   });
   const [cPassword, setCPassword] = React.useState("")
   function handleChangePassword(e) {
@@ -26,11 +27,15 @@ export default function ForgotPassword() {
     if(password.password!==cPassword){
         alert("Passwords do not match");
     }
+    else if(password.password=="" || password.token=="" || cPassword=="" ){
+      alert("Please fill all the fields")
+    }
     else{
+      setLoading(true)
         let config = {
             method: "post",
             maxBodyLength: Infinity,
-            url: "http://localhost:3000/api/v1/auth/reset-password/cacf894a0d7aa15db0f46dbeb28f8b3290867c12",
+            url: "http://localhost:3000/api/v1/auth/reset-password",
             headers: {
                 "Content-Type": "application/json",
             },
@@ -41,13 +46,17 @@ export default function ForgotPassword() {
             .then((response) => {
                 console.log(JSON.stringify(response.data));
                 alert("Password reset successful");
+                setLoading(false);
                 Navigate("/userlogin");
             })
             .catch((error) => {
                 console.log(error);
+                alert(error)
         });
     }
   }
+
+
   return (
     <>
       <Navbar />
@@ -79,7 +88,7 @@ export default function ForgotPassword() {
               </div>
               <div>
                 <label htmlFor="cpassword" className="block text-sm text-white">
-                 Confirm password
+                  Confirm password
                 </label>
                 <input
                   type="password"
@@ -88,6 +97,20 @@ export default function ForgotPassword() {
                   className="block w-full px-4 py-2 mt-2 bg-white rounded-md"
                   onChange={(e) => {
                     handleChangeCPassword(e);
+                  }}
+                />
+              </div>
+              <div>
+                <label htmlFor="token" className="block text-sm text-white">
+                  Token 
+                </label>
+                <input
+                  type="text"
+                  name="token"
+                  id="token"
+                  className="block w-full px-4 py-2 mt-2 bg-white rounded-md"
+                  onChange={(e) => {
+                    handleChangePassword(e);
                   }}
                 />
               </div>

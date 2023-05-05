@@ -8,7 +8,7 @@ const { adminLogin } = require('../controllers/admin-auth')
 router.route('/login').post(login)
 router.route('/register').post(register)
 router.post('/forgot-password', forgotPassword);
-router.post('/reset-password/:resetToken', resetPassword);
+router.post('/reset-password', resetPassword);
 
 // router.route('/logout').get(logout)
 // router.route('/editprofile/:id').patch(updateUserInfo)

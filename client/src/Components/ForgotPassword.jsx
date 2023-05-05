@@ -6,6 +6,49 @@ import Footer from "./Footer";
 import Loading from "./Loading";
 export default function ForgotPassword() {
       const [loading, setLoading] = React.useState(false);
+      const [email,setEmail]=React.useState({
+          email:""
+      })
+      function handleChange(e) {
+        setEmail((prev)=>{
+          return{
+            ...prev,
+            [e.target.name]:e.target.value
+          }
+        });
+      }
+      const Navigate = useNavigate();
+      function handleSubmit(){
+        if(email.email===""){
+            alert("Please enter email");
+        }
+        else{
+          setLoading(true);
+          let config = {
+            method: "post",
+            maxBodyLength: Infinity,
+            url: "http://localhost:3000/api/v1/auth/forgot-password",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            data: email,
+          };
+          axios
+            .request(config)
+            .then((response) => {
+              console.log(JSON.stringify(response.data));
+              setLoading(false);
+              alert("Check your email for reset link");
+              Navigate("/ResetPassword")
+            })
+            .catch((error) => {
+              console.log(error);
+              alert(error.response.data.msg)
+              setLoading(false);
+              Navigate("/")
+            });
+        }
+      }
   return (
     <>
       <Navbar />
@@ -36,15 +79,16 @@ export default function ForgotPassword() {
                   }}
                 />
               </div>
-              <div className="mt-6 flex justify-center ">
-                <button
-                  className="w-1/2 hover:animate-bounce  px-4 py-2  text-white bg-light-green rounded-md"
-                >
-                  Sign in
-                </button>
-                {loading && <Loading />}
-              </div>
             </form>
+            <div className="mt-6 flex justify-center ">
+              <button
+                className="w-1/2 hover:animate-bounce  px-4 py-2  text-white bg-light-green rounded-md"
+                onClick={handleSubmit}
+              >
+                Send Reset Link
+              </button>
+              {loading && <Loading />}
+            </div>
           </div>
         </div>
       </div>

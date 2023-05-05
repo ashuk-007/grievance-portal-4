@@ -1,109 +1,59 @@
 import React, { Fragment } from "react";
 import axios from "axios";
-import moment from "moment";
-import Modal from "./Modal";
 import Loading from "./Loading";
 export default function MyGrievance(props) {
   const [officerDetails, setOfficerDetails] = React.useState([]);
- 
-  const [isVisible, setIsVisible] = React.useState(false);
-
-
-  const [loading, setLoading] = React.useState(false);
-  const grievances=[]
-  const grievanceData = grievances.map((grievance) => (
+  const token=localStorage.getItem("token");
+     let config = {
+       method: "get",
+       maxBodyLength: Infinity,
+       url: "http://localhost:3000/api/v1/manage/getOfficerData",
+       headers: {
+         Authorization: `Bearer ${token}`,
+       },
+     };
+     const [loading,setLoading]=React.useState(true)
+  React.useEffect(() => {
+    axios
+      .request(config)
+      .then((response) => {
+        console.log(JSON.stringify(response.data));
+        setOfficerDetails(response.data.data);
+      
+        setLoading(false)
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  },[])
+    officerDetails.sort(function (a, b) {
+      return a.department > b.department
+        ? 1
+        : b.department > a.department
+        ? -1
+        : 0;
+    });
+  const officerData = officerDetails.map((officer) => (
     <Fragment>
       <tr>
+        <td class="px-4 py-3 text-ms font-semibold border">{officer._id}</td>
+        <td class="px-4 py-3 text-ms font-semibold border">{officer.name}</td>
+        <td class="px-4 py-3 text-ms font-semibold border">{officer.email}</td>
         <td class="px-4 py-3 text-ms font-semibold border">
-          {/* {moment(grievance.createdAt).format("DD/MM/YYYY HH:mm")} */}
+          {officer.department}
+        </td>
+        <td class="px-4 py-3 text-ms font-semibold border">{officer.level}</td>
+        <td class="px-4 py-3 text-ms font-semibold border">
+          {officer.avgRating==null?"not rated yet":officer.avgRating}
         </td>
         <td class="px-4 py-3 text-ms font-semibold border">
-          {/* {grievance.department} */}
+          {officer.pendingCount}
         </td>
         <td class="px-4 py-3 text-ms font-semibold border">
-          {/* {grievance.subject} */}
+          {officer.inProcessCount}
         </td>
         <td class="px-4 py-3 text-ms font-semibold border">
-          {/* {grievance.status} */}
-        </td>
-        <td class="px-4 py-3 text-ms font-semibold border">
-          {/* {grievance.status != "resolved" ? (
-            grievance.lastRemindedAt == null ||
-            new Date().getDate() -
-              new Date(grievance.lastRemindedAt).getDate() >
-              1 ? (
-              <>
-                <button
-                  className="bg-light-green hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-                  onClick={() => handleReminder(grievance._id)}
-                >
-                  reminder
-                </button>
-                {loading == true && <Loading />}
-              </>
-            ) : (
-              `Cooldown for ${
-                7 -
-                (new Date().getDate() -
-                  new Date(grievance.lastRemindedAt).getDate())
-              } more days`
-            )
-          ) : (
-            "resolved"
-          )} */}
-        </td>
-        <td class="px-4 py-3 text-ms font-semibold border">
-          {/* <button
-            className="bg-light-green hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-            onClick={() => handleAction(grievance)}
-          >
-            View
-          </button>
-          <Modal
-            visible={isVisible}
-            setVisible={setIsVisible}
-            data={actionHistory}
-          /> */}
-        </td>
-        <td class="px-4 py-3 text-ms font-semibold border">
-          {/* {grievance.status == "resolved" && grievance.isRated == false && (
-            <button
-              className="bg-light-green hover:bg-blue-700 text-white font-bold py-2 px-4 rounded  "
-              onClick={() => handleReopen(grievance._id)}
-            >
-              Reopen
-            </button>
-          )} */}
-        </td>
-        <td class="px-4 py-3 text-ms font-semibold border">
-          {/* {grievance.status == "resolved" && grievance.isRated == false ? (
-            <form className="flex justify-evenly">
-              <select
-                name="rating"
-                id="rating"
-                value={rating}
-                className="rounded-2xl"
-                onChange={changeRating}
-              >
-                <option value="">--Rate--</option>
-                <option value={1}>1 Star</option>
-                <option value={2}>2 Star</option>
-                <option value={3}>3 Star</option>
-                <option value={4}>4 Star</option>
-                <option value={5}>5 Star</option>
-              </select>
-              <button
-                className="bg-light-green hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ml-4 "
-                onClick={() => handleRating(grievance._id)}
-              >
-                Rate
-              </button>
-            </form>
-          ) : grievance.status == "resolved" ? (
-            "Thank you for your feedback"
-          ) : (
-            "We are working on it"
-          )} */}
+          {officer.resolvedCount}
         </td>
       </tr>
     </Fragment>
@@ -123,6 +73,7 @@ export default function MyGrievance(props) {
             : "hidden"
         }
       >
+      {loading && <Loading />}
         <h1 className="text-center text-4xl md:text-7xl font-semibold">
           OFFICER DETAILS
         </h1>
@@ -134,15 +85,16 @@ export default function MyGrievance(props) {
                   <tr class="text-md font-semibold tracking-wide text-left text-gray-900 bg-gray-100 uppercase border-b border-gray-600">
                     <th class="px-4 py-3">ID</th>
                     <th class="px-4 py-3">Name</th>
+                    <th class="px-4 py-3">Email</th>
                     <th class="px-4 py-3">Department</th>
-                    <th class="px-4 py-3">Status</th>
-                    <th class="px-4 py-3">Reminder</th>
-                    <th class="px-4 py-3 mx-auto">View Action History</th>
-                    <th class="px-4 py-3 mx-auto">Reopen</th>
-                    <th class="px-4 py-3 mx-auto">Give Rating</th>
+                    <th class="px-4 py-3">Level</th>
+                    <th class="px-4 py-3 mx-auto">Avg Rating</th>
+                    <th class="px-4 py-3 mx-auto">Pending</th>
+                    <th class="px-4 py-3 mx-auto">In Process</th>
+                    <th class="px-4 py-3 mx-auto">Resolved</th>
                   </tr>
                 </thead>
-                <tbody class="bg-white">{grievanceData}</tbody>
+                <tbody class="bg-white">{officerData}</tbody>
               </table>
             </div>
           </div>

@@ -19,6 +19,10 @@ export default function ForgotPassword() {
       };
     });
   }
+   const togglePasswordVisibility = () => {
+     setShowPassword(!showPassword);
+   };
+     const [showPassword, setShowPassword] = React.useState(false);
   function handleChangeCPassword(e) {
    setCPassword(e.target.value) 
   }
@@ -71,13 +75,13 @@ export default function ForgotPassword() {
             </p>
           </div>
           <div className="mt-24">
-            <form className="border-black">
+            <div className="border-black">
               <div>
                 <label htmlFor="password" className="block text-sm text-white">
                   Password
                 </label>
                 <input
-                  type="password"
+                  type={showPassword ? "text" : "password"}
                   name="password"
                   id="password"
                   className="block w-full px-4 py-2 mt-2 bg-white rounded-md"
@@ -85,6 +89,9 @@ export default function ForgotPassword() {
                     handleChangePassword(e);
                   }}
                 />
+                <button onClick={togglePasswordVisibility}>
+                  {showPassword ? "Hide" : "Show"}
+                </button>
               </div>
               <div>
                 <label htmlFor="cpassword" className="block text-sm text-white">
@@ -102,7 +109,7 @@ export default function ForgotPassword() {
               </div>
               <div>
                 <label htmlFor="token" className="block text-sm text-white">
-                  Token 
+                  Token
                 </label>
                 <input
                   type="text"
@@ -114,7 +121,7 @@ export default function ForgotPassword() {
                   }}
                 />
               </div>
-            </form>
+            </div>
             <div className="mt-6 flex justify-center ">
               <button
                 className="w-1/2 hover:animate-bounce  px-4 py-2  text-white bg-light-green rounded-md"

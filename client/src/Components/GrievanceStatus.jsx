@@ -67,7 +67,7 @@ export default function GrievanceStatus(props) {
     });
    const complaintData = complaints.map((complaint) => (
      <tr
-       class={
+       className={
          complaint.status == "pending"
            ? "bg-red"
            : complaint.status == "resolved"
@@ -75,35 +75,35 @@ export default function GrievanceStatus(props) {
            : "bg-yellow"
        }
      >
-       <td class="px-4 py-3 text-ms font-semibold border">{complaint._id}</td>
-       <td class="px-4 py-3 text-ms font-semibold border">
+       <td className="px-4 py-3 text-ms font-semibold border">{complaint._id}</td>
+       <td className="px-4 py-3 text-ms font-semibold border">
          {complaint.createdAt.slice(0, 10) +
            " at " +
            complaint.createdAt.slice(11, 16)}
        </td>
-       <td class="px-4 py-3 text-ms font-semibold border">
+       <td className="px-4 py-3 text-ms font-semibold border">
          {complaint.department}
        </td>
-       <td class="px-4 py-3 text-ms font-semibold border">
+       <td className="px-4 py-3 text-ms font-semibold border">
          {complaint.subject}
        </td>
-       <td class="px-4 py-3 text-ms font-semibold border">
+       <td className="px-4 py-3 text-ms font-semibold border">
          {complaint.description}
        </td>
-       <td class="px-4 py-3 text-ms font-semibold border">
+       <td className="px-4 py-3 text-ms font-semibold border">
          {complaint.contact}
        </td>
-       <td class="px-4 py-3 text-ms font-semibold border">
+       <td className="px-4 py-3 text-ms font-semibold border">
          {complaint.status}
        </td>
-       <td class="px-4 py-3 text-ms font-semibold border">
+       <td className="px-4 py-3 text-ms font-semibold border">
          {complaint.updatedAt
            ? complaint.updatedAt.slice(0, 10) +
              " at " +
              complaint.updatedAt.slice(11, 16)
            : "not updated"}
        </td>
-       <td class="px-4 py-3 text-ms font-semibold border">
+       <td className="px-4 py-3 text-ms font-semibold border">
          {complaint.actionHistory[complaint.actionHistory.length - 1]
            .officerLevel != "3" &&
            complaint.status != "resolved" && (
@@ -118,7 +118,7 @@ export default function GrievanceStatus(props) {
              </>
            )}
        </td>
-       <td class="px-4 py-3 text-ms font-semibold border">
+       <td className="px-4 py-3 text-ms font-semibold border">
          <button
            className="bg-light-green hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
            onClick={() => handleAction(complaint)}
@@ -131,7 +131,7 @@ export default function GrievanceStatus(props) {
            data={actionHistory}
          />
        </td>
-       <td class="px-4 py-3 text-ms font-semibold border">
+       <td className="px-4 py-3 text-ms font-semibold border">
          {complaint.status=="resolved"?(complaint.rating==null?"Not rated yet":complaint.rating):"Not resolved yet"}
        </td>
      </tr>
@@ -145,7 +145,7 @@ export default function GrievanceStatus(props) {
     <>
       {checkLogin}
       <div
-        class={
+        className={
           props.visible == "view"
             ? "p-4 view-grievance dashboard w-full md:w-3/4 h-100  pt-10  "
             : "hidden"
@@ -155,25 +155,25 @@ export default function GrievanceStatus(props) {
           GRIEVANCES STATUS
         </h1>
         <div className="flex justify-center">
-          <div class="md:w-5/6 mb-8 overflow-y-scroll overflow-x-scroll h-120 border-2 shadow-2xl rounded-xl mt-4 p-6">
-            <div class="w-full overflow-x-auto">
-              <table class="w-full">
+          <div className="md:w-5/6 mb-8 overflow-y-scroll overflow-x-scroll h-120 border-2 shadow-2xl rounded-xl mt-4 p-6">
+            <div className="w-full overflow-x-auto">
+              <table className="w-full">
                 <thead>
-                  <tr class="text-md font-semibold tracking-wide text-left text-gray-900 bg-gray uppercase ">
-                    <th class="px-4 py-3">ID</th>
-                    <th class="px-4 py-3">Time</th>
-                    <th class="px-4 py-3">Department</th>
-                    <th class="px-4 py-3">Subject</th>
-                    <th class="px-4 py-3">Description</th>
-                    <th class="px-4 py-3">Created by</th>
-                    <th class="px-4 py-3 mx-auto">Status</th>
-                    <th class="px-4 py-3 mx-auto">UpdatedTime</th>
-                    <th class="px-4 py-3 mx-auto">Forward</th>
-                    <th class="px-4 py-3 mx-auto">Action History</th>
-                    <th class="px-4 py-3 mx-auto">Rating</th>
+                  <tr className="text-md font-semibold tracking-wide text-left text-gray-900 bg-gray uppercase ">
+                    <th className="px-4 py-3">ID</th>
+                    <th className="px-4 py-3">Time</th>
+                    <th className="px-4 py-3">Department</th>
+                    <th className="px-4 py-3">Subject</th>
+                    <th className="px-4 py-3">Description</th>
+                    <th className="px-4 py-3">Created by</th>
+                    <th className="px-4 py-3 mx-auto">Status</th>
+                    <th className="px-4 py-3 mx-auto">UpdatedTime</th>
+                    <th className="px-4 py-3 mx-auto">Forward</th>
+                    <th className="px-4 py-3 mx-auto">Action History</th>
+                    <th className="px-4 py-3 mx-auto">Rating</th>
                   </tr>
                 </thead>
-                <tbody class="bg-white">{complaintData}</tbody>
+                <tbody className="bg-white">{complaintData}</tbody>
               </table>
             </div>
           </div>

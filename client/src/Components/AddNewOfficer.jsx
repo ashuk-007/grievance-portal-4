@@ -49,7 +49,7 @@ export default function AddNewOfficer(props) {
         }
       }
   return (
-    <>
+    <div>
       {checkLogin}
 
       <div
@@ -161,6 +161,6 @@ export default function AddNewOfficer(props) {
           </button>
         </div>
       </div>
-    </>
+    </div>
   );
 }

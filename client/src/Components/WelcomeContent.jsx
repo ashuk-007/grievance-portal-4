@@ -867,6 +867,11 @@ const navigate=useNavigate();
     console.log(data)
    },[data])
    const [loading,setLoading]=React.useState(false)
+
+     const togglePasswordVisibility = () => {
+       setShowPassword(!showPassword);
+     };
+  const [showPassword, setShowPassword] = React.useState(false);
   return (
     <>
       <div className="welcome-content flex-row md:flex justify-between md:h-100">
@@ -883,7 +888,7 @@ const navigate=useNavigate();
           <h1 className="text-3xl md:text-4xl text-white ml-16 md:ml-0 md:text-left  md:pl-16 pt-8 md:pt-20 md:mb-8">
             SIGN UP
           </h1>
-          <form action="">
+          <div action="">
             <input
               type="text"
               name="name"
@@ -901,19 +906,26 @@ const navigate=useNavigate();
               className="w-48 md:w-80 p-2 md:p-3 rounded-md md:ml-16 ml-12 mb-4  md:m-0 md:mt-4"
               onChange={handleChange}
             />
+            <div className="flex justify-center items-center">
+              <input
+                type={showPassword ? "text" : "password"}
+                name="password"
+                id="password"
+                placeholder="Password(min 6)"
+                className="form-control w-48 md:w-80 p-2 md:p-3 rounded-md md:ml-16 ml-12 mb-4  md:m-0 md:mt-4"
+                ref={password}
+                onChange={handleChange}
+              />
+              <button
+                onClick={togglePasswordVisibility}
+                className="text-white p-2 rounded-3xl m-auto  "
+              >
+                {showPassword ? "Hide" : "Show"}
+              </button>
+            </div>
 
             <input
-              type="password"
-              name="password"
-              id="password"
-              placeholder="Password(min 6)"
-              className="form-control w-48 md:w-80 p-2 md:p-3 rounded-md md:ml-16 ml-12 mb-4  md:m-0 md:mt-4"
-              ref={password}
-              onChange={handleChange}
-            />
-
-            <input
-              type="password"
+              type={showPassword ? "text" : "password"}
               name="confirmPassword"
               id="confirmPassword"
               placeholder="Confirm Password"
@@ -1012,7 +1024,7 @@ const navigate=useNavigate();
               </button>
               {loading && <Loading />}
             </div>
-          </form>
+          </div>
         </div>
       </div>
       <Footer />

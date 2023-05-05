@@ -57,6 +57,12 @@ function Login(props){
   function forgotPassword(){
     navigate("/ForgotPassword");
   }
+  const [showPassword, setShowPassword] = React.useState(false);
+
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
+
   return (
     <>
       <Navbar />
@@ -84,7 +90,7 @@ function Login(props){
           </div>
 
           <div className="mt-8">
-            <form>
+            <div>
               <div>
                 <label htmlFor="email" className="block text-sm text-white">
                   Email Address
@@ -114,17 +120,24 @@ function Login(props){
                     Forgot password?
                   </button>
                 </div>
-
-                <input
-                  type="password"
-                  name="password"
-                  id="password"
-                  placeholder="Your Password"
-                  className="block w-full px-4 py-2 mt-2 bg-white  rounded-md"
-                  onChange={(e) => {
-                    handleChange(e);
-                  }}
-                />
+                <div className="flex justify-center">
+                  <input
+                    type={showPassword ? "text" : "password"}
+                    name="password"
+                    id="password"
+                    placeholder="Your Password"
+                    className="block w-full px-4 py-2 mt-2 bg-white  rounded-md"
+                    onChange={(e) => {
+                      handleChange(e);
+                    }}
+                  />
+                  <button
+                    onClick={togglePasswordVisibility}
+                    className="text-white p-2 rounded-3xl m-auto  "
+                  >
+                    {showPassword ? "Hide" : "Show"}
+                  </button>
+                </div>
               </div>
 
               <div className="mb-2 mt-8 py-1">
@@ -145,7 +158,7 @@ function Login(props){
                 </label>
               </div>
               <div className=" mb-2 mt-2 flex items-center py-0">
-                <input 
+                <input
                   id="default-radio-2"
                   type="radio"
                   value="Officer"
@@ -186,7 +199,7 @@ function Login(props){
                 </button>
                 {loading && <Loading />}
               </div>
-            </form>
+            </div>
 
             <p className="mt-6 text-sm text-center text-white">
               Don't have an account yet?{" "}

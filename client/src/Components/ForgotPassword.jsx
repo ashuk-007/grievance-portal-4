@@ -43,6 +43,9 @@ export default function ForgotPassword() {
             })
             .catch((error) => {
               console.log(error);
+              alert(error.response.data.msg)
+              setLoading(false);
+              Navigate("/")
             });
         }
       }

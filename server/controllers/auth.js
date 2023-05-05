@@ -69,15 +69,15 @@ const forgotPassword = async (req, res) => {
     });
   
     // Compose the email message with the password reset link
-    const resetUrl = `${req.protocol}://${req.headers.host}/api/v1/auth/reset-password/${resetToken}`;
+    // const resetUrl = `${req.protocol}://${req.headers.host}/api/v1/auth/reset-password/${resetToken}`;
     const message = {
       from: 'grievanceportal25@gmail.com', // Your Gmail email address
       to: email,
       subject: 'Password reset request',
       html: `
         <p>Hello,</p>
-        <p>You have requested a password reset for your account. Please click on the following link to reset your password:</p>
-        <a href="${resetUrl}">${resetUrl}</a>
+        <p>You have requested a password reset for your account. Please use the following reset token to change your password:</p>
+        <h5>${resetToken}</h5>
         <p>This link will expire in 1 hour.</p>
         <p>If you did not request this reset, please ignore this email and your password will remain unchanged.</p>
         <p>Thank you.</p>
@@ -98,13 +98,13 @@ const forgotPassword = async (req, res) => {
 
 const resetPassword = async (req, res) => {
     try {
-      const { password } = req.body;
-      const {resetToken} = req.params;
-      const user = await User.findOne({ passwordResetToken: resetToken, passwordResetExpires: { $gt: Date.now() } });
+      // const { password } = req.body;
+      // const {resetToken} = req.params;
+      const user = await User.findOne({ passwordResetToken: req.body.token, passwordResetExpires: { $gt: Date.now() } });
       if (!user) {
         throw new BadRequestError('Invalid or expired reset token');
       }
-      user.password = password;
+      user.password = req.body.password;
       user.passwordResetToken = null;
       user.passwordResetExpires = null;
       await user.save();

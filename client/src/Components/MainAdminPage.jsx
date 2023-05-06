@@ -31,7 +31,7 @@ export default function MainAdminPage() {
           handle={handleClick}
         />
       </div>
-      <div className="User-page-content h-100 hidden md:flex">
+      <div className="User-page-content h-100 hidden md:flex justify">
         <Dashboard
           clicked={isClicked}
           visible={visible}

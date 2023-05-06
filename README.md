@@ -40,8 +40,9 @@ To run the Grievance Portal locally, follow these steps:
 
 ## Login Details
 
-- To login as an officer in the portal the format is [district][department][level(1,2 & 3)]@gmail.com and the password is "password".
-- To login as a district admin the format is [district]admin@gmail.com and the password is "password".
+- To login as a user, you need to register yourself first. If you need an existing account the credentials are email:"iit2021112@iiita.ac.in",password:"savvy123"
+- To login as an officer, the format is [district][department][level(1,2 & 3)]@gmail.com and the password is "password".
+- To login as a district admin, the format is [district]admin@gmail.com and the password is "password".
 
 ## License
 

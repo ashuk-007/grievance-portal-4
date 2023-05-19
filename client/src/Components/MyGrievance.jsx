@@ -150,7 +150,7 @@ console.log(rating);
   const grievanceData = grievances.map((grievance) => (
     <Fragment>
       <tr
-        class={
+        className={
           grievance.status != "resolved"
             ? grievance.status == "pending"
               ? "bg-red"
@@ -158,19 +158,19 @@ console.log(rating);
             : "bg-green"
         }
       >
-        <td class="px-4 py-3 text-ms font-semibold border">
+        <td className="px-4 py-3 text-ms font-semibold border">
           {moment(grievance.createdAt).format("DD/MM/YYYY HH:mm")}
         </td>
-        <td class="px-4 py-3 text-ms font-semibold border">
+        <td className="px-4 py-3 text-ms font-semibold border">
           {grievance.department}
         </td>
-        <td class="px-4 py-3 text-ms font-semibold border">
+        <td className="px-4 py-3 text-ms font-semibold border">
           {grievance.subject}
         </td>
-        <td class="px-4 py-3 text-ms font-semibold border">
+        <td className="px-4 py-3 text-ms font-semibold border">
           {grievance.status}
         </td>
-        <td class="px-4 py-3 text-ms font-semibold border">
+        <td className="px-4 py-3 text-ms font-semibold border">
           {grievance.status != "resolved" ? (
             grievance.lastRemindedAt == null ||
             new Date().getDate() -
@@ -196,7 +196,7 @@ console.log(rating);
             "resolved"
           )}
         </td>
-        <td class="px-4 py-3 text-ms font-semibold border">
+        <td className="px-4 py-3 text-ms font-semibold border">
           <button
             className="bg-light-green hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
             onClick={() => handleAction(grievance)}
@@ -209,7 +209,7 @@ console.log(rating);
             data={actionHistory}
           />
         </td>
-        <td class="px-4 py-3 text-ms font-semibold border">
+        <td className="px-4 py-3 text-ms font-semibold border">
           {grievance.status == "resolved" && grievance.isRated == false && (
             <button
               className="bg-light-green hover:bg-blue-700 text-white font-bold py-2 px-4 rounded  "
@@ -219,7 +219,7 @@ console.log(rating);
             </button>
           )}
         </td>
-        <td class="px-4 py-3 text-ms font-semibold border">
+        <td className="px-4 py-3 text-ms font-semibold border">
           {grievance.status == "resolved" && grievance.isRated == false ? (
             <form className="flex justify-evenly">
               <select
@@ -249,7 +249,7 @@ console.log(rating);
             "We are working on it"
           )}
         </td>
-        <td class="px-4 py-3 text-ms font-semibold border">
+        <td className="px-4 py-3 text-ms font-semibold border">
           {grievance.status != "resolved" && (
             <button
               className="bg-light-green hover:bg-blue-700 text-white font-bold py-2 px-4 rounded  "
@@ -280,24 +280,24 @@ function checkLogin() {
         <h1 className="text-center text-4xl md:text-7xl font-semibold">
           MY GRIEVANCES
         </h1>
-        <section class="container mx-auto font-mono flex justify-center">
-          <div class=" pt-4 mb-8 overflow-y-scroll overflow-x-scroll h-120  mt-4 border-2 shadow-2xl rounded-xl p-6 overflow-hidden w-11/12 md:w-5/6">
-            <div class="w-full overflow-x-auto">
-              <table class="w-full">
+        <section className="container mx-auto font-mono flex justify-center">
+          <div className=" pt-4 mb-8 overflow-y-scroll overflow-x-scroll h-120  mt-4 border-2 shadow-2xl rounded-xl p-6 overflow-hidden w-11/12 md:w-5/6">
+            <div className="w-full overflow-x-auto">
+              <table className="w-full">
                 <thead>
-                  <tr class="text-md font-semibold tracking-wide text-left text-gray-900 bg-gray-100 uppercase border-b border-gray-600">
-                    <th class="px-4 py-3">Date</th>
-                    <th class="px-4 py-3">Department</th>
-                    <th class="px-4 py-3">Grievance</th>
-                    <th class="px-4 py-3">Status</th>
-                    <th class="px-4 py-3">Reminder</th>
-                    <th class="px-4 py-3 mx-auto">View Action History</th>
-                    <th class="px-4 py-3 mx-auto">Reopen</th>
-                    <th class="px-4 py-3 mx-auto">Give Rating</th>
-                    <th class="px-4 py-3 mx-auto">Delete Complaint</th>
+                  <tr className="text-md font-semibold tracking-wide text-left text-gray-900 bg-gray-100 uppercase border-b border-gray-600">
+                    <th className="px-4 py-3">Date</th>
+                    <th className="px-4 py-3">Department</th>
+                    <th className="px-4 py-3">Grievance</th>
+                    <th className="px-4 py-3">Status</th>
+                    <th className="px-4 py-3">Reminder</th>
+                    <th className="px-4 py-3 mx-auto">View Action History</th>
+                    <th className="px-4 py-3 mx-auto">Reopen</th>
+                    <th className="px-4 py-3 mx-auto">Give Rating</th>
+                    <th className="px-4 py-3 mx-auto">Delete Complaint</th>
                   </tr>
                 </thead>
-                <tbody class="bg-white">{grievanceData}</tbody>
+                <tbody className="bg-white">{grievanceData}</tbody>
               </table>
             </div>
           </div>

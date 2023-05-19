@@ -7,19 +7,19 @@ export default function Modal(props) {
   const data=props.data.map((action)=>{
     return (
       <tr className="mb-4 border border-black p-4 rounded-lg">
-        <td class="px-4 py-3 text-ms font-semibold border">{i++}</td>
-        <td class="px-4 py-3 text-ms font-semibold border">
+        <td className="px-4 py-3 text-ms font-semibold border">{i++}</td>
+        <td className="px-4 py-3 text-ms font-semibold border">
           {action.officerName}
         </td>
-        <td class="px-4 py-3 text-ms font-semibold border">
+        <td className="px-4 py-3 text-ms font-semibold border">
           {action.officerLevel==1?"Gram panchayat":action.officerLevel==2?"Tehsildar":"Municipal Corporation Officer"}
         </td>
-        <td class="px-4 py-3 text-ms font-semibold border">
+        <td className="px-4 py-3 text-ms font-semibold border">
           {action.time.slice(0, 10) +
             " at " +
             action.time.slice(11, 16)}
         </td>
-        <td class="px-4 py-3 text-ms font-semibold border">
+        <td className="px-4 py-3 text-ms font-semibold border">
           {action.feedback}
         </td>
       </tr>

@@ -93,7 +93,7 @@ export default function UpdateStatus(props) {
     <>
       {checkLogin}
       <div
-        class={
+        className={
           props.visible == "new"
             ? "p-4 view-grievance dashboard w-full md:w-3/4 h-screen  md:pb-0 pt-4  "
             : "hidden"

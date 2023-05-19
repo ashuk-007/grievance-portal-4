@@ -36,23 +36,23 @@ export default function MyGrievance(props) {
   const officerData = officerDetails.map((officer) => (
     <Fragment>
       <tr>
-        <td class="px-4 py-3 text-ms font-semibold border">{officer._id}</td>
-        <td class="px-4 py-3 text-ms font-semibold border">{officer.name}</td>
-        <td class="px-4 py-3 text-ms font-semibold border">{officer.email}</td>
-        <td class="px-4 py-3 text-ms font-semibold border">
+        <td className="px-4 py-3 text-ms font-semibold border">{officer._id}</td>
+        <td className="px-4 py-3 text-ms font-semibold border">{officer.name}</td>
+        <td className="px-4 py-3 text-ms font-semibold border">{officer.email}</td>
+        <td className="px-4 py-3 text-ms font-semibold border">
           {officer.department}
         </td>
-        <td class="px-4 py-3 text-ms font-semibold border">{officer.level}</td>
-        <td class="px-4 py-3 text-ms font-semibold border">
+        <td className="px-4 py-3 text-ms font-semibold border">{officer.level}</td>
+        <td className="px-4 py-3 text-ms font-semibold border">
           {officer.avgRating==null?"not rated yet":officer.avgRating}
         </td>
-        <td class="px-4 py-3 text-ms font-semibold border">
+        <td className="px-4 py-3 text-ms font-semibold border">
           {officer.pendingCount}
         </td>
-        <td class="px-4 py-3 text-ms font-semibold border">
+        <td className="px-4 py-3 text-ms font-semibold border">
           {officer.inProcessCount}
         </td>
-        <td class="px-4 py-3 text-ms font-semibold border">
+        <td className="px-4 py-3 text-ms font-semibold border">
           {officer.resolvedCount}
         </td>
       </tr>
@@ -77,24 +77,24 @@ export default function MyGrievance(props) {
         <h1 className="text-center text-4xl md:text-7xl font-semibold">
           OFFICER DETAILS
         </h1>
-        <section class="container mx-auto font-mono flex justify-center">
-          <div class=" pt-4 mb-8 overflow-y-scroll overflow-x-scroll h-120  mt-4 border-2 shadow-2xl rounded-xl p-6 overflow-hidden w-11/12 md:w-5/6">
-            <div class="w-full overflow-x-auto">
-              <table class="w-full">
+        <section className="container mx-auto font-mono flex justify-center">
+          <div className=" pt-4 mb-8 overflow-y-scroll overflow-x-scroll h-120  mt-4 border-2 shadow-2xl rounded-xl p-6 overflow-hidden w-11/12 md:w-5/6">
+            <div className="w-full overflow-x-auto">
+              <table className="w-full">
                 <thead>
-                  <tr class="text-md font-semibold tracking-wide text-left text-gray-900 bg-gray-100 uppercase border-b border-gray-600">
-                    <th class="px-4 py-3">ID</th>
-                    <th class="px-4 py-3">Name</th>
-                    <th class="px-4 py-3">Email</th>
-                    <th class="px-4 py-3">Department</th>
-                    <th class="px-4 py-3">Level</th>
-                    <th class="px-4 py-3 mx-auto">Avg Rating</th>
-                    <th class="px-4 py-3 mx-auto">Pending</th>
-                    <th class="px-4 py-3 mx-auto">In Process</th>
-                    <th class="px-4 py-3 mx-auto">Resolved</th>
+                  <tr className="text-md font-semibold tracking-wide text-left text-gray-900 bg-gray-100 uppercase border-b border-gray-600">
+                    <th className="px-4 py-3">ID</th>
+                    <th className="px-4 py-3">Name</th>
+                    <th className="px-4 py-3">Email</th>
+                    <th className="px-4 py-3">Department</th>
+                    <th className="px-4 py-3">Level</th>
+                    <th className="px-4 py-3 mx-auto">Avg Rating</th>
+                    <th className="px-4 py-3 mx-auto">Pending</th>
+                    <th className="px-4 py-3 mx-auto">In Process</th>
+                    <th className="px-4 py-3 mx-auto">Resolved</th>
                   </tr>
                 </thead>
-                <tbody class="bg-white">{officerData}</tbody>
+                <tbody className="bg-white">{officerData}</tbody>
               </table>
             </div>
           </div>

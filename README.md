@@ -24,8 +24,6 @@ This project is contributed by the following team members:
 - Priyadarshini Roy
 - Vishesh Vijayvargiya
 - Utsav Singh Tomar
-- Mehak Gupta
-- Keshav Pandey
 
 ## Installation
 
@@ -55,5 +53,3 @@ For any inquiries or suggestions regarding the Grievance Portal, please contact 
 - Priyadarshini Roy: [iit2021133@iiita.ac.in](mailto:iit2021133@iiita.ac.in)
 - Vishesh Vijayvargiya: [iit2021114@iiita.ac.in](mailto:iit2021114@iiita.ac.in)
 - Utsav Singh Tomar: [iit2021112@iiita.ac.in](mailto:iit2021112@iiita.ac.in)
-- Mehak Gupta: [iit2021143@iiita.ac.in](mailto:iit2021143@iiita.ac.in)
-- Keshav Pandey: [iit2021173@iiita.ac.in](mailto:iit2021173@iiita.ac.in)
